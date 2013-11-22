@@ -1,8 +1,11 @@
 package domain;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import domain.OrderLine;
+import virtualProxy.NoListLoader;
 import virtualProxy.VirtualList;
 
 
@@ -18,6 +21,12 @@ public class Order extends DomainObject{
 	
 	//lazy load for all orderLines in the order
 	private VirtualList<OrderLine> orderLines;
+	
+	public Order(long l) {
+		super();
+		this.c_id = (int) l;
+		this.orderLines = new VirtualList<OrderLine>(new NoListLoader<OrderLine>());
+	}
 	
 	public Order(long o_id, int c_id, double total, Date date, int status,
 			Address ship_address, Address bill_address, int payment_type, String credit_number) {
@@ -102,5 +111,16 @@ public class Order extends DomainObject{
 
 	public void setOrderLines(VirtualList<OrderLine> orderLines) {
 		this.orderLines = orderLines;
+	}
+	
+	public void updateTotal(){
+		this.total = 0.0;
+		try {
+			for(OrderLine ol : this.getOrderLines().getSource()){
+				total += ol.getLine_total();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

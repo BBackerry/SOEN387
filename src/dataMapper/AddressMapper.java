@@ -1,9 +1,14 @@
 package dataMapper;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jdbcUtil.JdbcUtilViaSSH;
+import jdbcUtil.SSHjdbcSession;
 import virtualProxy.VirtualList;
 import virtualProxy.VirtualListLoader;
 import domain.Address;
@@ -15,7 +20,7 @@ import domain.Order;
 public class AddressMapper extends AbstractMapper{
 
 	//field in db table
-	public static final String COLUMNS = " a_id, street, postal_code, province, country, apt_suite_unit, last_modified, city";
+	public static final String COLUMNS = " Address.a_id, street, postal_code, province, country, apt_suite_unit, last_modified, city";
 	
 	protected String findStatement(){
 		return "SELECT " + COLUMNS + " FROM Address" + " WHERE a_id = ?";
@@ -34,6 +39,31 @@ public class AddressMapper extends AbstractMapper{
 		return result; 
 	}
 	
+	//get all addresses of a customer 
+	public List<Address> getAddressByCustomerID(Long id) throws SQLException {
+		PreparedStatement findByCustomerStatement = null; 
+		//setup connection
+		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+		Connection connection = sshSession.getConnection();
+		//setup query
+		findByCustomerStatement = connection.prepareStatement(findByCustomerStatement()); 
+		findByCustomerStatement.setLong(1, id.longValue()); 
+		ResultSet rs = findByCustomerStatement.executeQuery(); 
+		//create the list of orders. 
+		ArrayList<Address> orderList = new ArrayList<Address>();
+		while (rs.next()) {
+			orderList.add((Address)load(rs));
+        }
+		connection.close();
+		return orderList;	
+	}
+	
+	private String findByCustomerStatement() {
+		return "SELECT " + COLUMNS +
+				" FROM Customer_Address INNER JOIN Address ON Customer_Address.a_id = Address.a_id " +
+				" WHERE c_id = ?";
+	}
+		
 	//find address by a_id
 	public Address find(long id) throws SQLException{
 		return (Address) abstractFind(id);

@@ -57,7 +57,13 @@ public class Login extends HttpServlet {
 			
 			if(c.getPassword().compareTo(password)==0){
 				
-				if(c.getCategory().compareToIgnoreCase("manager")==0){
+				request.getSession().setAttribute("customer", c);
+				
+				if(request.getParameter("redirect") != null) {
+					String redirect = (String)request.getParameter("redirect");
+					request.getRequestDispatcher(redirect).forward(request, response);
+				}
+				else if(c.getCategory().compareToIgnoreCase("manager")==0){
 					request.getSession().setAttribute("user", c);
 					
 					request.getRequestDispatcher("administration.jsp").forward(request, response);

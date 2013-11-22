@@ -1,5 +1,7 @@
 package domain;
 
+import domain.Product;
+
 
 public class OrderLine extends DomainObject{
 	private int p_id;
@@ -7,6 +9,15 @@ public class OrderLine extends DomainObject{
 	private double price;
 	private double line_total;
 	private Product product;
+	
+	public OrderLine(int p_id, int quantity, double price, double line_total, Product product) {
+		super();
+		this.p_id = p_id;
+		this.quantity = quantity;
+		this.price = price;
+		this.line_total = line_total;
+		this.product = product;
+	}
 	
 	public OrderLine(long o_id, int p_id, int quantity, double price, double line_total,
 			Product product) {

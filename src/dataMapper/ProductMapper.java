@@ -1,5 +1,6 @@
 package dataMapper;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,6 +94,40 @@ public class ProductMapper extends AbstractMapper{
 				return productList;
 		
 		
+	}
+	
+	public List<Product> findAllProducts() {
+		List<Product> allProducts = new ArrayList<Product>();
+		try {
+			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+			Connection connection = sshSession.getConnection();
+
+			String findAllProductsSql = "SELECT " + COLUMNS + " FROM Product"; 
+			PreparedStatement findAllProductsStatement = connection.prepareStatement(findAllProductsSql);
+			ResultSet rs = findAllProductsStatement.executeQuery();
+			
+			while(rs.next()) {
+				Long id = rs.getLong(1);
+				int p_category  = rs.getInt(2);
+				String p_title = rs.getString(3);
+				Timestamp p_release_date = rs.getTimestamp(4);
+				int p_type = rs.getInt(5);
+				int p_condition = rs.getInt(6);
+				int p_console = rs.getInt(7);
+				int p_stock = rs.getInt(8);
+				Double p_price = rs.getDouble(9);
+				String p_desc = rs.getString(10);
+				int p_rating = rs.getInt(11);
+				int p_version = rs.getInt(12);
+				
+				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
+						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return allProducts;	
 	}
 	
 	public List<String> findProductCondition(){

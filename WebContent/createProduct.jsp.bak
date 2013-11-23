@@ -24,7 +24,7 @@
 <div class="container">
 
     <!--/headerbar --> 
-	<jsp:include page="includes/adminHeader.jsp" />
+	<jsp:include page="includes/header.jsp" />
 
      
 
@@ -50,16 +50,14 @@
          
          <div>
          
-			<form action="InsertProduct" class="form-horizontal" role="form" method="post">
+			<form class="form-horizontal" role="form" method="post">
 			  <div class="form-group">
 			    <label for="productCategory" class="col-sm-2 control-label">Product Category</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="productCat" name="productCat" value="${productCategory }" placeholder="productCat" disabled>
+			      <input type="text" class="form-control" id="productCategory" name="productCategory" value="${productCategory }" placeholder="productCategory" disabled>
 			    </div>
 			  </div>
-			  <!-- The form-control class cannot pass value to servlet, so pass to servlet with below -->
-		      <input type="hidden"  name="productCategory"  id="productCategory"  value="${productCategory}"  />
-		     
+			  
 			  <div class="form-group">
 			    <label for="productName" class="col-sm-2 control-label">Product Name</label>
 			    <div class="col-sm-6">
@@ -75,9 +73,9 @@
 				    <label for="productType" class="col-sm-2 control-label">Type of Game</label>
 				    <div class="col-sm-6">
 					    <select class="form-control" name="productType" id="productType" placeholder="productType">
-						    <c:forEach items="${productType}" var="gameType" varStatus="loop">
-					   			 <option value="${loop.count}"><c:out value="${gameType}" /></option> 
-					 		</c:forEach>
+					    <c:forEach items="${productType}" var="gameType" varStatus="loop">
+				   			 <option value="${loop.count}"><c:out value="${gameType}" /></option> 
+				 		</c:forEach>
 						</select>    
 				    </div>
 				  </div>
@@ -89,7 +87,7 @@
 			    <div class="col-sm-6">
 			      <select class="form-control" name="productConsole" id="productConsole" placeholder="productConsole">
 					    <c:forEach items="${productConsole}" var="consoleType" varStatus="loop">
-				   			 <option value="${loop.count}"><c:out value="${consoleType}" /></option> 
+				   			 <option value="${loop.count}"><c:out value="${loop.count}" /></option> 
 				 		</c:forEach>
 				 </select>  
 			    </div>
@@ -116,7 +114,7 @@
 			    <div class="form-group">
 			    <label for="productPrice" class="col-sm-2 control-label">Product Price</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="productPrice">
+			      <input type="text" class="form-control" id="productName" name="productName" placeholder="productName">
 			    </div>
 			  </div>
 			  
@@ -128,13 +126,9 @@
 			  </div>
 			</form>
 			         
-         <c:choose>
-            <c:when test="${not empty newID}">
-           
-               <p class="text-success">The new product is created successfully, the ID is <c:out value="${newID}"></c:out></p>
-            </c:when>
          
-         </c:choose>
+         
+         
          
          </div>
           

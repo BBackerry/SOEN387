@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import jdbcUtil.JdbcUtilViaSSH;
@@ -16,11 +14,7 @@ import domain.DomainObject;
 //general mapper all mappers inherit
 public abstract class AbstractMapper {
 	protected Map<String, DomainObject> loadedMap = new HashMap<String, DomainObject>(); 
-	protected Connection DB;
-	
-	protected abstract String findStatement();
-	protected abstract String insertStatement();
-	protected abstract String lastIDStatement();
+	abstract protected String findStatement();
 	
 	//general find method
 	protected DomainObject abstractFind(Long id) throws SQLException {
@@ -69,62 +63,6 @@ public abstract class AbstractMapper {
 		return result; 
 	}
 	
-	protected List<DomainObject> loadAll(ResultSet rs) throws SQLException {
-		List<DomainObject> result=new ArrayList<DomainObject>();
-		while(rs.next())
-			result.add(load(rs));
-		return result;
-		
-	}
-	
 	//specific load method that child must implement to create their domain object
 	abstract protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
-	abstract protected void doInsert(DomainObject subject, PreparedStatement insertStatement) throws SQLException;
-	
-	
-	public Long insert(DomainObject subject) throws ClassNotFoundException, SQLException {
-		
-		if(DB==null) {
-			//setConnection();
-			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-
-			DB = ssHsession.getConnection();
-			
-		}
-		PreparedStatement insertStatement = null;
-		
-		insertStatement = DB.prepareStatement(insertStatement());
-		subject.setId(findNextDatabaseId());
-		insertStatement.setLong(1, subject.getId());
-		doInsert(subject, insertStatement);
-		insertStatement.execute();
-		loadedMap.put(String.valueOf(subject.getId()), subject);
-		DB.close();
-		return subject.getId();
-	}
-	
-
-	private int findNextDatabaseId() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		//private int findNextDatabaseId() throws ClassNotFoundException,
-		//SQLException {
-		
-		if(DB==null) {
-			//setConnection();
-			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-
-			DB = ssHsession.getConnection();
-			
-		}
-		PreparedStatement stmt = DB.prepareStatement(lastIDStatement());
-		ResultSet rs = stmt.executeQuery();
-		rs.next();
-	// System.out.println("in Person.findNextDatabaseId"+ rs.getInt(1));
-		
-		return rs.getInt(1) + 1;
-
-	}
-		
-		
-	
 }

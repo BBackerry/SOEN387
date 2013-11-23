@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import enumTables.ProductCondition;
-import enumTables.ProductConsole;
-import enumTables.ProductType;
-
 /**
  * Servlet implementation class CreateProduct
  */
@@ -48,10 +44,10 @@ public class CreateProduct extends HttpServlet {
 		//	System.out.println("The product type is "+ productType.get(i));
 		
 		
-		request.setAttribute("productCondition", ProductCondition.values());
-		request.setAttribute("productType", ProductType.values());
-		request.setAttribute("productConsole", ProductConsole.values());
-		request.setAttribute("productCategory", productCategory);
+		//request.setAttribute("productCondition", productCondition);
+		//request.setAttribute("productType", productType);
+		//request.setAttribute("productConsole", productConsole);
+		//request.setAttribute("productCategory", productCategory);
 		
 		request.getRequestDispatcher("createProduct.jsp").forward(request, response);
 		

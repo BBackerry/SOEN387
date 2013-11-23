@@ -39,18 +39,45 @@
         
             <!-- Main hero unit for a primary marketing message or call to action -->
           <div class="hero-unit">
-            <h3>Create a new product:</h3>
+            <h3>Select product to edit:</h3>
             
             <!-- <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>  -->
           </div>
           
-          
+
          
-         
-         
+	                   
+	      <div class="col-md-6 col-md-offset-3">
+	      
+	      <%
+	    
+	      out.print( request.getQueryString());
+	      
+	      %>
+	         
+	       The edit id is <c:out value="${param.pid}" />
+	       
+	      
+		   <c:forEach items="${productList}" var="product" varStatus="loop">
+			
+			<c:choose>
+			
+			    <c:when  test="${param.pid eq product.id}">
+			    
+			    
+			    
          <div>
          
 			<form action="InsertProduct" class="form-horizontal" role="form" method="post">
+			
+			 <div class="form-group">
+			    <label for="productID" class="col-sm-2 control-label">Product ID</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" id="productID" name="productID" value="${product.id }" placeholder="productCat" disabled>
+			    </div>
+			  </div>
+			
+			
 			  <div class="form-group">
 			    <label for="productCategory" class="col-sm-2 control-label">Product Category</label>
 			    <div class="col-sm-6">
@@ -137,6 +164,51 @@
          </c:choose>
          
          </div>
+			    
+			    
+			    
+			    
+			    
+			    
+			    </c:when>
+			
+			
+			
+			
+			</c:choose>
+			
+			  
+
+	 		 </c:forEach>
+	 		 
+	 	
+	         
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	  
+         
+          
+	
+	
+	
+	
+	
+	
+	
+          
+		 </div>
+     
+       
+       
+		
           
           
           

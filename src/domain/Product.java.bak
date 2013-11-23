@@ -2,28 +2,24 @@ package domain;
 
 import java.awt.Image;
 import java.sql.Blob;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Product extends DomainObject{
-	
-	private int p_category;
-	private String p_title;
-	private Timestamp p_release_date;
-
+	private String p_desc;
 	private int p_type;
-	private int p_condition;
+	private Date p_release_date;
+	private int p_rating;
 	private int p_console;
 	private int p_stock;
 	private Double p_price;
-	private String p_desc;
-	private int p_rating;
-	private int p_version;
+	private int p_condition;
+	private String p_title;
+	private int p_category;
 	
-	public Product(long p_id,  int p_type, Timestamp p_release_date,
+	public Product(long p_id, String p_desc, int p_type, Date p_release_date,
 			int p_rating, int p_console, int p_stock,
 			Double p_price, int p_condition,
-			String p_title, int p_category,String p_desc,int p_version) {
+			String p_title, int p_category) {
 		super(p_id);
 		this.p_desc = p_desc;
 		this.p_type = p_type;
@@ -36,19 +32,15 @@ public class Product extends DomainObject{
 		this.p_title = p_title;
 		this.p_category = p_category;
 	}
-	public Product(int p_category ,String p_title,Timestamp p_release_date, int p_type,  int p_condition, int p_console, 
-			int p_qty, double p_price) {
+	public Product(String p_desc, int p_type, int p_stock, int p_condition,
+			String p_title, int p_category) {
 		super();
-		this.p_category = p_category;
-		this.p_title = p_title;
-		this.p_release_date = p_release_date;
+		this.p_desc = p_desc;
 		this.p_type = p_type;
-		this.p_console = p_console;
+		this.p_stock = p_stock;
 		this.p_condition = p_condition;
-		this.p_stock = p_qty;
-		this.p_price = p_price;
-		this.p_version = 1;
-	
+		this.p_title = p_title;
+		this.p_category = p_category;
 	}
 	public String getP_desc() {
 		return p_desc;
@@ -62,10 +54,10 @@ public class Product extends DomainObject{
 	public void setP_type(int p_type) {
 		this.p_type = p_type;
 	}
-	public Timestamp getP_release_date() {
+	public Date getP_release_date() {
 		return p_release_date;
 	}
-	public void setP_release_date(Timestamp p_release_date) {
+	public void setP_release_date(Date p_release_date) {
 		this.p_release_date = p_release_date;
 	}
 	public int getP_rating() {
@@ -74,7 +66,6 @@ public class Product extends DomainObject{
 	public void setP_rating(int p_rating) {
 		this.p_rating = p_rating;
 	}
-
 	public int getP_console() {
 		return p_console;
 	}
@@ -93,7 +84,6 @@ public class Product extends DomainObject{
 	public void setP_price(Double p_price) {
 		this.p_price = p_price;
 	}
-
 	public int getP_condition() {
 		return p_condition;
 	}
@@ -111,12 +101,6 @@ public class Product extends DomainObject{
 	}
 	public void setP_category(int p_category) {
 		this.p_category = p_category;
-	}
-	public int getP_version() {
-		return p_version;
-	}
-	public void setP_version(int p_version) {
-		this.p_version = p_version;
 	}
 	
 	

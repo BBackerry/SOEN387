@@ -23,7 +23,7 @@
 <div class="container">
 
     <!--/headerbar --> 
-	<jsp:include page="includes/adminHeader.jsp" />
+	<jsp:include page="includes/header.jsp" />
 
      
 
@@ -114,9 +114,9 @@
 						  
 						  <div class="tab-pane" id="createProduct">
 						    <br/>
-						    <div class="col-sm-offset-2 col-md-8">Select the product category to create a new product</div>
-						    <div class="col-sm-offset-2 col-md-4">
-							    <ul class="list-group">
+						    <h4>Select the product category to create</h4>
+						    <div class="col-md-4">
+							    <ul class="list-gorup">
 							     	<li class="list-group-item"> <a href="CreateProduct?productCategory=CONSOLE" >Console</a></li>
 							  		<li class="list-group-item"> <a href="CreateProduct?productCategory=GAME">Video Game</a></li>
 							  		<li class="list-group-item"> <a href="CreateProduct?productCategory=ACCESSORY">Accessory</a></li>
@@ -128,13 +128,11 @@
 						  </div>
 						  <div class="tab-pane" id="editProduct">
 						 	<br/>
-		
-						    <div class="col-sm-offset-2 col-md-8">Select the product category to edit:</div>
-						    <div class="col-sm-offset-2 col-md-4">
-							    <ul class="list-group">
-							     	<li class="list-group-item"> <a href="EditProduct?productCategory=CONSOLE" >Console</a></li>
-							  		<li class="list-group-item"> <a href="EditProduct?productCategory=GAME">Video Game</a></li>
-							  		<li class="list-group-item"> <a href="EditProduct?productCategory=ACCESSORY">Accessory</a></li>
+						    <h4>Select the product category to edit:</h4>
+						    <div class="col-md-4">
+							    <ul class="list-gorup">
+							     	<li class="list-group-item"> <a href="EditProduct?productCategory=console" >Console</a></li>
+							  		<li class="list-group-item"> <a href="EditProduct?productCategory=videoGame">Video Game</a></li>
 							  	</ul>
 						    </div> 
 						  

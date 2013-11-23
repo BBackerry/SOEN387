@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dataMapper.CustomerMapper;
+import enumTables.Country;
+import enumTables.ProductCondition;
 import domain.Customer;
 
 /**
@@ -35,6 +37,7 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getParameter("createAccount")!=null){
+			request.setAttribute("country", Country.values());
 			request.getRequestDispatcher("createAccount.jsp").forward(request, response);
 			return;
 		}

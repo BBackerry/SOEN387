@@ -86,5 +86,24 @@ public class AddressMapper extends AbstractMapper{
 	public Address find(long id) throws SQLException{
 		return (Address) abstractFind(id);
 	}
+
+	@Override
+	protected String insertStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String lastIDStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doInsert(DomainObject subject,
+			PreparedStatement insertStatement) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

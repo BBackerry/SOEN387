@@ -15,6 +15,7 @@ import domain.Address;
 import domain.Customer;
 import domain.DomainObject;
 import domain.Order;
+import enumTables.Country;
 
 
 public class AddressMapper extends AbstractMapper{
@@ -56,6 +57,23 @@ public class AddressMapper extends AbstractMapper{
         }
 		connection.close();
 		return orderList;	
+	}
+	
+	public List<String> getAllCountries() throws SQLException {
+		ArrayList<String> countryList = new ArrayList<String>();
+		PreparedStatement findByCustomerStatement = null; 
+		//setup connection
+		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+		Connection connection = sshSession.getConnection();
+		//setup query
+		findByCustomerStatement = connection.prepareStatement("SELECT country_name FROM Country"); 
+		ResultSet rs = findByCustomerStatement.executeQuery(); 
+		//create the list of orders. 
+		while (rs.next()) {
+			countryList.add(rs.toString());
+        }
+		connection.close();
+		return countryList;
 	}
 	
 	private String findByCustomerStatement() {

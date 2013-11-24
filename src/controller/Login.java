@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
 				
 				request.getSession().setAttribute("customer", c);
 				
-				if(request.getParameter("redirect") != null) {
+				if(request.getParameter("redirect") != null  && !request.getParameter("redirect").equals("null")) {
 					String redirect = (String)request.getParameter("redirect");
 					request.getRequestDispatcher(redirect).forward(request, response);
 				}

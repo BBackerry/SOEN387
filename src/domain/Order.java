@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import domain.Order;
 import domain.OrderLine;
 import virtualProxy.NoListLoader;
 import virtualProxy.VirtualList;
@@ -21,6 +22,7 @@ public class Order extends DomainObject{
 	
 	//lazy load for all orderLines in the order
 	private VirtualList<OrderLine> orderLines;
+	private VirtualList<Order> order;
 	
 	public Order(long l) {
 		super();
@@ -40,6 +42,7 @@ public class Order extends DomainObject{
 		this.payment_type = payment_type;
 		this.credit_number = credit_number;
 	}
+	
 
 	public int getC_id() {
 		return c_id;
@@ -105,6 +108,14 @@ public class Order extends DomainObject{
 		this.credit_number = credit_number;
 	}
 
+		public VirtualList<Order> getOrders() {
+			return order;
+		}
+
+		public void setOrders(VirtualList<Order> virtualList) {
+			order = virtualList;	
+		}
+		
 	public VirtualList<OrderLine> getOrderLines() {
 		return orderLines;
 	}

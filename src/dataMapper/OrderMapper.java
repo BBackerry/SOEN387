@@ -47,10 +47,31 @@ public class OrderMapper extends AbstractMapper{
 		return orderList;	
 	}
 	
+	//get all orders that are made by a customer 
+		public List<Order> getAllOrders() throws SQLException {
+			PreparedStatement findAllOrdersStatement = null; 
+			//setup connection
+			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+			Connection connection = sshSession.getConnection();
+			//setup query
+			findAllOrdersStatement = connection.prepareStatement(findAllOrders());  
+			ResultSet rs = findAllOrdersStatement.executeQuery(); 
+			//create the list of orders. 
+			ArrayList<Order> orderList = new ArrayList<Order>();
+			while (rs.next()) {
+				orderList.add((Order)load(rs));
+	        }
+			connection.close();
+			return orderList;	
+		}
+	protected String findAllOrders(){
+		return "SELECT " + COLUMNS + " FROM Store_Order";
+	}
+	
 	protected String findStatement(){
 		return "SELECT " + COLUMNS + " FROM Store_Order" + " WHERE o_id = ?";
 	}
-
+	
 	//statement to find all orders made by a customer.
 	protected String findByCustomerStatement(){
 		return "SELECT " + COLUMNS + " FROM Store_Order" + " WHERE c_id = ?";

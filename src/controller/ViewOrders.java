@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import domain.Customer;
 import domain.Order;
 import domain.OrderLine;
+import domain.Product;
 import dataMapper.CustomerMapper;
 import dataMapper.OrderMapper;
+import dataMapper.ProductMapper;
+import enumTables.ProductCategory;
 
 /**
  * Servlet implementation class ShowOrders
@@ -50,19 +54,33 @@ public class ViewOrders extends HttpServlet {
 			om = (OrderMapper) request.getSession().getAttribute("orderMapper");
 		}
 		try{
-			Order o = (Order) request.getSession().getAttribute("order");
+			List<Order> o = new ArrayList<Order>();
 			//Get orders from lazy load
-			ArrayList<Order> orders = (ArrayList<Order>) o.getOrders().getSource();
+			o = om.getAllOrders();
 			System.out.print(o);
 			//Set attribute for view orders
-			request.setAttribute("order", orders);
-			forward("administration.jsp", request, response);
+			request.setAttribute("order", o);
+			forward("orderManagement.jsp", request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "viewOrders");
-			forward("administration.jsp", request, response);
+			forward("orderManagement.jsp", request, response);
 		}
 		
+		/* // TODO Auto-generated method stub
+		String pCategory = request.getParameter("productCategory"); 
+		int pCat = ProductCategory.valueOf(pCategory).ordinal()+1;
+		ProductMapper mapper = new ProductMapper();
+		
+		List<Product> productList = new ArrayList<Product>(); 
+		productList = mapper.findByProductCategory(pCat);
+		
+		request.setAttribute("productList", productList);
+		//request.getSession().setAttribute("productList", productList);
+		
+		//List<Product>
+		request.getRequestDispatcher("editProductList.jsp").forward(request, response);
+		*/
 	}
 
 	/**

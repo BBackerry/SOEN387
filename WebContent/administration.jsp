@@ -160,67 +160,16 @@
 		    <div id="collapseOne" class="panel-collapse collapse">
 		    
 		      <div class="panel-body">  
-			      <div>    
+			      	<div>    
 			          <!-- Nav tabs -->  
 			          <ul class="nav nav-tabs">
-			              <li class="active"><a href="#editOrder" data-toggle="tab">Edit order</a></li>
-			              <li><a href="#deleteOrder" data-toggle="tab">Delete order</a></li>	              
-					  </ul>		
-					  <!-- Tab panes -->
-						<div class="tab-content">
-						  <div class="tab-pane active" id="editOrder">
-						
-						     <!-- Put content for inventory management here -->
-						<h4>Select the order to edit</h4>
-						    
-						    <table class="table">
-								<tr>
-    								<th>Order ID</th>
-    								<th>Customer Name</th>
-    								<th>Order Total</th>
-    								<th>Date and Time</th>
-    								<th>Status</th>
-    								<th>Payment Type</th>
- 								</tr>
- 								<c:forEach var="order" items="${order}">
-							    <tr>
-							    	<td>${order.o_id}</td>
-							    	<td>${order.c_id}</td>
-							    	<td>${order.total}</td>
-							    	<td>${order.date}</td>
-							    	<td>${order.status}</td>
-							    	<td>${order.payment_type}</td>
-							    	<td><a href="./EditOrder">Edit</a></td>
-							    </tr>
-								</c:forEach>
- 							</table>
-						  </div>
-						  
-						  
-						  
-						  <div class="tab-pane" id="deleteOrder">
-						     <h4>Select the order to delete</h4>
-						    
-						    <table class="table">
-								<tr>
-    								<th>Order ID</th>
-    								<th>Customer Name</th>
-    								<th>Order Total</th>
-    								<th>Date and Time</th>
-    								<th>Status</th>
-    								<th>Payment Type</th>
- 								</tr>
-						     
-						     
-						     </form>
-						  
-						  </div>
-						  					
-						</div>          
+			              <li class="list-group-item"><a href="ViewOrders">Manage Orders</a></li>           
+					  </ul>		  					
+					</div>          
 				  </div>
 		       
-		      </div>
-		    </div>
+		     </div>
+		   </div>
 		  </div>
           
           
@@ -241,14 +190,6 @@
           </div>
             -->
           
-          
-          
-        
-         
-         
-         
-          
-        </div>
     
     </div> <!-- /row -->
     

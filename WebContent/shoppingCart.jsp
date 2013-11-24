@@ -24,39 +24,10 @@
        <div class="col-md-9" role="main">
        
        <div class="hero-unit">
-       	<h3>Browse our products:</h3>
+       	<h3>Your shopping cart:</h3>
        </div>
        
-       <div>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Title</th>
-						<th>Price</th>
-						<th>Release Date</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<c:forEach var="product" items="${allProducts}">
-					<tr>
-						<td><c:out value="${product.id}"/></td>
-						<td><c:out value="${product.p_title}"/></td>
-						<td><c:out value="${product.p_price}"/></td>
-						<td><c:out value="${product.p_release_date}"/></td>
-						<td><c:out value="${product.p_desc}"/></td>
-						<td>
-							<form class="form-inline" role="form" action=${pageContext.request.contextPath}/ShoppingCart>
-								<button type="submit" class="btn btn-success">Add to Cart</button>
-							</form>
-						</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-       </div>
+       
        
        </div>
     </div>

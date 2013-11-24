@@ -123,6 +123,8 @@ public class ProductMapper extends AbstractMapper{
 				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
+			
+			connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

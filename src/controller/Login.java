@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dataMapper.CustomerMapper;
 import enumTables.Country;
+import enumTables.Province;
 import enumTables.ProductCondition;
 import domain.Customer;
 
@@ -38,6 +39,7 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		if(request.getParameter("createAccount")!=null){
 			request.setAttribute("country", Country.values());
+			request.setAttribute("province", Province.values());
 			request.getRequestDispatcher("createAccount.jsp").forward(request, response);
 			return;
 		}

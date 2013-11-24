@@ -17,13 +17,13 @@
 <title>Create New Account</title>
 </head>
 <body>
-	<form action="account" method="post">
+	<form action="Account" method="post">
 	<h1> CREATE NEW ACCOUNT </h1>
 	<h1>Account Information</h1>
 		Username: <input type="text" name="username"><br> 
 		Password: <input type="text" name="password"><br>
 
-		<br><br><br>
+		<br><br>
 	<h1>Personal Information</h1>
 		First name: <input type="text" name="firstname"><br>
 		Last name: <input type="text" name="lastname"> <br>
@@ -33,8 +33,15 @@
 		<h2>Address</h2> <br>
 			Street: <input type="text" name="street"><br>
 			Postal Code: <input type="text" name="postalcode"><br>
-			Province: <input type="text" name="province"><br>
+			Province: 
+				<select name="provinceChoice">
+				<c:forEach var = "province" items="${province}">
+					<option selected="selected">${province}</option>
+				</c:forEach>	 
+				</select>
+				<br>
 			Apt number: <input type="text" name="apt"><br>
+			City: <input type = "text" name="city"><br>
 			Country: 
 				<select>
 				<c:forEach var = "country" items="${country}" >

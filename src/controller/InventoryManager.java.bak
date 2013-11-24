@@ -48,23 +48,13 @@ public class InventoryManager extends HttpServlet {
 		String version = request.getParameter("productVersion"); 
 		System.out.println("The version is " + version);
 		
-		
-		ProductMapper pm;
-		//get sessions product mapper if it exists
-		if(request.getSession().getAttribute("productMapper") == null){
-			pm = new ProductMapper();
-			request.getSession().setAttribute("productMapper", pm);
-		} else {
-			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
-		}
-		
-		
+		ProductMapper managerUpdate = new ProductMapper();
 		Product updateProduct = new Product(Long.valueOf(id), productName, Integer.valueOf(productCategory), 
 				Integer.valueOf(productType),Integer.valueOf(productCondition),Integer.valueOf(productConsole),
 				Integer.valueOf(productQuantity), Double.valueOf(productPrice), releaseDate, Integer.valueOf(version));
 		
 		try {
-			int updateResult = pm.update(updateProduct);
+			int updateResult = managerUpdate.update(updateProduct);
 			System.out.println("The update result is " + updateResult);
 			request.setAttribute("updateOK", updateResult);
 			request.getRequestDispatcher("editProductDetail.jsp").forward(request, response);

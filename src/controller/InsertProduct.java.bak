@@ -59,18 +59,10 @@ public class InsertProduct extends HttpServlet {
 					 Integer.parseInt(pQty),Double.parseDouble(pPrice));
 		}
 		
-		ProductMapper pm;
-		//get sessions product mapper if it exists
-		if(request.getSession().getAttribute("productMapper") == null){
-			pm = new ProductMapper();
-			request.getSession().setAttribute("productMapper", pm);
-		} else {
-			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
-		}
-		
+	    ProductMapper mapper = new ProductMapper();
 	    long newID;
 	    try {
-			newID = pm.insert(newProduct) ;
+			newID = mapper.insert(newProduct) ;
 			
 			if(newID>0)
 			    request.setAttribute("newID", newID);

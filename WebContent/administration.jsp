@@ -59,26 +59,13 @@
 		      <div class="panel-body">  
 			      <div>    
 			          <!-- Nav tabs -->  
-			          <ul class="nav nav-tabs">
-			              <li class="active"><a href="#browseProduct" data-toggle="tab">Browse product</a></li>
-			              <li><a href="#searchProduct" data-toggle="tab">Search product</a></li>	              
+			          <ul class="nav nav-tabs">   
+			              <li class="active"><a href="#searchProduct" data-toggle="tab">Search product</a></li>	              
 						  <li><a href="#createProduct" data-toggle="tab">Create product</a></li>
 						  <li><a href="#editProduct" data-toggle="tab">Edit product</a></li>
 					  </ul>		
 					  <!-- Tab panes -->
-						<div class="tab-content">
-						  <div class="tab-pane active" id="browseProduct">
-						    <br/>
-						    <h4>Select the product category to browse</h4>
-						    <div class="col-md-4">
-							    <ul class="list-gorup">
-							     	<li class="list-group-item"> <a href="" >Console</a></li>
-							  		<li class="list-group-item"> <a href="" class="list-group-item-text">Video Game</a></li>
-							  	</ul>
-						    </div>
-						  </div>
-						  
-						  
+										  
 						  
 						  <div class="tab-pane" id="searchProduct">
 						     <form role="form">

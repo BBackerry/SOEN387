@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataMapper.ProductMapper;
 import domain.Product;
-import enumTables.ProductCategory;
 
 /**
- * Servlet implementation class EditProduct
+ * Servlet implementation class DeleteProduct
  */
-@WebServlet("/EditProduct")
-public class EditProduct extends HttpServlet {
+@WebServlet("/DeleteProduct")
+public class DeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditProduct() {
+    public DeleteProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +31,6 @@ public class EditProduct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// TODO Auto-generated method stub
 		
 		ProductMapper pm;
@@ -45,26 +42,24 @@ public class EditProduct extends HttpServlet {
 			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
 		}
 		
+		String productID = request.getParameter("pid");
+		long id = Long.valueOf(productID); 
 		
-		
-		
-		
-		String pCategory = request.getParameter("productCategory"); 
-		int pCat = ProductCategory.valueOf(pCategory).ordinal()+1;
-		
-		
-		List<Product> productList = new ArrayList<Product>(); 
-		productList = pm.findByProductCategory(pCat);
 		
 	
+		int updateOK = pm.delete(id);
 		
-		request.setAttribute("productList", productList);
-		request.getSession().setAttribute("productList", productList);
 		
-		//List<Product>
-		request.getRequestDispatcher("editProductList.jsp").forward(request, response);
+
 		
+		
+		
+		
+	    
 	
+		
+
+		
 	}
 
 	/**
@@ -72,6 +67,8 @@ public class EditProduct extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		doGet(request,response);
 	}
 
 }

@@ -1,6 +1,5 @@
 package dataMapper;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,11 +24,12 @@ public class ProductMapper extends AbstractMapper{
 	public static final String COLUMNS = " p_id, p_category, p_title, p_release_date, p_type,p_condition, p_console, p_stock,"
 			+ "p_price, p_desc, p_rating,  p_version";
 	private final static String insertStatement = "INSERT INTO "+ table +" VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?)";
-	
 	private final static String lastIDStatement = "SELECT MAX(p_id) FROM "+ table;
-	
 	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=?";
-	
+	private final static String updateStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
+	                                              +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
+	private final static String checkVersionStatement = "SELECT p_version"+ table +" WHERE p_id=?";
+
 	//loads up the Product Object
 	protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
 		int p_category  = rs.getInt(2);
@@ -79,6 +79,8 @@ public class ProductMapper extends AbstractMapper{
 			
 			for(int i=0;i<tempResult.size();i++){
 				productList.add((Product)tempResult.get(i));
+				
+		
 				
 			}
 			DB.close();
@@ -187,4 +189,33 @@ public class ProductMapper extends AbstractMapper{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	protected String updateStatement() {
+		// TODO Auto-generated method stub
+		return updateStatement;
+	}
+
+	@Override
+	protected void doUpdate(DomainObject abstractObject, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+		Product subject = (Product) abstractObject;
+		stmt.setInt(1, subject.getP_category());
+		stmt.setString(2, subject.getP_title());
+		stmt.setInt(3, subject.getP_type());
+		stmt.setInt(4, subject.getP_condition());
+		stmt.setInt(5, subject.getP_console());
+		stmt.setInt(6, subject.getP_stock());
+		stmt.setDouble(7, subject.getP_price());
+		stmt.setInt(8, subject.getP_version()+1);
+		stmt.setLong(9, subject.getId());
+		stmt.setInt(10, subject.getP_version());
+		
+		
+	}
+
+
 }

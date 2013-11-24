@@ -164,7 +164,8 @@
 			          <!-- Nav tabs -->  
 			          <ul class="nav nav-tabs">
 			              <li class="list-group-item"><a href="ViewOrders">Manage Orders</a></li>           
-					  </ul>		  					
+					  </ul>	
+					  <br/>	  					
 					</div>          
 				  </div>
 		       

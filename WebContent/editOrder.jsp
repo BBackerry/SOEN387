@@ -31,76 +31,71 @@
     					<div class="form-group">
 					    <label for="orderID" class="col-sm-3 control-label">Order ID</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="orderID" name="order ID" value="${ordervar.id}" placeholder="${ordervar.id}" disabled>
+					      <input type="text" class="form-control" id="orderID" name="order ID" value="${order.id}" disabled>
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="clientID" class="col-sm-3 control-label">Client ID</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="clientID" name="clientID" value="${ordervar.c_id}" placeholder="client ID" disabled>
+					      <input type="text" class="form-control" id="clientID" name="clientID" value="${order.c_id}" disabled>
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="date" class="col-sm-3 control-label">Date</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="date" name="date" value="${ordervar.date}" placeholder="date and time" disabled>
+					      <input type="text" class="form-control" id="date" name="date" value="${order.date}" disabled>
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="total" class="col-sm-3 control-label">Order Total</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="total" name="total" value="${ordervar.total}" placeholder="total" disabled>
+					      <input type="text" class="form-control" id="total" name="total" value="${order.total}" disabled>
 					    </div>
 					  </div>
 					      <br/>
 					  <div class="form-group">
 					    <label for="paymentType" class="col-sm-3 control-label">Payment Type</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="paymentType" name="paymentType" value="${ordervar.payment_type}" placeholder="Payment Type" disabled>
+					      <input type="text" class="form-control" id="paymentType" name="paymentType" value="${order.payment_type}" disabled>
 					    </div>
-					    <!-- <select class="form-control" name="productType" id="productType" placeholder="productType">
-								    <c:forEach items="${productType}" var="type" varStatus="loop">
-							   			   <c:if test="${loop.count eq product.p_type}">
-				   				    		 	<option value="${loop.count}" selected="selected"><c:out value="${type}"  /></option> 
-                              			   </c:if>
-			                               <c:if test="${loop.count ne product.p_type}">
-							   				    <option value="${loop.count}"><c:out value="${type}" /></option> 
-			                               </c:if>
-							 		</c:forEach>
-							 </select>   -->
+					   <br/>
 					  </div>
 					   <br/>
 					  <div class="form-group">
 					    <label for="creditNumber" class="col-sm-3 control-label">Credit Number</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="creditNumber" name="creditNumber" value="${ordervar.credit_number}" placeholder="Credit Number" disabled>
+					      <input type="text" class="form-control" id="creditNumber" name="creditNumber" value="${order.credit_number}" disabled>
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="status" class="col-sm-3 control-label">Order Status</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="date" name="date" value="${ordervar.status}" placeholder="order status">
+					      <input type="text" class="form-control" id="date" name="date" value="${order.status}" >
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="shippingAddress" class="col-sm-3 control-label">Shipping Address</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="${ordervar.shipping_address}" placeholder="Shipping Address">
+					      <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="${order.ship_address}">
 					    </div>
 					  </div>
 					  <br/>
 					  <div class="form-group">
 					    <label for="billingAddress" class="col-sm-3 control-label">Billing Address</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="billingAddress" name="billingAddress" value="${ordervar.billing_address}" placeholder="Billing Address">
+					      <input type="text" class="form-control" id="billingAddress" name="billingAddress" value="${order.bill_address}">
 					    </div>
 					  </div>
-					
+					<div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-10">
+					      <button type="submit" class="btn btn-primary">Save</button>
+					    </div>
+					  </div>
         
         </form>
         </div>

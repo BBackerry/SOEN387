@@ -1,5 +1,6 @@
 package dataMapper;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +29,13 @@ public class ProductMapper extends AbstractMapper{
 	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=?";
 	private final static String updateStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
 	                                              +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
-	private final static String checkVersionStatement = "SELECT p_version"+ table +" WHERE p_id=?";
-
+	
+	//The delete is not really delete, it just update status to inactive
+	private final static String deleteStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
+            +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
+	//private final static String deleteStatement = "DELETE FROM"+ table + " WHERE id = ? and version = ?";
+	
+	
 	//loads up the Product Object
 	protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
 		int p_category  = rs.getInt(2);
@@ -184,18 +190,7 @@ public class ProductMapper extends AbstractMapper{
 		
 	}
 
-	@Override
-	protected String findStatement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-
-	@Override
-	protected String updateStatement() {
-		// TODO Auto-generated method stub
-		return updateStatement;
-	}
 
 	@Override
 	protected void doUpdate(DomainObject abstractObject, PreparedStatement stmt)
@@ -215,6 +210,39 @@ public class ProductMapper extends AbstractMapper{
 		stmt.setInt(10, subject.getP_version());
 		
 		
+	}
+	
+	
+	protected void doDelete(DomainObject abstractObject, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+		Product subject = (Product) abstractObject;
+		stmt.setInt(2, subject.getP_version());
+		
+		
+	}
+	
+	
+	
+	
+	@Override
+	protected String findStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	protected String updateStatement() {
+		// TODO Auto-generated method stub
+		return updateStatement;
+	}
+
+	@Override
+	protected String deleteStatement() {
+		// TODO Auto-generated method stub
+		return deleteStatement;
 	}
 
 

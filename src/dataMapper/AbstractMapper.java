@@ -24,6 +24,11 @@ public abstract class AbstractMapper {
 	protected abstract String insertStatement();
 	protected abstract String lastIDStatement();
 	protected abstract String updateStatement();
+	protected abstract String deleteStatement();
+	
+	abstract protected void doUpdate(DomainObject object, PreparedStatement stmt) throws SQLException;
+    abstract protected void doDelete(DomainObject object, PreparedStatement stmt) throws SQLException;
+	
 	
 	
 	//general find method
@@ -107,6 +112,37 @@ public abstract class AbstractMapper {
 		return subject.getId();
 	}
 	
+	
+	
+	public int delete(long id) {
+		DomainObject deleteItem=loadedMap.get(id);
+		if(DB==null) {
+			//setConnection();
+			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+			DB = ssHsession.getConnection();
+		}
+		
+		PreparedStatement stmt = null;
+		int rowCount = 0;
+		
+		try {
+			stmt = DB.prepareStatement(deleteStatement());
+			stmt.setLong(1,id);
+			doDelete(deleteItem,stmt);
+			rowCount = stmt.executeUpdate();
+			if (rowCount == 0) {
+		          System.out.println("The delelte is failure");
+			}else{
+				
+				loadedMap.remove(id);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rowCount;
+	}
 
 	private int findNextDatabaseId() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub		
@@ -156,7 +192,7 @@ public abstract class AbstractMapper {
 
 
 	
-     abstract protected void doUpdate(DomainObject object, PreparedStatement stmt) throws SQLException;
+   
      
 
 	 protected void throwConcurrencyException(DomainObject object) {

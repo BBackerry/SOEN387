@@ -21,13 +21,9 @@ public class CustomerMapper extends AbstractMapper{
 
 
 	//field in db table
-	public CustomerMapper(Connection c) {
-		super(c);
 
-	}
-	
 	//OrderMapper since the customer would generally check only his own orders
-	private OrderMapper om = new OrderMapper(DB);
+	private OrderMapper om = new OrderMapper();
 	
 	//collumn in db table
 	public static final String COLUMNS = " c_id, first_name, last_name, dob, email, last_modified, username, password,category";
@@ -62,8 +58,8 @@ public class CustomerMapper extends AbstractMapper{
 	public Customer findByAccount(String username)  {
 		// TODO Auto-generated method stub
 		PreparedStatement findStatement = null; 
-//		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
-//		Connection connection = sshSession.getConnection();
+		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+		Connection connection = sshSession.getConnection();
 		ResultSet rs = null;
 		Customer result = null;
 		try {
@@ -138,18 +134,6 @@ public class CustomerMapper extends AbstractMapper{
 		
 	}
 
-	@Override
-	protected String deleteStatement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void doDelete(DomainObject object, PreparedStatement stmt)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	protected String deleteStatement() {

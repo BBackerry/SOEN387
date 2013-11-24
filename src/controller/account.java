@@ -41,15 +41,6 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection connection;
-		if(request.getSession().getAttribute("connection") == null){
-			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
-			connection = sshSession.getConnection();
-			request.getSession().setAttribute("connection", connection);
-		}
-		else{
-			connection = (Connection)request.getSession().getAttribute("connection");
-		}
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		//Statement newCustomerStatement = null;
@@ -119,14 +110,13 @@ public class Account extends HttpServlet {
 		
 		newAddress = new Address(street, pcode, provinceNum, '1', aptNum, city);
 		newCustomer = new Customer(fname, lname, birthday, email, username, password, "Customer");
-		AddressMapper am = new AddressMapper(connection);
-		CustomerMapper cm = new CustomerMapper(connection);
+		AddressMapper am = new AddressMapper();
+		CustomerMapper cm = new CustomerMapper();
 		try {
 			System.out.println(newCustomer.getCategory()+newCustomer.getEmail());
 			long newCID = cm.insert(newCustomer);
-			System.err.println("createdCustomer");
 			long newAID = am.insert(newAddress);
-			//am.insertCustomerAddress( newAID, newCID);
+			am.insertCustomerAddress( newAID, newCID);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 
 		} catch (ClassNotFoundException | SQLException e1) {

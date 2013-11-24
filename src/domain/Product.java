@@ -35,6 +35,7 @@ public class Product extends DomainObject{
 		this.p_condition = p_condition;
 		this.p_title = p_title;
 		this.p_category = p_category;
+		this.p_version =p_version;
 	}
 	public Product(int p_category ,String p_title,Timestamp p_release_date, int p_type,  int p_condition, int p_console, 
 			int p_qty, double p_price) {
@@ -50,6 +51,22 @@ public class Product extends DomainObject{
 		this.p_version = 1;
 	
 	}
+	public Product(long id, String productName, Integer category,
+			Integer type, Integer condition, Integer console,
+			Integer quantity, Double price, String releaseDate, Integer version) {
+		// TODO Auto-generated constructor stub
+		super(id);	
+		p_title = productName;
+		p_category = category;
+		p_type= type;
+		p_condition = condition;
+		p_console = console;
+		p_stock = quantity;
+		p_price = price;
+		p_version = version;	
+	}
+	
+	
 	public String getP_desc() {
 		return p_desc;
 	}

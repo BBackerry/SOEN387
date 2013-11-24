@@ -88,5 +88,18 @@ public class OrderLineMapper extends AbstractMapper{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	protected String updateStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doUpdate(DomainObject object, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,8 @@ public abstract class AbstractMapper {
 	protected abstract String findStatement();
 	protected abstract String insertStatement();
 	protected abstract String lastIDStatement();
+	protected abstract String updateStatement();
+	
 	
 	//general find method
 	protected DomainObject abstractFind(Long id) throws SQLException {
@@ -105,26 +109,70 @@ public abstract class AbstractMapper {
 	
 
 	private int findNextDatabaseId() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		//private int findNextDatabaseId() throws ClassNotFoundException,
-		//SQLException {
-		
+		// TODO Auto-generated method stub		
 		if(DB==null) {
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
-
 			DB = ssHsession.getConnection();
-			
 		}
 		PreparedStatement stmt = DB.prepareStatement(lastIDStatement());
 		ResultSet rs = stmt.executeQuery();
-		rs.next();
-	// System.out.println("in Person.findNextDatabaseId"+ rs.getInt(1));
-		
+		rs.next();		
 		return rs.getInt(1) + 1;
-
 	}
 		
+	
+	
+	 public int update(DomainObject object)throws Exception{
+     	    	
+			if(DB==null) {
+				//setConnection();
+				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+				DB = ssHsession.getConnection();	
+			}
+			
+			PreparedStatement stmt = null;
+			int rowCount = 0;
+			
+			try {
+				
+				
+				stmt = DB.prepareStatement(updateStatement());
+				doUpdate(object, stmt);
+				System.out.println("The statement is " + stmt);
+				rowCount = stmt.executeUpdate();
+				if (rowCount == 0) {
+			          throwConcurrencyException(object);
+			
+				}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			//loadedMap.put(object.getId(), object);
+			return rowCount;
+     
+     }
+
+
+	
+     abstract protected void doUpdate(DomainObject object, PreparedStatement stmt) throws SQLException;
+     
+
+	 protected void throwConcurrencyException(DomainObject object) {
+			//Connection conn = null;
+			
+			if(DB==null) {
+				//setConnection();
+				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+
+				DB = ssHsession.getConnection();
+				
+			}
+			
+			System.out.println("There is concurrency problem for the record:  " + object.getId() );
+				
+		}
 		
 	
 }

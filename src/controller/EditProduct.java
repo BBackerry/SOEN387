@@ -42,8 +42,10 @@ public class EditProduct extends HttpServlet {
 		List<Product> productList = new ArrayList<Product>(); 
 		productList = mapper.findByProductCategory(pCat);
 		
+	
+		
 		request.setAttribute("productList", productList);
-		//request.getSession().setAttribute("productList", productList);
+		request.getSession().setAttribute("productList", productList);
 		
 		//List<Product>
 		request.getRequestDispatcher("editProductList.jsp").forward(request, response);

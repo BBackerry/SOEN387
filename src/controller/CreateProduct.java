@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import enumTables.ProductCategory;
 import enumTables.ProductCondition;
 import enumTables.ProductConsole;
 import enumTables.ProductType;
@@ -48,11 +49,15 @@ public class CreateProduct extends HttpServlet {
 		//	System.out.println("The product type is "+ productType.get(i));
 		
 		
-		request.setAttribute("productCondition", ProductCondition.values());
-		request.setAttribute("productType", ProductType.values());
-		request.setAttribute("productConsole", ProductConsole.values());
+		//request.setAttribute("productCondition", ProductCondition.values());
+		request.getSession().setAttribute("productCondition", ProductCondition.values());
+		//request.setAttribute("productType", ProductType.values());
+		request.getSession().setAttribute("productType", ProductType.values());
+		//request.setAttribute("productConsole", ProductConsole.values());
+		request.getSession().setAttribute("productConsole", ProductConsole.values());
 		request.setAttribute("productCategory", productCategory);
-		
+		request.getSession().setAttribute("pCategory", ProductCategory.values());
+	
 		request.getRequestDispatcher("createProduct.jsp").forward(request, response);
 		
 	}

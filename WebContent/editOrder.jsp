@@ -59,7 +59,15 @@
 					  <div class="form-group">
 					    <label for="paymentType" class="col-sm-3 control-label">Payment Type</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="paymentType" name="paymentType" value="${order.payment_type}" disabled>
+					      <select class="form-control" name="paymentType" id="paymentType">
+					    	<c:forEach items="${paymentType}" var="payment_type" varStatus="loop">
+					    	    <c:if test="${loop.count eq order.payment_type}">
+				   				    <option value="${loop.count}" selected="selected"><c:out value="${payment_type}"  /></option> 
+                               </c:if>
+                               <c:if test="${loop.count ne order.payment_type}">
+				   				    <option value="${loop.count}"><c:out value="${payment_type}" /></option> 
+                               </c:if>
+				 			</c:forEach>
 					    </div>
 					   <br/>
 					  </div>
@@ -71,10 +79,20 @@
 					    </div>
 					  </div>
 					  <br/>
+					  
 					  <div class="form-group">
 					    <label for="status" class="col-sm-3 control-label">Order Status</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="date" name="date" value="${order.status}" >
+					      <select class="form-control" name="status" id="status">
+					    	<c:forEach items="${status}" var="stat" varStatus="loop">
+					    	    <c:if test="${loop.count eq order.status}">
+				   				    <option value="${loop.count}" selected="selected"><c:out value="${stat}"  /></option> 
+                               </c:if>
+                               <c:if test="${loop.count ne order.status}">
+				   				    <option value="${loop.count}"><c:out value="${stat}" /></option> 
+                               </c:if>
+				 			</c:forEach>
+				 		</select> 
 					    </div>
 					  </div>
 					  <br/>

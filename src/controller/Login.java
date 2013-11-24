@@ -68,14 +68,14 @@ public class Login extends HttpServlet {
 				}
 				else if(c.getCategory().compareToIgnoreCase("manager")==0){
 					request.getSession().setAttribute("user", c);
-					request.setAttribute("country", Country.values());
-					request.setAttribute("province", Province.values());
-					request.setAttribute("paymentType", PaymentType.values());
-					request.setAttribute("productCategory", ProductCategory.values());
-					request.setAttribute("productCondition", ProductCondition.values());
-					request.setAttribute("productConsole", ProductConsole.values());
-					request.setAttribute("productType", ProductType.values());
-					request.setAttribute("status", Status.values());
+					request.getSession().setAttribute("country", Country.values());
+					request.getSession().setAttribute("province", Province.values());
+					request.getSession().setAttribute("paymentType", PaymentType.values());
+					request.getSession().setAttribute("productCategory", ProductCategory.values());
+					request.getSession().setAttribute("productCondition", ProductCondition.values());
+					request.getSession().setAttribute("productConsole", ProductConsole.values());
+					request.getSession().setAttribute("productType", ProductType.values());
+					request.getSession().setAttribute("status", Status.values());
 					request.getRequestDispatcher("administration.jsp").forward(request, response);
 					
 				}else{

@@ -63,7 +63,7 @@ public class CustomerMapper extends AbstractMapper{
 		ResultSet rs = null;
 		Customer result = null;
 		try {
-			findStatement = DB.prepareStatement(findByAccountStatement);
+			findStatement = connection.prepareStatement(findByAccountStatement);
 			findStatement.setString(1, username);
 			System.out.println("user name is "+username);
 			rs = findStatement.executeQuery(); 

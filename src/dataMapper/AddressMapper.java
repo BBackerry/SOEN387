@@ -140,10 +140,10 @@ public class AddressMapper extends AbstractMapper{
 		insertStatement.setLong(1, c_id);
 		insertStatement.setLong(2, a_id);
 		if(insertStatement.executeUpdate() == 1){
-			DB.close();
+			//DB.close();
 			return true;
 		} else {
-			DB.close();
+			//DB.close();
 			return false;
 		}
 	}
@@ -169,10 +169,10 @@ public class AddressMapper extends AbstractMapper{
 		insertStatement.setLong(1, c_id);
 		insertStatement.setLong(2, a_id);
 		if(insertStatement.executeUpdate() == 1){
-			DB.close();
+			//DB.close();
 			return true;
 		} else {
-			DB.close();
+			//DB.close();
 			return false;
 		}
 	}

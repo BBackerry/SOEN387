@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +19,15 @@ import domain.Order;
 
 public class CustomerMapper extends AbstractMapper{
 
+
+	//field in db table
+	public CustomerMapper(Connection c) {
+		super(c);
+
+	}
+	
 	//OrderMapper since the customer would generally check only his own orders
-	private OrderMapper om = new OrderMapper();
+	private OrderMapper om = new OrderMapper(DB);
 	
 	//collumn in db table
 	public static final String COLUMNS = " c_id, first_name, last_name, dob, email, last_modified, username, password,category";
@@ -53,12 +62,12 @@ public class CustomerMapper extends AbstractMapper{
 	public Customer findByAccount(String username)  {
 		// TODO Auto-generated method stub
 		PreparedStatement findStatement = null; 
-		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
-		Connection connection = sshSession.getConnection();
+//		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+//		Connection connection = sshSession.getConnection();
 		ResultSet rs = null;
 		Customer result = null;
 		try {
-			findStatement = connection.prepareStatement(findByAccountStatement);
+			findStatement = DB.prepareStatement(findByAccountStatement);
 			findStatement.setString(1, username);
 			System.out.println("user name is "+username);
 			rs = findStatement.executeQuery(); 
@@ -92,22 +101,28 @@ public class CustomerMapper extends AbstractMapper{
 
 
 	@Override
-	protected String insertStatement() {
-		// TODO Auto-generated method stub
-		return null;
+	protected String insertStatement() {		
+		return "INSERT INTO Customer (" + COLUMNS + ")" + " VALUES ( ? , ? , ? , ? , ? , ? , ? , ?, ? )";
 	}
 
 	@Override
-	protected String lastIDStatement() {
-		// TODO Auto-generated method stub
-		return null;
+	protected String lastIDStatement() {	
+		return "SELECT MAX(c_id) FROM Customer";
 	}
 
 	@Override
-	protected void doInsert(DomainObject subject,
-			PreparedStatement insertStatement) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	protected void doInsert(DomainObject abstractSubject, PreparedStatement stmt) throws SQLException {
+		Customer subject = (Customer) abstractSubject;
+		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		stmt.setLong(1, subject.getId());
+		stmt.setString(2, subject.getF_name());
+		stmt.setString(3, subject.getL_name());
+		stmt.setString(4, sdf.format(subject.getDob()).substring(0,10));
+		stmt.setString(5, subject.getEmail());
+		stmt.setString(6, sdf.format(Calendar.getInstance().getTime()));
+		stmt.setString(7, subject.getUsername());
+		stmt.setString(8, subject.getPassword());
+		stmt.setString(9, subject.getCategory());
 	}
 
 	@Override
@@ -118,6 +133,19 @@ public class CustomerMapper extends AbstractMapper{
 
 	@Override
 	protected void doUpdate(DomainObject object, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected String deleteStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doDelete(DomainObject object, PreparedStatement stmt)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		

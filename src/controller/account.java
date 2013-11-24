@@ -13,9 +13,15 @@ import javax.servlet.RequestDispatcher;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.Calendar;
 
 import jdbcUtil.JdbcUtilViaSSH;
 import jdbcUtil.SSHjdbcSession;
+import domain.Address;
+import domain.Customer;
+import dataMapper.AddressMapper;
+import dataMapper.CustomerMapper;
 /**
  * Servlet implementation class account
  */
@@ -35,10 +41,21 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection connection;
+		if(request.getSession().getAttribute("connection") == null){
+			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+			connection = sshSession.getConnection();
+			request.getSession().setAttribute("connection", connection);
+		}
+		else{
+			connection = (Connection)request.getSession().getAttribute("connection");
+		}
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		Statement newCustomerStatement = null;
-
+		//Statement newCustomerStatement = null;
+		
+		Address newAddress;
+		Customer newCustomer;
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
 		String fname=request.getParameter("firstname");
@@ -47,7 +64,10 @@ public class Account extends HttpServlet {
 		int bYear = Integer.parseInt(request.getParameter("byear"));
 		int bMonth = Integer.parseInt(request.getParameter("bmonth"));
 		int bDay = Integer.parseInt(request.getParameter("bday"));
-		String birthday = bYear+"-"+bMonth+"-"+bDay;
+		Date birthday;
+		Calendar cal = Calendar.getInstance();
+		cal.set(bYear, bMonth, bDay);
+		birthday = cal.getTime();
 		
 		String province = request.getParameter("provinceChoice");
 		int provinceNum = 1;
@@ -97,39 +117,55 @@ public class Account extends HttpServlet {
 		String aptNum = request.getParameter("apt");
 		String city = request.getParameter("city");
 		
-		
-		try{
-			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
-			Connection connection = sshSession.getConnection();
-			
-			String insertNewCustomer = "INSERT INTO Customer "+
-"(`first_name`,`last_name`,`dob`,`email`,`last_modified`,`username`,`password`,`category`) "+
-"VALUES(\""+fname+"\",\""+lname+"\",\""+birthday+"\",\""+email+"\",NOW(),\""+username+"\",\""+password+"\",\"customer\")";
-		    
-			String recentCustomerKey = "SELECT last_insert_id()";
-			String insertCustomerAddress = "INSERT INTO Address "+
-					"(`street`,`postal_code`,`province`,`country`,`apt_suite_unit`,`last_modified`,`city`) "+
-					"VALUES("+
-					"\""+street+"\",\""+pcode+"\",\""+provinceNum+"\",\"1\",\""+aptNum+"\",NOW(),\""+city+"\""+
-					")";
-			
-			System.out.println("Inserting records into the table...");
-
-			newCustomerStatement = connection.createStatement();
-			newCustomerStatement.executeUpdate(insertNewCustomer);
-			newCustomerStatement.executeUpdate(insertCustomerAddress);
-			System.out.println("Inserted records into the table...");
-			connection.close();
+		newAddress = new Address(street, pcode, provinceNum, '1', aptNum, city);
+		newCustomer = new Customer(fname, lname, birthday, email, username, password, "Customer");
+		AddressMapper am = new AddressMapper(connection);
+		CustomerMapper cm = new CustomerMapper(connection);
+		try {
+			System.out.println(newCustomer.getCategory()+newCustomer.getEmail());
+			long newCID = cm.insert(newCustomer);
+			System.err.println("createdCustomer");
+			long newAID = am.insert(newAddress);
+			//am.insertCustomerAddress( newAID, newCID);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 
-			
-			
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		
-		catch(Exception e){
-			e.printStackTrace();
-			throw new ServletException("SQL Error");
-		}
+				
+//		try{
+//			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+//			Connection connection = sshSession.getConnection();			
+//			String insertNewCustomer = "INSERT INTO Customer "+
+//"(`first_name`,`last_name`,`dob`,`email`,`last_modified`,`username`,`password`,`category`) "+
+//"VALUES(\""+fname+"\",\""+lname+"\",\""+birthday+"\",\""+email+"\",NOW(),\""+username+"\",\""+password+"\",\"customer\")";
+//		    
+//			
+//			String recentCustomerKey = "SELECT last_insert_id()";
+//			String insertCustomerAddress = "INSERT INTO Address "+
+//					"(`street`,`postal_code`,`province`,`country`,`apt_suite_unit`,`last_modified`,`city`) "+
+//					"VALUES("+
+//					"\""+street+"\",\""+pcode+"\",\""+provinceNum+"\",\"1\",\""+aptNum+"\",NOW(),\""+city+"\""+
+//					")";
+//			
+//			System.out.println("Inserting records into the table...");
+//
+//			newCustomerStatement = connection.createStatement();
+//			newCustomerStatement.executeUpdate(insertNewCustomer);
+//			
+//			System.out.println("Inserted records into the table...");
+//			connection.close();
+//			request.getRequestDispatcher("index.jsp").forward(request, response);
+//
+//			
+//			
+//		}
+//		
+//		catch(Exception e){
+//			e.printStackTrace();
+//			throw new ServletException("SQL Error");
+//		}
 		
 	}	
 

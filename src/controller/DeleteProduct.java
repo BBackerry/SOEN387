@@ -47,10 +47,11 @@ public class DeleteProduct extends HttpServlet {
 		
 		
 	
-		int updateOK = pm.delete(id);
+		int updateResult = pm.delete(id);
 		
-		
-
+		request.setAttribute("deleteID", id);
+		request.setAttribute("updateOK", updateResult);
+		request.getRequestDispatcher("editProductList.jsp").forward(request, response);
 		
 		
 		

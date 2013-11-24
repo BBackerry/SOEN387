@@ -93,13 +93,13 @@ public abstract class AbstractMapper {
 	
 	public Long insert(DomainObject subject) throws ClassNotFoundException, SQLException {
 		
-		if(DB==null) {
+		//if(DB==null) {
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 
 			DB = ssHsession.getConnection();
 			
-		}
+		//}
 		PreparedStatement insertStatement = null;
 		
 		insertStatement = DB.prepareStatement(insertStatement());
@@ -108,26 +108,26 @@ public abstract class AbstractMapper {
 		doInsert(subject, insertStatement);
 		insertStatement.execute();
 		loadedMap.put(String.valueOf(subject.getId()), subject);
-		DB.close();
+		//DB.close();
 		return subject.getId();
 	}
 	
 	
 	
 	public int delete(long id) {
-		DomainObject deleteItem=loadedMap.get(id);
-		if(DB==null) {
+		DomainObject deleteItem=loadedMap.get(String.valueOf(id));
+		//if(DB==null) {
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 			DB = ssHsession.getConnection();
-		}
+		//}
 		
 		PreparedStatement stmt = null;
 		int rowCount = 0;
 		
 		try {
 			stmt = DB.prepareStatement(deleteStatement());
-			stmt.setLong(1,id);
+			stmt.setLong(3,id);
 			doDelete(deleteItem,stmt);
 			rowCount = stmt.executeUpdate();
 			if (rowCount == 0) {

@@ -65,7 +65,7 @@
 						  <li><a href="#editProduct" data-toggle="tab">Edit product</a></li>
 					  </ul>		
 					  <!-- Tab panes -->
-										  
+					 <div class="tab-content">			  
 						  
 						  <div class="tab-pane" id="searchProduct">
 						     <form role="form">
@@ -105,9 +105,9 @@
 						    <div class="col-sm-offset-2 col-md-8">Select the product category to create a new product</div>
 						    <div class="col-sm-offset-2 col-md-4">
 							    <ul class="list-group">
-							     	<li class="list-group-item"> <a href="CreateProduct?productCategory=CONSOLE" >Console</a></li>
-							  		<li class="list-group-item"> <a href="CreateProduct?productCategory=GAME">Video Game</a></li>
-							  		<li class="list-group-item"> <a href="CreateProduct?productCategory=ACCESSORY">Accessory</a></li>
+							     	<li class="list-group-item"> <a href="createProduct.jsp?pc=CONSOLE" >Console</a></li>
+							  		<li class="list-group-item"> <a href="createProduct.jsp?pc=GAME">Video Game</a></li>
+							  		<li class="list-group-item"> <a href="createProduct.jsp?pc=ACCESSORY">Accessory</a></li>
 							  	</ul>
 						    </div>
 						  

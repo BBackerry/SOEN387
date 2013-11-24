@@ -50,10 +50,10 @@
 	      <div class="col-md-6 col-md-offset-3">
 	       
 	       <table class="table table-condensed">
-	          <tr><th>#</th><th>Name</th><th>Quantity</th><th>Price</th><th>Action</th><th>Action</th>
+	          <tr><th>#</th><th>Name</th><th>Quantity</th><th>Price</th><th colspan="2" align="center">Action</th>
 			  <c:forEach items="${productList}" var="product" varStatus="loop">
 			   <c:set var="editlink" value="editProductDetail.jsp?pid=${product.id}"></c:set>
-			   <c:set var="deletelink" value="deleteProduct?pid=${product.id}"></c:set>
+			   <c:set var="deletelink" value="DeleteProduct?pid=${product.id}"></c:set>
 			   
 			      <input type="hidden"  name="productID"  id="productID"  value="${product.id}"  />
 			  
@@ -63,8 +63,8 @@
 	   				   <td><c:out value="${product.p_title}" /></td>
 	   				   <td><c:out value="${product.p_stock}" /></td>
 	   				   <td><c:out value="${product.p_price}" /></td>
-	   				   <td><a class="btn btn-primary"   href="${editlink}">Edit</a></td>
-	   				   <td><a class="btn btn-warning"   href="${deletelink}">Delete</a></td>
+	   				   <td><a class="btn btn-primary btn-sm"   href="${editlink}">Edit</a></td>
+	   				   <td><a class="btn btn-warning btn-sm"   href="${deletelink}">Delete</a></td>
 	   				 
 	   				 
 	  			</tr>
@@ -76,8 +76,8 @@
 			
 			</div>
      
-       
-       
+		        
+		       
 		
           
           
@@ -107,6 +107,30 @@
          
           
         </div>
+    
+    
+    
+    
+    			<div id="result">
+		          <c:set var = "success" value = "1"/>
+		     		 <c:set var = "fail" value = "0"/>
+				 
+				       	 <c:choose>
+				               <c:when test="${updateOK eq success}">
+				                  <p class="text-success">The record <c:out value = "${deleteID}"></c:out>, Delete successfully</p>
+				               </c:when>
+				               
+				               <c:when test="${updateOK eq fail}">
+				                  <p class="text-danger">Delete fail for the record <c:out value = "${deleteID}"></c:out>, please reselect the update to be updated</p>
+				               </c:when>
+				      
+				         </c:choose>
+		      
+		        </div>
+		       
+    
+    
+    
     
     </div> <!-- /row -->
     

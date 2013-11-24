@@ -54,11 +54,11 @@
 			  <div class="form-group">
 			    <label for="productCategory" class="col-sm-2 control-label">Product Category</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="productCat" name="productCat" value="${productCategory }" placeholder="productCat" disabled>
+			      <input type="text" class="form-control" id="productCat" name="productCat" value="${param.pc }" placeholder="productCat" disabled>
 			    </div>
 			  </div>
 			  <!-- The form-control class cannot pass value to servlet, so pass to servlet with below -->
-		      <input type="hidden"  name="productCategory"  id="productCategory"  value="${productCategory}"  />
+		      <input type="hidden"  name="productCategory"  id="productCategory"  value="${param.pc}"  />
 		     
 			  <div class="form-group">
 			    <label for="productName" class="col-sm-2 control-label">Product Name</label>
@@ -69,7 +69,7 @@
 			  
 
 			  <c:choose>
-		          <c:when test="${productCategory eq 'GAME'}">
+		          <c:when test="${param.pc eq 'GAME'}">
 			  
 				  <div class="form-group">
 				    <label for="productType" class="col-sm-2 control-label">Type of Game</label>

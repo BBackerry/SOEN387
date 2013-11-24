@@ -14,7 +14,8 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class JdbcUtilViaSSH {
-
+	static SSHjdbcSession ssHsession = null;
+	
 	static {
 		String driverName = "com.mysql.jdbc.Driver";
 		try {
@@ -25,24 +26,27 @@ public class JdbcUtilViaSSH {
 	}
 
 	public static SSHjdbcSession getConnection() {
-		Connection connection = null;
-		SSHjdbcSession ssHsession = doSshTunnel();
-		String databaseName = "soen387a";
-		String username = "soen387a";
-		String password = "a12b45";
-		String url = "jdbc:mysql://" + ssHsession.getServer() + ":" + ssHsession.getPort() + "/"
-				+ databaseName; // for Mysql
-
-		try {
-			connection = DriverManager.getConnection(url, username, password);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(ssHsession == null){
+			Connection connection = null;
+			ssHsession = doSshTunnel();
+			String databaseName = "soen387a";
+			String username = "soen387a";
+			String password = "a12b45";
+			String url = "jdbc:mysql://" + ssHsession.getServer() + ":" + ssHsession.getPort() + "/"
+					+ databaseName; // for Mysql
+	
+			try {
+				connection = DriverManager.getConnection(url, username, password);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			ssHsession.setConnection(connection);
+			
+			return ssHsession;
+		} else {
+			return ssHsession;
 		}
-		
-		ssHsession.setConnection(connection);
-		
-		return ssHsession;
-
 	}
 
 	public static void close(ResultSet rs, Statement stmt, SSHjdbcSession ssHsession) {

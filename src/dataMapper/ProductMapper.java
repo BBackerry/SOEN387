@@ -23,7 +23,7 @@ public class ProductMapper extends AbstractMapper{
 	//collumns in the db table. 
 	public static final String table="Product";
 	public static final String COLUMNS = " p_id, p_category, p_title, p_release_date, p_type,p_condition, p_console, p_stock,"
-			+ "p_price, p_desc, p_rating,  p_version";
+			+ "p_price, p_status, p_rating,  p_version";
 	private final static String insertStatement = "INSERT INTO "+ table +" VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?)";
 	private final static String lastIDStatement = "SELECT MAX(p_id) FROM "+ table;
 	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=?";
@@ -31,8 +31,7 @@ public class ProductMapper extends AbstractMapper{
 	                                              +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
 	
 	//The delete is not really delete, it just update status to inactive
-	private final static String deleteStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
-            +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
+	private final static String deleteStatement = "UPDATE "+ table +" SET p_status = ?,p_version=?  WHERE p_id = ? and p_version = ?"; 
 	//private final static String deleteStatement = "DELETE FROM"+ table + " WHERE id = ? and version = ?";
 	
 	
@@ -64,12 +63,12 @@ public class ProductMapper extends AbstractMapper{
 		
 		List<Product> productList = new ArrayList<Product>();
 
-		if(DB==null) {
+		//if(DB==null) {
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 			DB = ssHsession.getConnection();
 			
-		}
+		//}
 		
 		PreparedStatement findStatement = null;
 		try {
@@ -89,7 +88,7 @@ public class ProductMapper extends AbstractMapper{
 		
 				
 			}
-			DB.close();
+			//DB.close();
 
 		
 			} catch (SQLException e) {
@@ -218,7 +217,9 @@ public class ProductMapper extends AbstractMapper{
 		// TODO Auto-generated method stub
 		
 		Product subject = (Product) abstractObject;
-		stmt.setInt(2, subject.getP_version());
+		stmt.setString(1, "DELETE");
+		stmt.setInt(2, subject.getP_version()+1);
+		stmt.setInt(4, subject.getP_version());
 		
 		
 	}

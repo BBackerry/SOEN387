@@ -151,5 +151,18 @@ public class CustomerMapper extends AbstractMapper{
 		
 	}
 
+	@Override
+	protected String deleteStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doDelete(DomainObject object, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

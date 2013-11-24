@@ -22,7 +22,10 @@ public class Order extends DomainObject{
 	
 	//lazy load for all orderLines in the order
 	private VirtualList<OrderLine> orderLines;
-	private VirtualList<Order> order;
+	
+	public Order() {
+		super();
+	}
 	
 	public Order(long l) {
 		super();
@@ -107,14 +110,6 @@ public class Order extends DomainObject{
 	public void setCredit_number(String credit_number) {
 		this.credit_number = credit_number;
 	}
-
-		public VirtualList<Order> getOrders() {
-			return order;
-		}
-
-		public void setOrders(VirtualList<Order> virtualList) {
-			order = virtualList;	
-		}
 		
 	public VirtualList<OrderLine> getOrderLines() {
 		return orderLines;

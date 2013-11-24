@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dataMapper.CustomerMapper;
-import enumTables.Country;
-import enumTables.Province;
-import enumTables.ProductCondition;
+import enumTables.*;
 import domain.Customer;
 
 /**
@@ -70,7 +68,14 @@ public class Login extends HttpServlet {
 				}
 				else if(c.getCategory().compareToIgnoreCase("manager")==0){
 					request.getSession().setAttribute("user", c);
-					
+					request.setAttribute("country", Country.values());
+					request.setAttribute("province", Province.values());
+					request.setAttribute("paymentType", PaymentType.values());
+					request.setAttribute("productCategory", ProductCategory.values());
+					request.setAttribute("productCondition", ProductCondition.values());
+					request.setAttribute("productConsole", ProductConsole.values());
+					request.setAttribute("productType", ProductType.values());
+					request.setAttribute("status", Status.values());
 					request.getRequestDispatcher("administration.jsp").forward(request, response);
 					
 				}else{

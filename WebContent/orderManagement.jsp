@@ -44,8 +44,9 @@
     								<th>Status</th>
     								<th>Payment Type</th>
  								</tr>
- 								<c:forEach  items="${order}" var="ordervar" varStatus="loop">
- 								<c:set var="editlink" value="editOrder.jsp?id=${ordervar.id}"></c:set>
+ 								<c:forEach items="${order}" var="ordervar" varStatus="loop">
+ 								<c:set var="editlink" value="EditOrder?orderID=${ordervar.id}"></c:set>
+ 								<c:set var="deletelink" value="deleteConfirm.jsp?orderID=${ordervar.id}"></c:set>
 							    <tr>
 							    	<td>${ordervar.id}</td>
 							    	<td>${ordervar.c_id}</td>
@@ -54,7 +55,9 @@
 							    	<td>${ordervar.status}</td>
 							    	<td>${ordervar.payment_type}</td>
 							    	<td><a href="${editlink}">Edit</a></td>
+							    	<td><a href="${deletelink}">Delete</a></td>
 							    </tr>
+							    <input type="hidden" name="orderID" value="${ordervar.id}"/>
 								</c:forEach>
  							</table>
 						  </div>

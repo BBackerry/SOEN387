@@ -47,7 +47,7 @@ public class OrderMapper extends AbstractMapper{
 		return orderList;	
 	}
 	
-	//get all orders that are made by a customer 
+	//get all orders that are made 
 		public List<Order> getAllOrders() throws SQLException {
 			PreparedStatement findAllOrdersStatement = null; 
 			//setup connection
@@ -135,6 +135,23 @@ public class OrderMapper extends AbstractMapper{
 
 	@Override
 	protected void doUpdate(DomainObject object, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Order find(long id) throws SQLException{
+		return (Order) abstractFind(id);
+	}
+
+	@Override
+	protected String deleteStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doDelete(DomainObject object, PreparedStatement stmt)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		

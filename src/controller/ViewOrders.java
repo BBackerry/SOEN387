@@ -57,7 +57,6 @@ public class ViewOrders extends HttpServlet {
 			List<Order> o = new ArrayList<Order>();
 			//Get orders from lazy load
 			o = om.getAllOrders();
-			System.out.print(o);
 			//Set attribute for view orders
 			request.setAttribute("order", o);
 			forward("orderManagement.jsp", request, response);
@@ -67,20 +66,6 @@ public class ViewOrders extends HttpServlet {
 			forward("orderManagement.jsp", request, response);
 		}
 		
-		/* // TODO Auto-generated method stub
-		String pCategory = request.getParameter("productCategory"); 
-		int pCat = ProductCategory.valueOf(pCategory).ordinal()+1;
-		ProductMapper mapper = new ProductMapper();
-		
-		List<Product> productList = new ArrayList<Product>(); 
-		productList = mapper.findByProductCategory(pCat);
-		
-		request.setAttribute("productList", productList);
-		//request.getSession().setAttribute("productList", productList);
-		
-		//List<Product>
-		request.getRequestDispatcher("editProductList.jsp").forward(request, response);
-		*/
 	}
 
 	/**

@@ -118,5 +118,18 @@ public class AddressMapper extends AbstractMapper{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	protected String deleteStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void doDelete(DomainObject object, PreparedStatement stmt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

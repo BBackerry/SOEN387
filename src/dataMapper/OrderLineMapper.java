@@ -65,7 +65,6 @@ public class OrderLineMapper extends AbstractMapper{
 		while (rs.next()) {
 			orderLineList.add((OrderLine)load(rs));
         }
-		connection.close();
 		return orderLineList;	
 		
 	}

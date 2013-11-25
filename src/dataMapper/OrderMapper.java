@@ -43,7 +43,6 @@ public class OrderMapper extends AbstractMapper{
 		while (rs.next()) {
 			orderList.add((Order)load(rs));
         }
-		connection.close();
 		return orderList;	
 	}
 	
@@ -61,7 +60,6 @@ public class OrderMapper extends AbstractMapper{
 			while (rs.next()) {
 				orderList.add((Order)load(rs));
 	        }
-			connection.close();
 			return orderList;	
 		}
 	protected String findAllOrders(){

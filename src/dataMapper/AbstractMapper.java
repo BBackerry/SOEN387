@@ -39,13 +39,12 @@ public abstract class AbstractMapper {
 		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
 		Connection connection = sshSession.getConnection();
 		
-		findStatement = connection.prepareStatement(findStatement()); 
+		findStatement = connection.prepareStatement(findStatement());
 		findStatement.setLong(1, id.longValue()); 
 		ResultSet rs = findStatement.executeQuery(); 
 		
 		rs.next();
 		result = load(rs);
-		connection.close();
 		return result;	
 	}
 	
@@ -65,7 +64,6 @@ public abstract class AbstractMapper {
 		ResultSet rs = findStatement.executeQuery(); 
 		rs.next();
 		result = load(rs);
-		sshSession.getConnection().close();
 		return result;		
 	}
 	
@@ -108,7 +106,6 @@ public abstract class AbstractMapper {
 		doInsert(subject, insertStatement);
 		insertStatement.execute();
 		loadedMap.put(String.valueOf(subject.getId()), subject);
-		//DB.close();
 		return subject.getId();
 	}
 	

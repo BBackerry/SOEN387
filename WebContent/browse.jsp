@@ -35,7 +35,7 @@
 						<th>Title</th>
 						<th>Price</th>
 						<th>Release Date</th>
-						<th>Description</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				
@@ -49,7 +49,8 @@
 						<td><c:out value="${product.p_desc}"/></td>
 						<td>
 							<form class="form-inline" role="form" action=${pageContext.request.contextPath}/ShoppingCart>
-								<button type="submit" class="btn btn-success">Add to Cart</button>
+								<input type="hidden" name="p_id" value=${product.id}>
+								<button type="submit" name="action" value="addOrderLine" class="btn btn-success">Add to Cart</button>
 							</form>
 						</td>
 					</tr>

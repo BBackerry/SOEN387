@@ -207,7 +207,7 @@ public class ProductMapper extends AbstractMapper{
 		stmt.setInt(7, subject.getP_console());
 		stmt.setInt(8, subject.getP_stock());
 		stmt.setDouble(9, subject.getP_price());
-		stmt.setString(10, subject.getP_desc());
+		stmt.setString(10, subject.getP_status());
 		stmt.setInt(11, subject.getP_rating());
 		stmt.setInt(12, subject.getP_version());
 	

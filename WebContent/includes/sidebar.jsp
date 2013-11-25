@@ -6,15 +6,14 @@
 <div class="col-md-3"> <!-- side bar-->
         <div class="bs-sidebar panel panel-default" role="complementary">
             
-            <div class="panel-heading">Product Category:</div>
+            <div class="panel-heading">Search Product:</div>
             <div class="panel-body">
-                <ul class="nav bs-sidenav ">
-                
-                    <li > <a href="#">Video Game</a></li>
-                    <li > <a href="#">Console</a></li>
-                    <li > <a href="#">Accessory</a></li>
-             
-                </ul>
+                <form action="SearchResults" method="post" class="navbar-form " role="search"> 
+		            <div class="form-group">
+		                <input type="text" class="form-control" name="customerSearch" >
+		            </div>
+		            <button type="submit" class="btn btn-default">Search</button>
+       			</form>
             </div>
         </div>   
         
@@ -22,19 +21,35 @@
             
 		       	 <c:choose>
 		               <c:when test="${not empty user}">
-		                  <p class="text-success">Welcome administrator, 
-		                  <br/>
-		                  <div class="col-sm-offset-6">
+		               
+		               <div class="panel-heading">
+			                   <div class=""text-success">Welcome administrator: </div>
+			            
+			                   <div class="text-right"><a href="Logout" class="btn btn-sm" role="button">LogOut</a> </div>
+			           </div>
+		               
+		                       
+		                  <div class="col-sm-offset-2">
 			                 <h4>
 			                  <c:out value="${user.getF_name() }"></c:out> 
 			                  <c:out value="${user.getL_name() }"></c:out> 
+			                  
 			                 </h4>
 			              </div>
 		                  </p>
 		               </c:when>
 		               
 		               <c:when test="${not empty customer}">
-		                  <p class="lead">Welcome, <c:out value="${customer.getL_name() }"></c:out></p>
+			               <div class="panel-heading">
+			                   <div class=""text-success">Welcome:</div>
+			            
+			                   <div class="text-right"><a href="Logout" class="btn btn-sm" role="button">LogOut</a> </div>
+			               </div>
+			               <br/>
+		                 <div class="col-sm-offset-2">
+		                  <p class="lead"><c:out value="${customer.getL_name() }"></c:out></p>
+		                  
+		                  </div>
 		               </c:when>
 		               
 		               <c:otherwise>
@@ -60,18 +75,7 @@
             
             
             
-        
-        
-            <div class="list-group">
-              <h4 class="list-group-item-heading">Information:</h4>
-              <a href="#" class="list-group-item ">
-                  <p class="list-group-item-text">About us</p>
-              </a>
-              <a href="#" class="list-group-item ">
-                  <p class="list-group-item-text">Contact us</p>
-              </a>
-            </div>
-        
+   
  
         <!--
         

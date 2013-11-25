@@ -11,23 +11,57 @@
 <title> Search Results </title>
 </head>
 <body>
-	<jsp:include page="includes/header.jsp" />
-	<h1> Search Results </h1>
-	<form action = "SearchResults">
-		
-		
-		<c:choose>
-			<c:when test="${empty resultMap}">
-				<h5>No results found</h5>			
-			</c:when>
-			<c:otherwise>
-				<c:forEach items="${resultMap}" var="resultMap">   		
-	    			<input type="radio" name="productSelected" value="${resultMap.key}">${resultMap.value}<br>						
-				</c:forEach>		
-				<button type="submit" class="btn btn-success">View Details</button>
-			</c:otherwise>
-		</c:choose>
-		
-	</form>
+
+
+<div class="container">
+
+        <jsp:include page="includes/header.jsp" />
+	
+		<div class="row">
+		        
+		  <!-- Include the side bar-->
+		  <jsp:include page="includes/sidebar.jsp"/>
+		      
+		  <div class="col-md-9" role="main">
+		        
+				
+			<div class="hero-unit">
+				<h3> Search Results </h3>
+			</div>
+			
+			
+			<div class="col-md-6 col-md-offset-1">
+			
+			 <form action = "SearchResults">
+              
+				<c:choose>
+					<c:when test="${empty resultMap}">
+						<h5>No results found</h5>			
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${resultMap}" var="resultMap">  
+						
+						
+						    <div class="input-group">
+						      <span class="input-group-addon">
+						        <input type="radio" name="productSelected" value="${resultMap.key}">
+						      </span>
+						      <input type="text" class="form-control" value="${resultMap.value} " disabled>
+						    </div><!-- /input-group -->
+						
+						 		
+			    		<!--  	<input type="radio" name="productSelected" value="${resultMap.key}">${resultMap.value}<br>	-->					
+						</c:forEach>		
+						<br/>
+						<button type="submit" class="btn btn-success">View Details</button>
+					</c:otherwise>
+				</c:choose>
+				
+			</form>
+			</div>
+			</div>
+			
+		</div>
+</div>
 </body>
 </html>

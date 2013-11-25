@@ -24,7 +24,7 @@
 <div class="container">
 
     <!--/headerbar --> 
-	<jsp:include page="includes/adminHeader.jsp" />
+	<jsp:include page="includes/header.jsp" />
 
      
 
@@ -57,30 +57,29 @@
 		    <div id="collapseTwo" class="panel-collapse collapse">
 		    
 		      <div class="panel-body">  
-			      <div>    
+			        
 			          <!-- Nav tabs -->  
 			          <ul class="nav nav-tabs">   
-			              <li class="active"><a href="#searchProduct" data-toggle="tab">Search product</a></li>	              
+			              <li><a href="#searchProduct" data-toggle="tab">Search product</a></li>	              
 						  <li><a href="#createProduct" data-toggle="tab">Create product</a></li>
 						  <li><a href="#editProduct" data-toggle="tab">Edit product</a></li>
 					  </ul>		
 					  <!-- Tab panes -->
 					 <div class="tab-content">			  
 						  
-						  <div class="tab-pane" id="searchProduct">
-						     <form action="SearchProductAdmin" role="form">
-						     <br/>
-						     
-														     
-						     
+						  <div class="tab-pane active" id="searchProduct">
+						    <br/>
+						     <form action="SearchResults" role="form">
+						   
 						     <div class="form-group">
-							    <label for="searchString" class="col-sm-2">Input the Product ID to search:</label>
+							    <label for="searchString" class="col-sm-2">Input the Product ID:</label>
 							    <div class="col-sm-6">
-							      <input type="text" class="form-control" id="searchString" name="searchString" placeholder="searchString">
+							      <input type="text" class="form-control" id="adminSearch" name="adminSearch" placeholder="searchString">
 							    </div>
+							    <button type="submit" class="btn btn-default">Search</button>
 							 </div>
 						     
-						     <button type="submit" class="btn btn-default">Submit</button>
+						     
 						     
 						     </form>
 						  
@@ -115,8 +114,9 @@
 						    </div> 
 						  
 						 </div>
-						</div>          
-				  </div>
+						 
+						</div>  <!-- End of Tab-content -->        
+				 
 		       
 		      </div>
 		    </div>

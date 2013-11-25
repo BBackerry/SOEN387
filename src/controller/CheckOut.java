@@ -51,6 +51,8 @@ public class CheckOut extends HttpServlet {
 			if(request.getSession().getAttribute("customer") == null){
 				request.setAttribute("redirect", "CheckOut?step=shipAddress");
 				forward("/includes/login.jsp",request, response);
+				//change to main page for log in
+				//forward("index.jsp",request, response);
 			}else {
 				Customer c = (Customer) request.getSession().getAttribute("customer");
 				

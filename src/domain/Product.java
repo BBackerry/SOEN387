@@ -1,9 +1,6 @@
 package domain;
 
-import java.awt.Image;
-import java.sql.Blob;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Product extends DomainObject{
 	
@@ -68,12 +65,7 @@ public class Product extends DomainObject{
 	}
 	
 	
-	public String getP_desc() {
-		return p_status;
-	}
-	public void setP_desc(String p_desc) {
-		this.p_status = p_desc;
-	}
+
 	public int getP_type() {
 		return p_type;
 	}
@@ -135,6 +127,12 @@ public class Product extends DomainObject{
 	}
 	public void setP_version(int p_version) {
 		this.p_version = p_version;
+	}
+	public String getP_status() {
+		return p_status;
+	}
+	public void setP_status(String p_status) {
+		this.p_status = p_status;
 	}
 	
 	

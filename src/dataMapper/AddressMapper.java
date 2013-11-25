@@ -56,7 +56,6 @@ public class AddressMapper extends AbstractMapper{
 		while (rs.next()) {
 			orderList.add((Address)load(rs));
         }
-		connection.close();
 		return orderList;	
 	}
 	
@@ -121,18 +120,19 @@ public class AddressMapper extends AbstractMapper{
 	@Override
 	protected void doDelete(DomainObject abstractSubject, PreparedStatement stmt)
 			throws SQLException {
-		stmt.setLong(1, abstractSubject.getId());
+		Address a = (Address)abstractSubject;
+		stmt.setLong(1, a.getId());
 	}
 	
 	public boolean insertCustomerAddress(long a_id, long c_id) throws SQLException{
 
-		//if(DB==null) {
+	
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 
 			DB = ssHsession.getConnection();
 			
-		//}
+		
 		PreparedStatement insertStatement = null;
 		
 		insertStatement = DB.prepareStatement(insertCustomerAddress());
@@ -140,10 +140,8 @@ public class AddressMapper extends AbstractMapper{
 		insertStatement.setLong(1, c_id);
 		insertStatement.setLong(2, a_id);
 		if(insertStatement.executeUpdate() == 1){
-			//DB.close();
 			return true;
 		} else {
-			//DB.close();
 			return false;
 		}
 	}
@@ -155,13 +153,13 @@ public class AddressMapper extends AbstractMapper{
 
 	public boolean deleteCustomerAddress(long a_id, long c_id) throws SQLException{
 
-		//if(DB==null) {
+
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 
 			DB = ssHsession.getConnection();
 			
-		//}
+		
 		PreparedStatement insertStatement = null;
 		
 		insertStatement = DB.prepareStatement(deleteCustomerAddress());
@@ -169,15 +167,13 @@ public class AddressMapper extends AbstractMapper{
 		insertStatement.setLong(1, c_id);
 		insertStatement.setLong(2, a_id);
 		if(insertStatement.executeUpdate() == 1){
-			//DB.close();
 			return true;
 		} else {
-			//DB.close();
 			return false;
 		}
 	}
 
 	private String deleteCustomerAddress() {
-		return "DELETE FROM Customer_Address c_id = ? AND a_id = ?";
+		return "DELETE FROM Customer_Address WHERE c_id = ? AND a_id = ?";
 	}
 }

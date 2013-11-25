@@ -87,11 +87,7 @@ public class Login extends HttpServlet {
 				
 			}else{
 				request.setAttribute("error", "Passoword is not correct");
-				if(request.getParameter("redirect") != null && !request.getParameter("redirect").equals("null")) {
-					String redirect = (String)request.getParameter("redirect");
-					request.getRequestDispatcher(redirect).forward(request, response);
-				}
-				request.getRequestDispatcher("/includes/login.jsp").forward(request, response);
+				
 			}
 		
 		

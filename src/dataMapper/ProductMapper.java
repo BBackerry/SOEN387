@@ -93,7 +93,6 @@ public class ProductMapper extends AbstractMapper{
 		
 				
 			}
-			//DB.close();
 
 		
 			} catch (SQLException e) {
@@ -112,10 +111,10 @@ public class ProductMapper extends AbstractMapper{
 		List<Product> allProducts = new ArrayList<Product>();
 		try {
 			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
-			Connection connection = sshSession.getConnection();
+			DB = sshSession.getConnection();
 
 			String findAllProductsSql = "SELECT " + COLUMNS + " FROM Product"; 
-			PreparedStatement findAllProductsStatement = connection.prepareStatement(findAllProductsSql);
+			PreparedStatement findAllProductsStatement = DB.prepareStatement(findAllProductsSql);
 			ResultSet rs = findAllProductsStatement.executeQuery();
 			
 			while(rs.next()) {
@@ -135,7 +134,6 @@ public class ProductMapper extends AbstractMapper{
 				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
-			
 //			connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -257,8 +255,7 @@ public class ProductMapper extends AbstractMapper{
 	
 	@Override
 	protected String findStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "SELECT " + COLUMNS + " FROM Product" + " WHERE p_id = ?";
 	}
 
 

@@ -20,7 +20,7 @@ public class DomainObject {
 	}
 
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

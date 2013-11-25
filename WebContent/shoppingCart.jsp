@@ -44,13 +44,14 @@
 					<tr>
 						<td><input name="qty_${orderLine.product.id}" type="text" value="${orderLine.quantity}"/></td>
 						<td><c:out value="${orderLine.product.p_title}"/></td>
-						<td><c:out value="${orderLine.line_total}"/></td>
+						<c:set var="orderLineTotal" value="${orderLine.line_total}"/>
+						<td><fmt:formatNumber value="${orderLineTotal}" type="currency"/></td>
 					</tr>
 					</c:forEach>
 					<tr>
 						<td></td>
 						<td></td>
-						<c:set var="orderTotal" value="${shoppingCart.getTotal()}" />
+						<c:set var="orderTotal" value="${shoppingCart.getTotal()}"/>
 						<td><fmt:formatNumber value="${orderTotal}" type="currency"/></td>
 					</tr>
 				</tbody>

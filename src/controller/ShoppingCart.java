@@ -99,7 +99,7 @@ public class ShoppingCart extends HttpServlet {
 		
 		if (action.equals("checkout"))
 		{
-			request.getRequestDispatcher("CheckOut.jsp?step=ShippingAddress").forward(request, response);
+			request.getRequestDispatcher("CheckOut.jsp?step=shipAddress").forward(request, response);
 		}
 	}
 

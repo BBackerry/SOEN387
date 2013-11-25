@@ -91,13 +91,13 @@ public abstract class AbstractMapper {
 	
 	public Long insert(DomainObject subject) throws ClassNotFoundException, SQLException {
 		
-		//if(DB==null) {
+
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 
 			DB = ssHsession.getConnection();
 			
-		//}
+
 		PreparedStatement insertStatement = null;
 		
 		insertStatement = DB.prepareStatement(insertStatement());
@@ -113,18 +113,16 @@ public abstract class AbstractMapper {
 	
 	public int delete(long id) {
 		DomainObject deleteItem=loadedMap.get(String.valueOf(id));
-		//if(DB==null) {
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 			DB = ssHsession.getConnection();
-		//}
+		
 		
 		PreparedStatement stmt = null;
 		int rowCount = 0;
 		
 		try {
 			stmt = DB.prepareStatement(deleteStatement());
-			stmt.setLong(3,id);
 			doDelete(deleteItem,stmt);
 			rowCount = stmt.executeUpdate();
 			if (rowCount == 0) {
@@ -143,11 +141,11 @@ public abstract class AbstractMapper {
 
 	private int findNextDatabaseId() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub		
-		if(DB==null) {
+
 			//setConnection();
 			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 			DB = ssHsession.getConnection();
-		}
+
 		PreparedStatement stmt = DB.prepareStatement(lastIDStatement());
 		ResultSet rs = stmt.executeQuery();
 		rs.next();		
@@ -158,11 +156,11 @@ public abstract class AbstractMapper {
 	
 	 public int update(DomainObject object)throws Exception{
      	    	
-			if(DB==null) {
+	
 				//setConnection();
 				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 				DB = ssHsession.getConnection();	
-			}
+	
 			
 			PreparedStatement stmt = null;
 			int rowCount = 0;
@@ -195,13 +193,13 @@ public abstract class AbstractMapper {
 	 protected void throwConcurrencyException(DomainObject object) {
 			//Connection conn = null;
 			
-			if(DB==null) {
+		
 				//setConnection();
 				SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
 
 				DB = ssHsession.getConnection();
 				
-			}
+		
 			
 			System.out.println("There is concurrency problem for the record:  " + object.getId() );
 				

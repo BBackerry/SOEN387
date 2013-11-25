@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -69,29 +71,46 @@ public class OrderLineMapper extends AbstractMapper{
 		
 	}
 
+	@Override 
+	public Long insert(DomainObject subject) throws ClassNotFoundException, SQLException {
+		
+
+			//setConnection();
+			SSHjdbcSession ssHsession = JdbcUtilViaSSH.getConnection();
+
+			DB = ssHsession.getConnection();
+			
+	
+		PreparedStatement insertStatement = null;
+		
+		insertStatement = DB.prepareStatement(insertStatement());
+		doInsert(subject, insertStatement);
+		insertStatement.execute();
+		loadedMap.put(String.valueOf(subject.getId()), subject);
+		return subject.getId();
+	}
+
 	@Override
 	protected String insertStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "INSERT INTO Order_Line ( "+COLUMNS+" ) VALUES ( ? , ? , ? , ? , ? )" ;
 	}
 
 	@Override
 	protected String lastIDStatement() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	protected void doInsert(DomainObject subject,
-			PreparedStatement insertStatement) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
-	protected String updateStatement() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void doInsert(DomainObject abstractSubject,
+			PreparedStatement stmt) throws SQLException {
+		OrderLine subject = (OrderLine) abstractSubject;
+		stmt.setInt(1, (int) subject.getId());
+		stmt.setInt(2, subject.getP_id());
+		stmt.setInt(3, subject.getQuantity());
+		stmt.setDouble(4, subject.getPrice());
+		stmt.setDouble(5, subject.getLine_total());
 	}
 
 	@Override

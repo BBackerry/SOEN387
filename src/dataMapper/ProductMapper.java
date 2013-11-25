@@ -34,7 +34,6 @@ public class ProductMapper extends AbstractMapper{
 	private final static String deleteStatement = "UPDATE "+ table +" SET p_status = ?,p_version=?  WHERE p_id = ? and p_version = ?"; 
 	//private final static String deleteStatement = "DELETE FROM"+ table + " WHERE id = ? and version = ?";
 	
-	
 	//loads up the Product Object
 	protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
 		int p_category  = rs.getInt(2);

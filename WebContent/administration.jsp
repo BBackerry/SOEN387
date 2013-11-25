@@ -68,25 +68,13 @@
 					 <div class="tab-content">			  
 						  
 						  <div class="tab-pane" id="searchProduct">
-						     <form role="form">
+						     <form action="SearchProductAdmin" role="form">
 						     <br/>
 						     
-						     <div class="radio">
-								  <label>
-								    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-								    Search By Product ID
-								  </label>
-							 </div>
-							 <div class="radio">
-								  <label>
-								    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-								    Search By Product Name
-								  </label>
-							 </div>
 														     
 						     
 						     <div class="form-group">
-							    <label for="searchString" class="col-sm-2">Input the search value:</label>
+							    <label for="searchString" class="col-sm-2">Input the Product ID to search:</label>
 							    <div class="col-sm-6">
 							      <input type="text" class="form-control" id="searchString" name="searchString" placeholder="searchString">
 							    </div>

@@ -30,7 +30,7 @@ public class ProductMapper extends AbstractMapper{
 			+ "p_price, p_status, p_rating,  p_version";
 	private final static String insertStatement = "INSERT INTO "+ table +" VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?)";
 	private final static String lastIDStatement = "SELECT MAX(p_id) FROM "+ table;
-	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=?";
+	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=? and p_status = 'ACTIVE'";
 	private final static String updateStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
 	                                              +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
 	private final static String findByName = "SELECT * FROM Product WHERE p_title LIKE ?";
@@ -134,7 +134,6 @@ public class ProductMapper extends AbstractMapper{
 				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
-//			connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -245,6 +244,7 @@ public class ProductMapper extends AbstractMapper{
 		Product subject = (Product) abstractObject;
 		stmt.setString(1, "DELETE");
 		stmt.setInt(2, subject.getP_version()+1);
+		stmt.setLong(3, subject.getId());
 		stmt.setInt(4, subject.getP_version());
 		
 		

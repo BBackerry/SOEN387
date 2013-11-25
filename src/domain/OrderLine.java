@@ -43,7 +43,6 @@ public class OrderLine extends DomainObject{
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-		this.updateTotal();
 	}
 
 	public double getPrice() {
@@ -52,7 +51,6 @@ public class OrderLine extends DomainObject{
 
 	public void setPrice(double price) {
 		this.price = price;
-		this.updateTotal();
 	}
 
 	public double getLine_total() {
@@ -69,10 +67,6 @@ public class OrderLine extends DomainObject{
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public void updateTotal() {
-		this.line_total = this.quantity * this.price;
 	}
 	
 }

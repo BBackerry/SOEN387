@@ -16,7 +16,7 @@ public class Product extends DomainObject{
 	private int p_console;
 	private int p_stock;
 	private Double p_price;
-	private String p_satus;
+	private String p_status;
 	private int p_rating;
 	private int p_version;
 	
@@ -25,7 +25,7 @@ public class Product extends DomainObject{
 			Double p_price, int p_condition,
 			String p_title, int p_category,String p_desc,int p_version) {
 		super(p_id);
-		this.p_satus = p_desc;
+		this.p_status = p_desc;
 		this.p_type = p_type;
 		this.p_release_date = p_release_date;
 		this.p_rating = p_rating;
@@ -49,6 +49,7 @@ public class Product extends DomainObject{
 		this.p_stock = p_qty;
 		this.p_price = p_price;
 		this.p_version = 1;
+		this.p_status = "ACTIVE";
 	
 	}
 	public Product(long id, String productName, Integer category,
@@ -68,10 +69,10 @@ public class Product extends DomainObject{
 	
 	
 	public String getP_desc() {
-		return p_satus;
+		return p_status;
 	}
 	public void setP_desc(String p_desc) {
-		this.p_satus = p_desc;
+		this.p_status = p_desc;
 	}
 	public int getP_type() {
 		return p_type;

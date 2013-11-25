@@ -32,7 +32,7 @@
     </ul>
  
     <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search"> 
+        <form action="SearchResults" method="post" class="navbar-form navbar-left" role="search"> 
             <div class="form-group">
                 <input type="text" class="form-control" name="customerSearch" placeholder="Search">
             </div>

@@ -117,7 +117,7 @@ public class CheckOut extends HttpServlet {
 						ol.setId(o_id);
 						olm.insert(ol);
 					}
-					forward("index.jsp", request, response);
+					forward("CheckOutComplete.jsp", request, response);
 				}
 				else if(request.getParameter("step").equals("addShipAddress")){
 					Address shipAddress = createAddressFromForm(request);

@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jdbcUtil.JdbcUtilViaSSH;
 import jdbcUtil.SSHjdbcSession;
@@ -21,7 +23,9 @@ import domain.Product;
 public class ProductMapper extends AbstractMapper{
 
 	//collumns in the db table. 
-	public static final String table="Product";
+	Map<Integer, String> productResults = new HashMap<Integer, String>();
+
+	public static final String table="Product";         
 	public static final String COLUMNS = " p_id, p_category, p_title, p_release_date, p_type,p_condition, p_console, p_stock,"
 			+ "p_price, p_status, p_rating,  p_version";
 	private final static String insertStatement = "INSERT INTO "+ table +" VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -29,6 +33,7 @@ public class ProductMapper extends AbstractMapper{
 	private final static String findByCategoryStatement = "SELECT * FROM "+ table +" WHERE p_category=?";
 	private final static String updateStatement = "UPDATE "+ table +" SET p_category = ?, p_title = ?, p_type =?, p_condition =?,"
 	                                              +" p_console =?, p_stock =?,p_price =?, p_version = ?  WHERE p_id = ? and p_version = ?";
+	private final static String findByName = "SELECT * FROM Product WHERE p_title LIKE ?";
 	
 	//The delete is not really delete, it just update status to inactive
 	private final static String deleteStatement = "UPDATE "+ table +" SET p_status = ?,p_version=?  WHERE p_id = ? and p_version = ?"; 
@@ -131,12 +136,36 @@ public class ProductMapper extends AbstractMapper{
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
 			
-			connection.close();
+//			connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		return allProducts;	
+	}
+	public Map<Integer, String> getAllProductsByName(String productName){
+		
+		try {
+			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+			Connection connection = sshSession.getConnection();
+			PreparedStatement findProductsByName = connection.prepareStatement(findByName);
+			String product = "%"+productName+"%";
+			findProductsByName.setString(1, product);
+			System.err.println("Product name query ready");
+			ResultSet rs = findProductsByName.executeQuery();
+			System.err.println("Query ran"+findProductsByName);
+			while(rs.next()) {
+				System.err.println("Adding Product to Map");
+				Integer pID = (int) rs.getLong(1);			
+				String pTitle = rs.getString(3);
+				productResults.put(pID, pTitle);								
+			}
+			
+//			connection.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return productResults;
 	}
 	
 	public List<String> findProductCondition(){
@@ -144,7 +173,6 @@ public class ProductMapper extends AbstractMapper{
 		return null;
 	}
 	
-
 	
 	public List<String> findProductConsole(){
 		

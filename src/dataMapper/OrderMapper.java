@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +17,13 @@ import virtualProxy.VirtualList;
 import virtualProxy.VirtualListLoader;
 import jdbcUtil.JdbcUtilViaSSH;
 import jdbcUtil.SSHjdbcSession;
+import virtualProxy.VirtualList;
+import virtualProxy.VirtualListLoader;
 import domain.Address;
 import domain.DomainObject;
 import domain.Order;
 import domain.OrderLine;
-import dataMapper.CustomerMapper.OrderLoader;
+import domain.Product;
 
 public class OrderMapper extends AbstractMapper{
 	
@@ -31,6 +34,8 @@ public class OrderMapper extends AbstractMapper{
 	
 	//collumn of the db table. 
 	public static final String COLUMNS = " o_id, c_id, total, date, status, shipping_address, billing_address, payment_type, credit_number";
+	private final static String updateStatement = "UPDATE  Store_Order SET c_id = ?, total =?, date =?,"
+            +" status =?, shipping_address =?, billing_address =?, payment_type = ?, credit_number=?  WHERE o_id = ?";
 	
 	//get all orders that are made by a customer 
 	public List<Order> getOrdersByCustomerID(Long id) throws SQLException {
@@ -47,8 +52,10 @@ public class OrderMapper extends AbstractMapper{
 		while (rs.next()) {
 			orderList.add((Order)load(rs));
         }
+		//connection.close();
 		return orderList;	
 	}
+
 	
 	//get all orders that are made 
 		public List<Order> getAllOrders() throws SQLException {
@@ -64,6 +71,7 @@ public class OrderMapper extends AbstractMapper{
 			while (rs.next()) {
 				orderList.add((Order)load(rs));
 	        }
+			//connection.close();
 			return orderList;	
 		}
 	protected String findAllOrders(){
@@ -84,7 +92,7 @@ public class OrderMapper extends AbstractMapper{
 	protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
 		int c_id = rs.getInt(2);
 		Double total = rs.getDouble(3);
-		Date date = rs.getTimestamp(4);
+		Timestamp date = rs.getTimestamp(4);
 		int status = rs.getInt(5);
 		Address shipping_address = am.find(Long.valueOf(rs.getInt(6)));
 		Address billing_address = am.find(Long.valueOf(rs.getInt(7)));
@@ -110,6 +118,7 @@ public class OrderMapper extends AbstractMapper{
 		} 
 	}
 
+	
 	@Override
 	protected String insertStatement() {
 		return "INSERT INTO Store_Order ("+COLUMNS +") VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
@@ -147,7 +156,19 @@ public class OrderMapper extends AbstractMapper{
 	@Override
 	protected void doUpdate(DomainObject object, PreparedStatement stmt)
 			throws SQLException {
-		// TODO Auto-generated method stub
+		Order o = (Order) object;
+		stmt.setInt(1, o.getC_id());
+		stmt.setDouble(2, o.getTotal());
+		stmt.setTimestamp(3,(Timestamp) o.getDate());
+		stmt.setInt(4, o.getStatus());
+		stmt.setLong(5, Long.valueOf(o.getShip_address().getId()));
+		stmt.setLong(6, Long.valueOf(o.getBill_address().getId()));
+		stmt.setDouble(7, o.getPayment_type());
+		stmt.setString(8, o.getCredit_number());
+		stmt.setLong(9, o.getId());
+		
+		
+		
 		
 	}
 	
@@ -157,8 +178,7 @@ public class OrderMapper extends AbstractMapper{
 
 	@Override
 	protected String deleteStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "UPDATE Store_Order SET status='2' WHERE o_id=?";
 	}
 
 	@Override
@@ -166,6 +186,19 @@ public class OrderMapper extends AbstractMapper{
 			throws SQLException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public long deleteOrder(long id) throws SQLException {
+		PreparedStatement deleteOrderStatement = null; 
+		//setup connection
+		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+		Connection connection = sshSession.getConnection();
+		//setup query
+		deleteOrderStatement = connection.prepareStatement(deleteStatement()); 
+		deleteOrderStatement.setLong(1, id); 
+		deleteOrderStatement.executeUpdate();
+		return id; 
+	
 	}
 
 }

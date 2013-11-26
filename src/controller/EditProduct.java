@@ -45,17 +45,13 @@ public class EditProduct extends HttpServlet {
 			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
 		}
 		
-		
-		
-		
-		
+	
 		String pCategory = request.getParameter("productCategory"); 
 		int pCat = ProductCategory.valueOf(pCategory).ordinal()+1;
 		
 		
 		List<Product> productList = new ArrayList<Product>(); 
 		productList = pm.findByProductCategory(pCat);
-		
 	
 		
 		request.setAttribute("productList", productList);

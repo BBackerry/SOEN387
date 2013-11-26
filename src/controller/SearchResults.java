@@ -37,9 +37,10 @@ public class SearchResults extends HttpServlet {
 		// TODO Auto-generated method stub
 		String selectedProduct = request.getParameter("productSelected");
 		String searchResults = request.getParameter("customerSearch");
+		String adminSearch = request.getParameter("adminSearch");
 		Product prod = null;
 		ProductMapper pm = new ProductMapper();
-
+	
 		if(selectedProduct!=null){
 			System.err.println(selectedProduct);
 			try {
@@ -51,29 +52,49 @@ public class SearchResults extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.setAttribute("selectedProduct", prod);
+			request.setAttribute("product", prod);
 			forward("viewProduct.jsp", request, response);
-			return;
+			//return;
 		}
-		Map<Integer, String> productResults = new HashMap<Integer, String>();
-
-		System.err.println("searchQuery: "+searchResults);
-		String[] splitSearch = searchResults.split("\\s+");
-		for(int i=0; i<splitSearch.length;i++){
-		System.err.println(splitSearch[i]);
-		productResults = pm.getAllProductsByName(splitSearch[i]);
-
-		}
-				
-		Iterator i = productResults.entrySet().iterator();
-	    while(i.hasNext()){
-	        System.err.println(i.next());
-	    }
-	    
-		request.setAttribute("resultMap", productResults);
-	    forward("searchResults.jsp", request, response);
-	    
 		
+		if(adminSearch!=null){
+			System.err.println("Admin search query"+adminSearch);
+			try {
+				prod =pm.find(Long.valueOf(adminSearch));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("product", prod);
+		    forward("viewProduct.jsp", request, response);
+			
+			
+		}
+		
+		if(searchResults!=null){
+			Map<Integer, String> productResults = new HashMap<Integer, String>();
+	
+			System.err.println("searchQuery: "+searchResults);
+			String[] splitSearch = searchResults.split("\\s+");
+			for(int i=0; i<splitSearch.length;i++){
+			System.err.println(splitSearch[i]);
+			productResults = pm.getAllProductsByName(splitSearch[i]);
+	
+			}
+					
+			Iterator i = productResults.entrySet().iterator();
+		    while(i.hasNext()){
+		        System.err.println(i.next());
+		    }
+		    
+			request.setAttribute("resultMap", productResults);
+		    forward("searchResults.jsp", request, response);
+		    
+		}
 		
 	}
 	

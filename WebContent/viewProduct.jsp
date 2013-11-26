@@ -193,9 +193,7 @@
 						      
 						      </c:when>
 						      <c:otherwise>
-						          <a class="btn btn-primary btn-sm"   href="ShoppingCart">Add to Cart</a>
-						           
-						      
+								<a href="${pageContext.request.contextPath}/ShoppingCart?p_id=${product.id}&action=addOrderLine" class="btn btn-success">Add to Cart</a>
 						      </c:otherwise>
 					      </c:choose>
 					    </div>

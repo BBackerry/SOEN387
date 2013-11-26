@@ -25,7 +25,7 @@
 		 </c:when>
 		 <c:otherwise>
 		 
-		      <li><a href="#">Account</a></li>
+		      <li><a href="EditAccount">Account</a></li>
 		      <li><a href="BrowseProducts">Products </a></li>
 		      <li><a href="ShoppingCart">Shopping cart</a></li>
 		      <li><a href="#">Check Out</a></li>

@@ -123,6 +123,18 @@ public class ShoppingCart extends HttpServlet {
 			request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
 		}
 		
+		else if (action.equals("emptyCart"))
+		{
+			try {
+				o.getOrderLines().getSource().clear();
+				o.updateTotal();
+
+				request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		else if (action.equals("checkout"))
 		{
 			request.getRequestDispatcher("CheckOut?step=shipAddress").forward(request, response);

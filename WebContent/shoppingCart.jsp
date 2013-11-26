@@ -61,8 +61,9 @@
 					</tr>
 				</tbody>
 			</table>
-			<button type="submit" name="action" value="updateQty" class="btn btn-default">Update Qty</button>
-			<button type="submit" name="action" value="checkout" class="btn btn-default">Checkout</button>
+			<button type="submit" name="action" value="checkout" class="btn btn-success">Checkout</button>
+			<button type="submit" name="action" value="updateQty" class="btn btn-info">Update Qty</button>
+			<button type="submit" name="action" value="emptyCart" class="btn btn-warning">Empty Cart</button>
 	   </form>
        </div>
        

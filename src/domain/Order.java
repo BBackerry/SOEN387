@@ -1,5 +1,6 @@
 package domain;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import virtualProxy.VirtualList;
 public class Order extends DomainObject{
 	private int c_id;
 	private double total;
-	private Date date;
+	private Timestamp date;
 	private int status;
 	private Address ship_address;
 	private Address bill_address;
@@ -33,7 +34,7 @@ public class Order extends DomainObject{
 		this.orderLines = new VirtualList<OrderLine>(new NoListLoader<OrderLine>());
 	}
 	
-	public Order(long o_id, int c_id, double total, Date date, int status,
+	public Order(long o_id, int c_id, double total, Timestamp date, int status,
 			Address ship_address, Address bill_address, int payment_type, String credit_number) {
 		super(o_id);
 		this.c_id = c_id;
@@ -63,11 +64,11 @@ public class Order extends DomainObject{
 		this.total = total;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

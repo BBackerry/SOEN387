@@ -131,7 +131,7 @@ public class ProductMapper extends AbstractMapper{
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
 			
-			connection.close();
+			//connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

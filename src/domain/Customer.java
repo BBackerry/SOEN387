@@ -20,6 +20,9 @@ public class Customer extends DomainObject{
 	private String password;
 	private String category;
 	
+	public Customer(){
+		super();
+	}
 	public Customer(long c_id, String f_name,String l_name, Date dob, String email, Date last_modified, String username, String password, String category) {
 		super(c_id);
 		this.f_name = f_name;

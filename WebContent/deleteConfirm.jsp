@@ -33,21 +33,20 @@
         <!-- Include the side bar-->
         <jsp:include page="includes/sidebar.jsp"/>
          
-        
-        
+
         <div class="col-md-9" role="main">
-        
+        <form action="DeleteOrder" class="form-horizontal" role="form" method="post">
             <!-- Main hero unit for a primary marketing message or call to action -->
           <div class="hero-unit">
           
-            <p>Order id <c:out value="${param.orderID}"></c:out> will be deleted</p>
-            
-            <!-- <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>  -->
+           
+            <div class="form-group">
+					 <h4>The Order with the order id <c:out value="${param.orderID}"></c:out> has been deleted!</h4>
+			</div>
+
           </div>
           
-
-         
-	                   
+		</form>    
 	      <div class="col-md-6 col-md-offset-3">
 		</div>
 		</div>

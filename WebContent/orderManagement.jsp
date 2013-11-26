@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <%@ include file="includes/import.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,11 +35,12 @@
         
 <!-- Put content for inventory management here -->
 					<div>
-						<h4>Select the order to manage</h4>					    
+						<h4>Select the order to manage</h4>		
+									    
 						    <table class="table">
 								<tr>
     								<th>Order ID</th>
-    								<th>Customer Name</th>
+    								<th>Customer ID</th>
     								<th>Order Total</th>
     								<th>Date and Time</th>
     								<th>Status</th>
@@ -46,18 +48,29 @@
  								</tr>
  								<c:forEach items="${order}" var="ordervar" varStatus="loop">
  								<c:set var="editlink" value="EditOrder?orderID=${ordervar.id}"></c:set>
- 								<c:set var="deletelink" value="deleteConfirm.jsp?orderID=${ordervar.id}"></c:set>
+ 								<c:set var="deletelink" value="DeleteOrder?orderID=${ordervar.id}"></c:set>
+ 							
 							    <tr>
 							    	<td>${ordervar.id}</td>
 							    	<td>${ordervar.c_id}</td>
 							    	<td>${ordervar.total}</td>
 							    	<td>${ordervar.date}</td>
-							    	<td>${ordervar.status}</td>
-							    	<td>${ordervar.payment_type}</td>
+							    	<c:choose>
+							    	<c:when test="${ordervar.status=='1'}"><td>Pending</td></c:when>
+							    	<c:when test="${ordervar.status=='2'}"><td>Cancelled</td></c:when>
+							    	<c:when test="${ordervar.status=='3'}"><td>Back Ordered</td></c:when>
+							    	<c:when test="${ordervar.status=='4'}"><td>Shipped</td></c:when>
+							    	</c:choose>
+							    	<c:choose>
+							    	<c:when test="${ordervar.payment_type=='1'}"><td>VISA</td></c:when>
+							    	<c:when test="${ordervar.payment_type=='2'}"><td>MASTERCARD</td></c:when>
+							    	<c:when test="${ordervar.payment_type=='3'}"><td>AMERICAN EXPRESS</td></c:when>
+							    	<c:when test="${ordervar.payment_type=='4'}"><td>PAYPAL</td></c:when>
+							    	</c:choose>
 							    	<td><a href="${editlink}">Edit</a></td>
 							    	<td><a href="${deletelink}">Delete</a></td>
+							    	
 							    </tr>
-							    <input type="hidden" name="orderID" value="${ordervar.id}"/>
 								</c:forEach>
  							</table>
 						  </div>

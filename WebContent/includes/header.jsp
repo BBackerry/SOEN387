@@ -26,8 +26,8 @@
 		 <c:otherwise>
 		 
 		      <li><a href="#">Account</a></li>
-		      <li><a href="#">Products </a></li>
-		      <li><a href="#">Shopping cart</a></li>
+		      <li><a href="BrowseProducts">Products </a></li>
+		      <li><a href="ShoppingCart">Shopping cart</a></li>
 		      <li><a href="#">Check Out</a></li>
 		 
 		 </c:otherwise>

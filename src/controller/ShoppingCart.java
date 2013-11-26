@@ -45,23 +45,41 @@ public class ShoppingCart extends HttpServlet {
 			request.getSession().setAttribute("shoppingCart", o);
 		}
 		
-		if (action.equals("addOrderLine"))
+		if (action == null) {
+			request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+		}
+		
+		else if (action.equals("addOrderLine"))
 		{
 			ProductMapper productMapper = new ProductMapper();
+			List<String> errorMessages = new ArrayList<String>(1);
 			int p_id = Integer.parseInt(request.getParameter("p_id"));
 			Product p;
 			try {
 				p = productMapper.find((long)p_id);
-				if (!containsProduct(o, p)) {
-					OrderLine ol = new OrderLine(p_id, 1, p.getP_price(), p.getP_price(), p);
-					o.getOrderLines().getSource().add(ol);
-					request.getSession().setAttribute("shoppingCart", o);
+				if (p.getP_stock() > 0)
+				{
+					if (!containsProduct(o, p)) {
+						OrderLine ol = new OrderLine(p_id, 1, p.getP_price(), p.getP_price(), p);
+						o.getOrderLines().getSource().add(ol);
+						request.getSession().setAttribute("shoppingCart", o);
+					}
+					else {
+						for(OrderLine ol : o.getOrderLines().getSource()) {
+							if (ol.getP_id() == p.getId()) {
+								if (ol.getProduct().getP_stock() > ol.getQuantity()) {
+									ol.setQuantity(ol.getQuantity() + 1);
+								}
+								else {
+									errorMessages.add("Sorry but there is not enough items in stock for " + ol.getProduct().getP_title());
+								}
+							}
+						}
+					}
 				}
 				else {
-					for(OrderLine ol : o.getOrderLines().getSource()) {
-						if (ol.getP_id() == p.getId())
-							ol.setQuantity(ol.getQuantity() + 1);
-					}
+					errorMessages.add("Sorry but there is not enough items in stock for " + p.getP_title());
+					request.setAttribute("errorMessages", errorMessages);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -71,7 +89,7 @@ public class ShoppingCart extends HttpServlet {
 			request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
 		}
 		
-		if (action.equals("updateQty"))
+		else if (action.equals("updateQty"))
 		{
 			Map<Integer, Integer> newQty = new HashMap<Integer, Integer>();
 			Enumeration<String> allParams = request.getParameterNames();
@@ -84,20 +102,29 @@ public class ShoppingCart extends HttpServlet {
 					newQty.put(p_id, qty);
 				}
 			}
-			
+
+			List<String> errorMessages = new ArrayList<String>(5);
 			try {
 				for(OrderLine ol : o.getOrderLines().getSource()) {
-					ol.setQuantity(newQty.get((int)ol.getP_id()));
+					int qty = newQty.get((int)ol.getP_id());
+					if (qty <= ol.getProduct().getP_stock()) {
+						ol.setQuantity(qty);
+					}
+					else {
+						errorMessages.add("Sorry but there is not enough items in stock for " + ol.getProduct().getP_title());
+					}
 				}
 				o.updateTotal();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
+			request.setAttribute("errorMessages", errorMessages);
 			request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
 		}
 		
-		if (action.equals("checkout"))
+		else if (action.equals("checkout"))
 		{
 			request.getRequestDispatcher("CheckOut.jsp?step=shipAddress").forward(request, response);
 		}

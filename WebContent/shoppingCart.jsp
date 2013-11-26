@@ -29,6 +29,11 @@
        </div>
        
        <div>
+		<c:forEach var="message" items="${errorMessages}">
+			<div class="alert alert-danger">
+				<c:out value="${message}"/>
+			</div>
+		</c:forEach>
        <form role="form">
 			<table class="table table-hover">
 				<thead>

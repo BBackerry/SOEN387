@@ -45,7 +45,7 @@ public abstract class AbstractMapper {
 		
 		rs.next();
 		result = load(rs);
-		connection.close();
+		//connection.close();
 		return result;	
 	}
 	
@@ -65,7 +65,7 @@ public abstract class AbstractMapper {
 		ResultSet rs = findStatement.executeQuery(); 
 		rs.next();
 		result = load(rs);
-		sshSession.getConnection().close();
+		//sshSession.getConnection().close();
 		return result;		
 	}
 	

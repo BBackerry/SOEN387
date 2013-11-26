@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -126,7 +125,7 @@ public class ShoppingCart extends HttpServlet {
 		
 		else if (action.equals("checkout"))
 		{
-			request.getRequestDispatcher("CheckOut.jsp?step=shipAddress").forward(request, response);
+			request.getRequestDispatcher("CheckOut?step=shipAddress").forward(request, response);
 		}
 	}
 

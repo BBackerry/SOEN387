@@ -78,13 +78,13 @@ public class ShoppingCart extends HttpServlet {
 				}
 				else {
 					errorMessages.add("Sorry but there is not enough items in stock for " + p.getP_title());
-					request.setAttribute("errorMessages", errorMessages);
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				errorMessages.add("There seems to be a connectivity problem. Please try again later");
 			}
 			o.updateTotal();
 
+			request.setAttribute("errorMessages", errorMessages);
 			request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
 		}
 		
@@ -92,31 +92,33 @@ public class ShoppingCart extends HttpServlet {
 		{
 			Map<Integer, Integer> newQty = new HashMap<Integer, Integer>();
 			Enumeration<String> allParams = request.getParameterNames();
-			while(allParams.hasMoreElements()) {
-				String paramName = (String) allParams.nextElement();
-				if (paramName.contains("qty_")) {
-					String[] parsedParam = paramName.split("_");
-					int p_id = Integer.parseInt(parsedParam[1]);
-					int qty = Integer.parseInt(request.getParameter(paramName));
-					newQty.put(p_id, qty);
-				}
-			}
-
 			List<String> errorMessages = new ArrayList<String>(5);
 			try {
+				while(allParams.hasMoreElements()) {
+					String paramName = (String) allParams.nextElement();
+					if (paramName.contains("qty_")) {
+						String[] parsedParam = paramName.split("_");
+						int p_id = Integer.parseInt(parsedParam[1]);
+						int qty = Integer.parseInt(request.getParameter(paramName));
+						newQty.put(p_id, qty);
+					}
+				}
+	
 				for(OrderLine ol : o.getOrderLines().getSource()) {
 					int qty = newQty.get((int)ol.getP_id());
 					if (qty <= ol.getProduct().getP_stock()) {
 						ol.setQuantity(qty);
 					}
 					else {
-						errorMessages.add("Sorry but there is not enough items in stock for " + ol.getProduct().getP_title());
+						errorMessages.add("Sorry, but there is not enough items in stock for " + ol.getProduct().getP_title());
 					}
 				}
 				o.updateTotal();
-				
+
 			} catch (SQLException e) {
-				e.printStackTrace();
+				errorMessages.add("There seems to be a connectivity problem. Please try again later");
+			} catch (NumberFormatException e) {
+				errorMessages.add("Sorry, but the quantity you entered doesn't seem to be a number");
 			}
 
 			request.setAttribute("errorMessages", errorMessages);

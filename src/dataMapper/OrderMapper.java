@@ -132,7 +132,7 @@ public class OrderMapper extends AbstractMapper{
 	@Override
 	protected String updateStatement() {
 		// TODO Auto-generated method stub
-		return null;
+		return updateStatement;
 	}
 
 	@Override

@@ -43,8 +43,7 @@ public class OrderManager extends HttpServlet {
 		Date order_date = new Date(0);
 		String total = request.getParameter("purchaseTotal");
 		String credit_number = request.getParameter("creditNum");
-		//if (credit_number.isEmpty()){ credit_number = "0";}
-		Date shipping_date = new Date(0);
+		if (credit_number.isEmpty()){ credit_number = "0";}
 		String payment_type = request.getParameter("paymentType");
 		String status = request.getParameter("status");
 		String shipping_street = request.getParameter("shippingStreet");
@@ -72,11 +71,17 @@ public class OrderManager extends HttpServlet {
 				Integer.parseInt(shipping_province),
 				Integer.parseInt(shipping_country),
 				shipping_appt, 
-				shipping_date, shipping_city);
+				currentClock,
+				shipping_city);
 		
-		Address billingAddress = new Address(Long.valueOf(bill_id), billing_street, billing_postal_code,
-				Integer.parseInt(billing_province), Integer.parseInt(billing_country), billing_appt,
-				currentClock, billing_city);
+		Address billingAddress = new Address(Long.valueOf(bill_id),
+				billing_street,
+				billing_postal_code,
+				Integer.parseInt(billing_province),
+				Integer.parseInt(billing_country),
+				billing_appt,
+				currentClock,
+				billing_city);
 		
 		
 		Order updateOrder = new Order(Long.parseLong(order_id), 

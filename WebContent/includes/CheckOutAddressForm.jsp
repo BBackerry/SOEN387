@@ -29,64 +29,109 @@
 	<% if(load){ %>
 		<input type="hidden" name="a_id" value="<%= a.getId() %>"/>
 	<% } %>
-	<h1> <%= header %></h1>
+	
+	<div class="hero-unit">
+       	<h3> <%= header %></h3>
+    </div>
+	
 	<%= desc %>
 	<br/>
 	<br/>
-	Street:
-	<input type="text" id="street" name="street" 
-		<%if(load){%>
+
+	
+	
+	<div class="form-group">
+	    <label for="street" class="col-sm-3 control-label">Street:</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" id="street" name="street" 
+	      <%if(load){%>
 			value="<%=a.getStreet() %>"
-		<%} %>
-	/>
-	<br/>
-	Apt/Suite/Unit:
-	<input type="text" id="aptSuiteUnit" name="aptSuiteUnit" 
-		<%if(load){%>
+		  <%} %>
+	     />
+	    </div>
+    </div>
+	
+	
+	
+	
+	
+	
+    <div class="form-group">
+	    <label for="aptSuiteUnit" class="col-sm-3 control-label">Apt/Suite/Unit:</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" id="aptSuiteUnit" name="aptSuiteUnit" 
+	      <%if(load){%>
 			value="<%if(a.getApt_suite_unit() != null){%>
 						<%=a.getApt_suite_unit() %>
 					<% } %>"
 		<%} %>
-	/>
-	<br/>
-	City:
-	<input type="text" id="city" name="city" 
-		<%if(load){%>
+	       />
+	    </div>
+    </div>
+	
+		
+    <div class="form-group">
+	    <label for="city" class="col-sm-3 control-label">	City:</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" id="city" name="city" 
+	      <%if(load){%>
 			value="<%=a.getCity() %>"
-		<%} %>
-	/>
-	<br/>
-	Postal Code:
-	<input type="text" id="postal" name="postal" 
-		<%if(load){%>
+	  	<%} %>
+	      />
+	    </div>
+    </div>
+	
+		
+    <div class="form-group">
+	    <label for="postal" class="col-sm-3 control-label">Postal Code:</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" id="postal" name="postal" 
+	      <%if(load){%>
 			value="<%=a.getPostal_code() %>"
 		<%} %>
-	/>
-	<br/>
-	Province:
-	<select id="province" name="province">
-		<% for(int i = 0; i < enumTables.Province.values().length; i++){%>
-			<option value="<%=i+1%>" 
-				<%if(load && a.getProvince()== i+1){%>
-					selected
-				<%} %>>
-				<%= enumTables.Province.values()[i] %>
-			</option>
-		<% } %>
-	</select>
-	<br/>
-	Country:
-	<select id="country" name="country">
-		<% for(int i = 0; i < enumTables.Country.values().length; i++){ %>
-			<option value="<%=i+1%>"
-				<%if(load && a.getProvince()== i+1){%>
-					selected
-				<%} %>> 
-				<%= enumTables.Country.values()[i] %>
-			</option>
-		<% } %>
-	</select>
-	<br/>
+	      />
+	    </div>
+    </div>
+	
+
+    
+     <div class="form-group">
+	    <label for="province" class="col-sm-3 control-label">Province:</label>
+	    <div class="col-sm-5">
+	      	<select  class="form-control" id="province" name="province">
+				<% for(int i = 0; i < enumTables.Province.values().length; i++){%>
+					<option value="<%=i+1%>" 
+						<%if(load && a.getProvince()== i+1){%>
+							selected
+						<%} %>>
+						<%= enumTables.Province.values()[i] %>
+					</option>
+				<% } %>
+			</select>
+	      
+	    </div>
+    </div>
+	
+	
+    <div class="form-group">
+	    <label for="country" class="col-sm-3 control-label">Country:</label>
+	    <div class="col-sm-5">
+	      <select class="form-control" id="country" name="country">
+			<% for(int i = 0; i < enumTables.Country.values().length; i++){ %>
+				<option value="<%=i+1%>"
+					<%if(load && a.getProvince()== i+1){%>
+						selected
+					<%} %>> 
+					<%= enumTables.Country.values()[i] %>
+				</option>
+			<% } %>
+		 </select>
+	      
+	      
+	    </div>
+    </div>
+
+
 	<%
 		String buttontxt = "";
 		if(type.equals("addBillAddress")){
@@ -101,5 +146,5 @@
 	%>
 	<br/>
 	<br/>
-	<button type="submit" class="btn btn-success" ><%= buttontxt %></button>	
+	<div class="col-sm-offset-2"><button type="submit" class="btn btn-success" ><%= buttontxt %></button>	</div>
 </form>

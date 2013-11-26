@@ -86,7 +86,9 @@ public class Login extends HttpServlet {
 					request.getSession().setAttribute("productConsole", ProductConsole.values());
 					request.getSession().setAttribute("productType", ProductType.values());
 					//Customer log in successfully, transfer to customer account page
-					request.getRequestDispatcher("account.jsp").forward(request, response);
+					//request.getRequestDispatcher("account.jsp").forward(request, response);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+					
 				}
 				
 			}else{

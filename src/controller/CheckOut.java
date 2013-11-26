@@ -114,6 +114,29 @@ public class CheckOut extends HttpServlet {
 				}
 				else if(request.getParameter("step").equals("processOrder")){
 					Order order = (Order)request.getSession().getAttribute("order");
+					
+					
+					//check the quantiy 
+					
+					int lineNum = order.getOrderLines().getSource().size();
+					ArrayList<Product> invUpdate = new ArrayList<Product>();
+					for(int i =0;i<lineNum;i++){
+						Product pl = order.getOrderLines().getSource().get(i).getProduct();
+						int orderQty =order.getOrderLines().getSource().get(i).getQuantity();
+						pl.setP_stock((pl.getP_stock()-orderQty));
+						invUpdate.add(pl);
+					}
+					
+					//If result >0, the result indicate the product id which have concurrency issue. 
+					int result = pm.updateInventory(invUpdate);
+					
+					if(result>0){
+						String errmsg = "The product ID " + result + "has been updated by other people,pls reselect the product";
+						System.out.println("The inventory update result is " +result);
+						request.setAttribute("error", errmsg);
+						forward("",request,response);
+					}
+					
 					Long o_id = om.insert(order);
 					for(OrderLine ol : order.getOrderLines().getSource()){
 						ol.setId(o_id);

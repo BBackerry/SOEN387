@@ -38,6 +38,7 @@ public class ProductMapper extends AbstractMapper{
 	//The delete is not really delete, it just update status to inactive
 	private final static String deleteStatement = "UPDATE "+ table +" SET p_status = ?,p_version=?  WHERE p_id = ? and p_version = ?"; 
 	//private final static String deleteStatement = "DELETE FROM"+ table + " WHERE id = ? and version = ?";
+	private final static String findVersionStatement = "SELECT p_version  FROM " + table + " WHERE  p_id = ?";
 	
 	
 	//loads up the Product Object
@@ -134,7 +135,6 @@ public class ProductMapper extends AbstractMapper{
 				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
 						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
 			}
-			//connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -166,9 +166,58 @@ public class ProductMapper extends AbstractMapper{
 		return productResults;
 	}
 	
-	public List<String> findProductCondition(){
+	public int updateInventory(List<Product> pl){
 		
-		return null;
+		int prodID=0;
+		SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+		Connection connection = sshSession.getConnection();
+		boolean currencyIssue =false;
+		int currentVersion;
+		int newVersion = 0;
+		int i =0;
+		while((i<pl.size())&&!currencyIssue){
+			currentVersion =pl.get(i).getP_version();
+			try {
+				PreparedStatement findVersion = connection.prepareStatement(findVersionStatement);
+				findVersion.setLong(1, pl.get(i).getId());
+				ResultSet rs = findVersion.executeQuery();
+				rs.next();
+				newVersion = rs.getInt(1) ;
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			if(currentVersion != newVersion){
+				currencyIssue = true;
+				prodID = (int) pl.get(i).getId();
+			}
+			
+			i++;
+		}
+		
+		if(!currencyIssue){
+			
+			
+			for(int j=0;j<pl.size();j++){
+				
+				try {
+					update(pl.get(j));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return 0;
+			
+		}else{
+			
+			return prodID;
+			
+		}
+		
+	
 	}
 	
 	

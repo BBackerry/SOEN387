@@ -48,18 +48,13 @@
          
 	                   
 	      <div class="col-md-offset-1">
-	      
-	       
-	      
-		   <c:forEach items="${productList}" var="product" varStatus="loop">
-			
-			<c:choose>
-			
-			    <c:when  test="${param.pid eq product.id}">
-			    
-	
-			    
-		         <div>
+	     <!-- The following condition happen when there is concurrency problem, the following get the updated product info -->
+	      <c:choose>
+	     
+	       <c:when test="${not empty correctProduct }">
+	       <c:set var="product" value="${correctProduct}"></c:set>
+	 
+		        <div>
 		         
 					<form action="InventoryManager" class="form-horizontal" role="form" method="post">
 					
@@ -70,21 +65,158 @@
 					    </div>
 					  </div>
 					
-		<!--  
-					  <div class="form-group">
-					    <label for="productCategory" class="col-sm-2 control-label">Product Category</label>
-					    <div class="col-sm-6">
-					      <input type="text" class="form-control" id="productCat" name="productCat" value="${product.p_category }" placeholder="productCat" >
+	
+		
+				<!-- The form-control class cannot pass value to servlet, so pass to servlet with below -->
+				      <input type="hidden"  id="pid" name="pid" value="${product.id }" />
+				      <input type="hidden"  name="productRelease"  id="productRelease"  value="${product.p_release_date}"  />
+				      <input type="hidden"  id="productVersion" name="productVersion" value="${product.p_version }" />
+				
+				
+					<div class="form-group">
+			 	 	<label for="productCategory" class="col-sm-3 control-label">Product Category</label>
+		 			<div class="col-sm-5">
+			      		<select class="form-control" name="productCategory" id="productCategory" placeholder="productCategory">
+					    	<c:forEach items="${productCategory}" var="categoryType" varStatus="loop">
+					    	   
+					    	    <c:if test="${loop.count eq product.p_category}">
+				   				    <option value="${loop.count}" selected="selected"><c:out value="${categoryType}"  /></option> 
+                               </c:if>
+                               <c:if test="${loop.count ne product.p_category}">
+				   				    <option value="${loop.count}"><c:out value="${categoryType}" /></option> 
+                               </c:if>
+				 			</c:forEach>
+				 		</select>  
+			    	</div>
+					</div>
+		
+		
+		
+					<div class="form-group">
+					    <label for="productName" class="col-sm-3 control-label">Product Name</label>
+					    <div class="col-sm-5">
+					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" >
+					    </div>
+					</div>
+					  
+					<div class="form-group">
+					    <label for="quantity" class="col-sm-3 control-label">Product Quantity</label>
+					    <div class="col-sm-5">
+					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity">
+					    </div>
+					</div>
+					  
+					<div class="form-group">
+					    <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
+					    <div class="col-sm-5">
+					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice">
+					    </div>
+					</div>
+					  
+		
+		
+					<div class="form-group">
+						    <label for="productType" class="col-sm-3 control-label">Product Type</label>
+						    <div class="col-sm-5">
+						      <select class="form-control" name="productType" id="productType" placeholder="productType">
+								    <c:forEach items="${productType}" var="type" varStatus="loop">
+							   			   <c:if test="${loop.count eq product.p_type}">
+				   				    		 	<option value="${loop.count}" selected="selected"><c:out value="${type}"  /></option> 
+                              			   </c:if>
+			                               <c:if test="${loop.count ne product.p_type}">
+							   				    <option value="${loop.count}"><c:out value="${type}" /></option> 
+			                               </c:if>
+							 		</c:forEach>
+							 </select>  
+						    </div>
+				    </div>
+		
+		
+		
+		
+					<div class="form-group">
+						    <label for="productCondition" class="col-sm-3 control-label">Product Condition</label>
+						    <div class="col-sm-5">
+						      <select class="form-control" name="productCondition" id="productCondition" placeholder="productCondition">
+								    <c:forEach items="${productCondition}" var="conditionType" varStatus="loop">
+							   			   <c:if test="${loop.count eq product.p_condition}">
+				   				    		 	<option value="${loop.count}" selected="selected"><c:out value="${conditionType}"  /></option> 
+                              			   </c:if>
+			                               <c:if test="${loop.count ne product.p_condition}">
+							   				    <option value="${loop.count}"><c:out value="${conditionType}" /></option> 
+			                               </c:if>
+							 		</c:forEach>
+							 </select>  
+						    </div>
+				    </div>
+		
+		
+				     <div class="form-group">
+					    <label for="productConsole" class="col-sm-3 control-label">Console Type</label>
+					    <div class="col-sm-5">
+					      <select class="form-control" name="productConsole" id="productConsole" placeholder="productConsole">
+							    <c:forEach items="${productConsole}" var="consoleType" varStatus="loop">
+							     			<c:if test="${loop.count eq product.p_type}">
+				   				    		 	<option value="${loop.count}" selected="selected"><c:out value="${consoleType}"  /></option> 
+                              			   </c:if>
+			                               <c:if test="${loop.count ne product.p_console}">
+							   				    <option value="${loop.count}"><c:out value="${consoleType}" /></option> 
+			                               </c:if>
+							    
+							    
+						 		</c:forEach>
+						 </select>  
 					    </div>
 					  </div>
-		-->
 		
-		<!-- The form-control class cannot pass value to servlet, so pass to servlet with below -->
-		      <input type="hidden"  id="pid" name="pid" value="${product.id }" />
-		      <input type="hidden"  name="productRelease"  id="productRelease"  value="${product.p_release_date}"  />
-		      <input type="hidden"  id="productVersion" name="productVersion" value="${product.p_version }" />
+			  
+					  <div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-10">
+					      <button type="submit" class="btn btn-primary">Save</button>
+					    </div>
+					  </div>
+					</form>
+					     
+         
+         		</div>    
+	       
+	       
+	       
+	       
+	       
+	       
+	       
+	       </c:when>
+	       
+	       <c:otherwise>
+	      
+		   <c:forEach items="${productList}" var="product" varStatus="loop">
+			
+			<c:choose>
+			
+			    <c:when  test="${param.pid eq product.id}">
+			    
+	
+			    
+		        <div>
+		         
+					<form action="InventoryManager" class="form-horizontal" role="form" method="post">
+					
+					 <div class="form-group">
+					    <label for="productID" class="col-sm-3 control-label">Product ID</label>
+					    <div class="col-sm-5">
+					      <input type="text" class="form-control" id="productID" name="productID" value="${product.id }" placeholder="productID" disabled>
+					    </div>
+					  </div>
+					
+	
 		
-		
+				<!-- The form-control class cannot pass value to servlet, so pass to servlet with below -->
+				      <input type="hidden"  id="pid" name="pid" value="${product.id }" />
+				      <input type="hidden"  name="productRelease"  id="productRelease"  value="${product.p_release_date}"  />
+				      <input type="hidden"  id="productVersion" name="productVersion" value="${product.p_version }" />
+				
+				
 					<div class="form-group">
 			 	 	<label for="productCategory" class="col-sm-3 control-label">Product Category</label>
 		 			<div class="col-sm-5">
@@ -203,8 +335,8 @@
 	 		 </c:forEach>
 	 		 
 	 	
-	         	
-	
+	  </c:otherwise>
+	</c:choose>
           
 		 </div>
      

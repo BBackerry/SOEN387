@@ -50,7 +50,7 @@
          
          <div>
          
-			<form action="InsertProduct" class="form-horizontal" role="form" method="post">
+			<form action="CreateProduct" class="form-horizontal" role="form" method="post">
 			  <div class="form-group">
 			    <label for="productCategory" class="col-sm-2 control-label">Product Category</label>
 			    <div class="col-sm-6">

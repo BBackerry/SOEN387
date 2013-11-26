@@ -66,6 +66,11 @@ public class InventoryManager extends HttpServlet {
 		try {
 			int updateResult = pm.update(updateProduct);
 			System.out.println("The update result is " + updateResult);
+			
+			if(updateResult==0){
+				Product correctProduct =  pm.find(Long.valueOf(id));
+				request.setAttribute("correctProduct", correctProduct);
+			}
 			request.setAttribute("updateOK", updateResult);
 			request.getRequestDispatcher("editProductDetail.jsp").forward(request, response);
 				

@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.CustomerMapper;
+import dataMapper.ProductMapper;
+import domain.DomainObject;
+import domain.Product;
 import enumTables.ProductCategory;
-import enumTables.ProductCondition;
-import enumTables.ProductConsole;
-import enumTables.ProductType;
 
 /**
- * Servlet implementation class CreateProduct
+ * Servlet implementation class InsertProduct
  */
 @WebServlet("/CreateProduct")
 public class CreateProduct extends HttpServlet {
@@ -34,32 +38,53 @@ public class CreateProduct extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String pCategory = request.getParameter("productCategory");
+		String pName = request.getParameter("productName");
+		String pType = request.getParameter("productType");
+		String pConsole = request.getParameter("productConsole");
+		String pCondition = request.getParameter("productCondition");
+		String pQty = request.getParameter("productQuantity");
+		String pPrice = request.getParameter("productPrice");
+		Date date=new Date();
+		Timestamp currentclock=new Timestamp(date.getTime());
 		
-		String productCategory =  request.getParameter("productCategory");
+		Product newProduct;
 		
-		//ProductTypeMapper pm = new ProductTypeMapper();
-		//ProductConditionMapper pcm = new ProductConditionMapper();
-		//ProductConsoleMapper pcon = new ProductConsoleMapper();
+		int pCat = ProductCategory.valueOf(pCategory).ordinal()+1;
+		if(pType==null)
+			newProduct = new Product(pCat, pName, currentclock, 0, Integer.parseInt(pCondition), Integer.parseInt(pConsole),
+					 Integer.parseInt(pQty),Double.parseDouble(pPrice));
+		else{
+			newProduct = new Product(pCat, pName, currentclock, Integer.parseInt(pType), Integer.parseInt(pCondition), Integer.parseInt(pConsole),
+					 Integer.parseInt(pQty),Double.parseDouble(pPrice));
+		}
 		
-		//List<String> productCondition=pcm.findAllProductCondition();
-		//List<String> productType = pm.findAllProductType();
-	    //List<String> productConsole = pcon.findAllProductConsole();
+		ProductMapper pm;
+		//get sessions product mapper if it exists
+		if(request.getSession().getAttribute("productMapper") == null){
+			pm = new ProductMapper();
+			request.getSession().setAttribute("productMapper", pm);
+		} else {
+			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
+		}
 		
-		//for(int i=0;i<productType.size();i++)
-		//	System.out.println("The product type is "+ productType.get(i));
-		
-		
-		//request.setAttribute("productCondition", ProductCondition.values());
-		//request.getSession().setAttribute("productCondition", ProductCondition.values());
-		//request.setAttribute("productType", ProductType.values());
-		//request.getSession().setAttribute("productType", ProductType.values());
-		//request.setAttribute("productConsole", ProductConsole.values());
-		//request.getSession().setAttribute("productConsole", ProductConsole.values());
-		//request.setAttribute("productCategory", productCategory);
-		//request.getSession().setAttribute("pCategory", ProductCategory.values());
-	
-		//request.getRequestDispatcher("createProduct.jsp").forward(request, response);
-		
+	    long newID;
+	    try {
+			newID = pm.insert(newProduct) ;
+			
+			if(newID>0)
+			    request.setAttribute("newID", newID);
+			//System.out.println(newID);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    request.getRequestDispatcher("createProduct.jsp").forward(request, response);
+	    
 	}
 
 	/**
@@ -67,7 +92,7 @@ public class CreateProduct extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request,response);
+		doGet(request, response);
 	}
 
 }

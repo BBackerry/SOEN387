@@ -188,10 +188,15 @@
 					      <c:choose>
 						       <c:when test="${not empty user}">
 						           
-				                  <td><a class="btn btn-primary btn-sm"   href="${editlink}">Edit</a></td>
-	   				               <td><a class="btn btn-warning btn-sm"   href="${deletelink}">Delete</a></td>
+				                  <a class="btn btn-primary btn-sm"   href="${editlink}">Edit</a>
+	   				              <a class="btn btn-warning btn-sm"   href="${deletelink}">Delete</a>
 						      
 						      </c:when>
+						      <c:otherwise>
+						          <a class="btn btn-primary btn-sm"   href="ShoppingCart">Add to Cart</a>
+						           
+						      
+						      </c:otherwise>
 					      </c:choose>
 					    </div>
 					  </div>

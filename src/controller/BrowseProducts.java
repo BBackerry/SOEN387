@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -31,10 +32,26 @@ public class BrowseProducts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
 		ProductMapper pm = new ProductMapper();
-		List<Product> allProducts = pm.findAllProducts();
-		request.setAttribute("allProducts", allProducts);
-		request.getRequestDispatcher("browse.jsp").forward(request, response);
+		
+		if (action == null) {
+			List<Product> allProducts = pm.findAllProducts();
+			request.setAttribute("allProducts", allProducts);
+			request.getRequestDispatcher("browse.jsp").forward(request, response);
+		}
+		
+		else if (action.equals("viewProduct")) {
+			try {
+				Product p = pm.find(Long.parseLong(request.getParameter("p_id")));
+				request.setAttribute("product", p);
+				request.getRequestDispatcher("viewProduct.jsp").forward(request, response);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

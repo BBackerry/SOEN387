@@ -42,19 +42,26 @@
 				
 				<tbody>
 					<c:forEach var="product" items="${allProducts}">
-					<tr>
-						<td><c:out value="${product.id}"/></td>
-						<td><c:out value="${product.p_title}"/></td>
-						<td><fmt:formatNumber value="${product.p_price}" type="currency"/></td>
-						<td><fmt:formatDate value="${product.p_release_date}" type="date" /></td>
-						<td><c:out value="${product.p_stock}"/></td>
-						<td>
-							<form class="form-inline" role="form" action=${pageContext.request.contextPath}/ShoppingCart>
-								<input type="hidden" name="p_id" value=${product.id}>
-								<button type="submit" name="action" value="addOrderLine" class="btn btn-success">Add to Cart</button>
-							</form>
-						</td>
-					</tr>
+						<c:if test="${product.p_status == 'ACTIVE'}">
+							<tr>
+								<td><c:out value="${product.id}"/></td>
+								<td>
+									<form class="form-inline" role="form" action=${pageContext.request.contextPath}/BrowseProducts>
+										<input type="hidden" name="p_id" value="${product.id}" />
+										<button type="submit" name="action" value="viewProduct" class="btn btn-default"><c:out value="${product.p_title}"/></button>
+									</form>
+								</td>
+								<td><fmt:formatNumber value="${product.p_price}" type="currency"/></td>
+								<td><fmt:formatDate value="${product.p_release_date}" type="date" /></td>
+								<td><c:out value="${product.p_stock}"/></td>
+								<td>
+									<form class="form-inline" role="form" action=${pageContext.request.contextPath}/ShoppingCart>
+										<input type="hidden" name="p_id" value="${product.id}" />
+										<button type="submit" name="action" value="addOrderLine" class="btn btn-success">Add to Cart</button>
+									</form>
+								</td>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>

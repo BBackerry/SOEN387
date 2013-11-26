@@ -14,6 +14,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class JdbcUtilViaSSH {
+	
 	static SSHjdbcSession ssHsession = null;
 	
 	static {
@@ -47,6 +48,7 @@ public class JdbcUtilViaSSH {
 		} else {
 			return ssHsession;
 		}
+
 	}
 
 	public static void close(ResultSet rs, Statement stmt, SSHjdbcSession ssHsession) {

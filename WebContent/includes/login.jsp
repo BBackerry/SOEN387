@@ -20,7 +20,7 @@
      <div class="form-group">
        <div class="col-sm-offset-1">
          <button type="submit" class="btn btn-success">Sign in</button>
-       	 <button type="submit" class="btn btn-success" name="createAccount">Create Account</button>	
+       	 <button type="btn-xs" class="btn btn-link" name="createAccount">Create Account</button>	
 	   </div>
      </div>   
           

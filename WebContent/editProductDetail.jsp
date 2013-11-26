@@ -24,7 +24,7 @@
 <div class="container">
 
     <!--/headerbar --> 
-	<jsp:include page="includes/adminHeader.jsp" />
+	<jsp:include page="includes/header.jsp" />
 
      
 
@@ -89,7 +89,7 @@
 			 	 	<label for="productCategory" class="col-sm-3 control-label">Product Category</label>
 		 			<div class="col-sm-5">
 			      		<select class="form-control" name="productCategory" id="productCategory" placeholder="productCategory">
-					    	<c:forEach items="${pCategory}" var="categoryType" varStatus="loop">
+					    	<c:forEach items="${productCategory}" var="categoryType" varStatus="loop">
 					    	   
 					    	    <c:if test="${loop.count eq product.p_category}">
 				   				    <option value="${loop.count}" selected="selected"><c:out value="${categoryType}"  /></option> 

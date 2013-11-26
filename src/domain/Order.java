@@ -21,6 +21,7 @@ public class Order extends DomainObject{
 	private int payment_type;
 	private String credit_number;
 	
+	
 	//lazy load for all orderLines in the order
 	private VirtualList<OrderLine> orderLines;
 	

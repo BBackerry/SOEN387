@@ -6,9 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.SSLEngineResult.Status;
+
+import virtualProxy.VirtualList;
+import virtualProxy.VirtualListLoader;
 import jdbcUtil.JdbcUtilViaSSH;
 import jdbcUtil.SSHjdbcSession;
 import virtualProxy.VirtualList;
@@ -115,25 +121,36 @@ public class OrderMapper extends AbstractMapper{
 	
 	@Override
 	protected String insertStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "INSERT INTO Store_Order ("+COLUMNS +") VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
 	}
 
 	@Override
 	protected String lastIDStatement() {
+		return "SELECT MAX(o_id) FROM Store_Order ";
+	}
+
+	@Override
+	protected String updateStatement() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected void doInsert(DomainObject order,
+	protected void doInsert(DomainObject abstractSubject,
 			PreparedStatement stmt) throws SQLException {
+		Order subject = (Order) abstractSubject;
 
-	}
-
-	@Override
-	protected String updateStatement() {
-		return updateStatement;
+		stmt.setLong(1, subject.getId());
+		stmt.setLong(2, subject.getC_id());
+		stmt.setDouble(3, subject.getTotal());
+		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		stmt.setString(4, sdf.format(Calendar.getInstance().getTime()));
+		stmt.setInt(5, enumTables.Status.valueOf("PENDING").ordinal()+1);
+		stmt.setInt(6, (int)subject.getShip_address().getId());
+		stmt.setInt(7, (int)subject.getBill_address().getId());
+		stmt.setInt(8, subject.getPayment_type());
+		stmt.setString(9, subject.getCredit_number());
+		
 	}
 
 	@Override

@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EditProduct
+ * Servlet implementation class Logout
  */
-@WebServlet("/EditProduct")
-public class EditProduct extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditProduct() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,6 +27,24 @@ public class EditProduct extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		if((request.getSession().getAttribute("customer")!=null)||(request.getSession().getAttribute("user")!=null)){
+			
+			request.getSession().invalidate();    
+			response.sendRedirect("index.jsp");
+		    return; 
+			
+			//request.getSession().removeAttribute("Customer");
+		//}
+		//if(request.getSession().getAttribute("user")!=null){
+			
+			//request.getSession().removeAttribute("user");
+		}
+		
+		
+
+		//request.getRequestDispatcher("index.jsp").forward(request, response);
+	
 	}
 
 	/**

@@ -123,15 +123,18 @@ public class CustomerMapper extends AbstractMapper{
 
 	@Override
 	protected String updateStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "UPDATE Customer SET email = ?, last_modified = ?, username = ?, password = ? WHERE c_id = ?";
 	}
 
 	@Override
-	protected void doUpdate(DomainObject object, PreparedStatement stmt)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
+	protected void doUpdate(DomainObject abstractSubject, PreparedStatement stmt) throws SQLException {
+		Customer subject = (Customer) abstractSubject;
+		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		stmt.setString(1, subject.getEmail());
+		stmt.setString(2, sdf.format(Calendar.getInstance().getTime()));
+		stmt.setString(3, subject.getUsername());
+		stmt.setString(4, subject.getPassword());
+		stmt.setLong(5, subject.getId());
 	}
 
 

@@ -29,21 +29,22 @@ public class Customer extends DomainObject{
 		this.l_name = l_name;
 		this.dob = dob;
 		this.email = email;
-		this.last_modified = last_modified;
 		this.username = username;
 		this.password = password;
-		this.category = category;
+		this.category = category;	
 	}
+
 	
-	public Customer(String f_name,String l_name, Date dob, String email, String username, String password, String category){
-		super();
+	public Customer(long c_id, String f_name,String l_name, Date dob, String email, Date last_modified, String username, String password, String category) {
+		super(c_id);
 		this.f_name = f_name;
 		this.l_name = l_name;
 		this.dob = dob;
 		this.email = email;
+		this.last_modified = last_modified;
 		this.username = username;
 		this.password = password;
-		this.category = category;	
+		this.category = category;
 	}
 
 	public String getF_name() {

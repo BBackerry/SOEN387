@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -16,28 +17,27 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Account</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Video Game</a></li>
-          <li><a href="#">console</a></li>
-          <li class="divider"></li>
-        </ul>
-      </li>
-      <li><a href="#">Shopping cart</a></li>
-      <li><a href="#">Check Out</a></li>
+      <li class="active"><a href="index.jsp">Home</a></li>
+      
+      <c:choose>
+         <c:when test="${not empty user}">   
+		      <li><a href="administration.jsp">Admin</a></li>
+		 </c:when>
+		 <c:otherwise>
+		 
+		      <li><a href="EditAccount">Account</a></li>
+		      <li><a href="BrowseProducts">Products </a></li>
+		      <li><a href="ShoppingCart">Shopping cart</a></li>
+		      <li><a href="#">Check Out</a></li>
+		 
+		 </c:otherwise>
+	  </c:choose>      
       
     </ul>
  
     <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search"> 
-            <div class="form-group">
-                <input type="text" class="form-control" name="customerSearch" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Search</button>
-        </form>
+       <li><a href="#" > About us </a></li>
+         <li><a href="#" > Contact us </a></li>
      <!--   <li><a href="#">Advance Search</a></li>-->
 
     </ul>

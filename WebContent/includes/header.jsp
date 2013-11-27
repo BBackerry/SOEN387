@@ -11,13 +11,13 @@
        </a>
     </div>
 
-<div class="navbar navbar-default" role="navigation" style="background: #99CCCC;">
+<nav class="navbar navbar-default" role="navigation" style="background: #99CCCC;" >
  
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="index.jsp">Home</a></li>
+      <li><a href="index.jsp">Home</a></li>
       
       <c:choose>
          <c:when test="${not empty user}">   
@@ -28,7 +28,7 @@
 		      <li><a href="AccountManager">Account</a></li>
 		      <li><a href="BrowseProducts">Products </a></li>
 		      <li><a href="ShoppingCart">Shopping cart</a></li>
-		      <li><a href="#">Check Out</a></li>
+		      <li><a href="CheckOut?step=shipAddress">Check Out</a></li>
 		 
 		 </c:otherwise>
 	  </c:choose>      
@@ -44,6 +44,6 @@
     </ul>
   </div><!-- /.navbar-collapse -->
 </div>
-</div>
+</nav>
 
 

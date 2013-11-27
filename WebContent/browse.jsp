@@ -32,6 +32,8 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th>ID</th>
+						<th>Category</th>
 						<th>Title</th>
 						<th>Price</th>
 						<th>Release Date</th>
@@ -43,10 +45,21 @@
 					<c:forEach var="product" items="${allProducts}">
 						<c:if test="${product.p_status == 'ACTIVE'}">
 							<tr>
+								<td><c:out value="${product.id}"/></td>
+								
+								
+								<c:forEach items="${productCategory}" var="categoryType" varStatus="loop">
+					    	   
+					    	       <c:if test="${loop.count eq product.p_category}">
+								        <td><c:out value="${categoryType}"/></td>
+								    </c:if>
+				 	             </c:forEach>
+				 	             
+				 	             
 								<td>
 									<form class="form-inline" role="form" action=${pageContext.request.contextPath}/BrowseProducts>
 										<input type="hidden" name="p_id" value="${product.id}" />
-										<button type="submit" name="action" value="viewProduct" class="btn btn-default"><c:out value="${product.p_title}"/></button>
+										<button type="submit"  class="btn btn-link" name="action" value="viewProduct" class="btn btn-default"><c:out value="${product.p_title}"/></button>
 									</form>
 								</td>
 								<td><fmt:formatNumber value="${product.p_price}" type="currency"/></td>

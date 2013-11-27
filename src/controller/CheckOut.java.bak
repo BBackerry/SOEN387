@@ -50,12 +50,12 @@ public class CheckOut extends HttpServlet {
 		try {
 			if(request.getSession().getAttribute("customer") == null){
 				request.setAttribute("redirect", "CheckOut?step=shipAddress");
-				forward("/login.jsp",request, response);
+				forward("/includes/login.jsp",request, response);
 				//change to main page for log in
 				//forward("index.jsp",request, response);
 			}else {
 				Customer c = (Customer) request.getSession().getAttribute("customer");
-				/*
+				
 				if(request.getSession().getAttribute("order") == null){
 					//generate some Order
 					Order o = new Order(c.getId());	
@@ -68,7 +68,7 @@ public class CheckOut extends HttpServlet {
 					orderLines.add( new OrderLine(3, 9, p3.getP_price(), p3.getP_price()*9, p3));
 					o.updateTotal();
 					request.getSession().setAttribute("order", o);
-				}*/
+				}
 				
 				if(request.getParameter("step").equals("billAddress")){
 					retrieveCustomerAddress(request, am, c);
@@ -250,8 +250,8 @@ public class CheckOut extends HttpServlet {
 		int province = Integer.parseInt(request.getParameter("province"));
 		int country = Integer.parseInt(request.getParameter("country"));
 		
-		Address address = new Address (street, postal, province, country, aptSuiteUnite, city);
-		return address;
+		Address billAddress = new Address (street, postal, province, country, aptSuiteUnite, city);
+		return billAddress;
 	}
 	
 

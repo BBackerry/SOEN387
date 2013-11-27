@@ -9,7 +9,6 @@
 <script  type="text/javascript"  src="http://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
  <script  type="text/javascript" src="js/bootstrap.min.js"></script>
- <script  type="text/javascript" src="js/verify.notify.min.js"></script>
 
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +47,7 @@
 				    	<div class="form-group">
 				    	   <label for="name" class="col-sm-2 control-label">Username:</label>
 				           <div class="col-sm-6">
-				    	    <input type="text"  class="form-control" name="username" id="name" data-validate="required">
+				    	    <input type="text"  class="form-control" name="username" id="name">
 				    	   </div>
 				    	</div>
 			    	
@@ -57,7 +56,7 @@
 				    	<div class="form-group">
 				    	   <label for="password" class="col-sm-2 control-label">Password:</label>
 				           <div class="col-sm-6">
-				    	    <input type="password"  class="form-control" name="password" id="password" data-validate="required,min(6)">
+				    	    <input type="password"  class="form-control" name="password" id="password">
 				    	   </div>
 				    	</div>
 			    	
@@ -72,7 +71,7 @@
 				    	<div class="form-group">
 				    	   <label for="firstname" class="col-sm-2 control-label">FirstName:</label>
 				           <div class="col-sm-6">
-				    	    <input type="text"  class="form-control" name="firstname" id="firstname">
+				    	    <input type="text"  class="form-control" name="firstname"" id="firstname"">
 				    	   </div>
 				    	</div>
 			    	
@@ -90,10 +89,10 @@
 				    	<div class="form-group">
 				    	   <label for="dob" class="col-sm-2 control-label">DateofBirth</label>
 				           <div class="controls  form-inline">
-				            <div class="col-sm-1"> <input type="text"  class="input" name="bday" id="dob" placeholder="day" data-validate="required,number,rangeVal(1,31)"></div>
+				            <div class="col-sm-1"> <input type="text"  class="input" name="bday" id="dob" placeholder="day"></div>
 				    	   
-				    	    <div class="col-sm-1"><input type="text"  class="input" name="bmonth" id="dob" placeholder="month" data-validate="required,number,rangeVal(1,12)"></div>
-				    	    <div class="col-sm-1"><input type="text"  class="input" name="byear" id="dob" placeholder="year" data-validate="required,number,rangeVal(0,9000)"></div>
+				    	    <div class="col-sm-1"><input type="text"  class="input" name="bmonth" id="dob" placeholder="month"></div>
+				    	    <div class="col-sm-1"><input type="text"  class="input" name="byear" id="dob" placeholder="year"></div>
 				    	   </div>
 				    	</div>
 			    
@@ -103,7 +102,7 @@
 				    	<div class="form-group">
 				    	   <label for="email" class="col-sm-2 control-label">Email:</label>
 				           <div class="col-sm-6">
-				    	    <input type="text"  class="form-control" name="email" id="email" data-validate="required, email" >
+				    	    <input type="text"  class="form-control" name="email" id="email">
 				    	   </div>
 				    	</div>
 			    	</div>
@@ -122,16 +121,16 @@
 					    <div class="form-group">
 				    	   <label for="postalcode" class="col-sm-2 control-label">PostalCode</label>
 				           <div class="col-sm-6">
-				    	    <input type="text"  class="form-control" name="postalcode" id="postalcode" data-validate="regex([a-zA-Z][0-9][a-zA-Z]/s+[0-9][a-zA-Z][0-9],Must be a valid postal code">
+				    	    <input type="text"  class="form-control" name="postalcode" id="postalcode">
 				    	   </div>
 				        </div>
 				          <div class="form-group">
 				    	   <label for="province" class="col-sm-2 control-label">Province:</label>
 				           <div class="col-sm-6">
 				              <select class="form-control" name="provinceChoice" id="province">
-								<% for(int i = 0; i < enumTables.Province.values().length; i++){ %>
-									<option selected="selected"><%= enumTables.Province.values()[i] %></option>
-								<% } %>
+								<c:forEach var = "province" items="${province}">
+									<option selected="selected">${province}</option>
+								</c:forEach>	 
 							  </select>
 				   
 				    	   </div>
@@ -154,9 +153,9 @@
 				    	   <label for="province" class="col-sm-2 control-label">Country: </label>
 				           <div class="col-sm-6">
 				              <select class="form-control" name="country" id="country">
-								<% for(int i = 0; i < enumTables.Country.values().length; i++){ %>
-									<option selected="selected"><%= enumTables.Country.values()[i] %></option>
-								<% } %> 
+								<c:forEach var = "country" items="${country}">
+									<option selected="selected">${country}</option>
+								</c:forEach>	 
 							  </select>
 				   
 				    	   </div>

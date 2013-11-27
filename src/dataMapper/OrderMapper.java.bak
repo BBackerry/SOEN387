@@ -17,6 +17,8 @@ import virtualProxy.VirtualList;
 import virtualProxy.VirtualListLoader;
 import jdbcUtil.JdbcUtilViaSSH;
 import jdbcUtil.SSHjdbcSession;
+import virtualProxy.VirtualList;
+import virtualProxy.VirtualListLoader;
 import domain.Address;
 import domain.DomainObject;
 import domain.Order;
@@ -50,6 +52,7 @@ public class OrderMapper extends AbstractMapper{
 		while (rs.next()) {
 			orderList.add((Order)load(rs));
         }
+		//connection.close();
 		return orderList;	
 	}
 
@@ -68,6 +71,7 @@ public class OrderMapper extends AbstractMapper{
 			while (rs.next()) {
 				orderList.add((Order)load(rs));
 	        }
+			//connection.close();
 			return orderList;	
 		}
 	protected String findAllOrders(){

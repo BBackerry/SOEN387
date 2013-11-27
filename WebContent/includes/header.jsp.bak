@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<script type="text/javascript" language="javascript" src="js/verify.notify.min.js"></script>
+
 
 <div class="masthead">
     <div>
@@ -25,7 +25,7 @@
 		 </c:when>
 		 <c:otherwise>
 		 
-		      <li><a href="AccountManager">Account</a></li>
+		      <li><a href="EditAccount">Account</a></li>
 		      <li><a href="BrowseProducts">Products </a></li>
 		      <li><a href="ShoppingCart">Shopping cart</a></li>
 		      <li><a href="#">Check Out</a></li>

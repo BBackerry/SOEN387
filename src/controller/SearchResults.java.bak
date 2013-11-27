@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Product;
-import dataMapper.CustomerMapper;
 import dataMapper.ProductMapper;
 /**
  * Servlet implementation class SearchResults
@@ -40,13 +39,7 @@ public class SearchResults extends HttpServlet {
 		String searchResults = request.getParameter("customerSearch");
 		String adminSearch = request.getParameter("adminSearch");
 		Product prod = null;
-		ProductMapper pm;
-		if (request.getSession().getAttribute("productMapper") == null){
-			pm = new ProductMapper();
-			request.getSession().setAttribute("productMapper", pm);
-		} else {
-			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
-		}
+		ProductMapper pm = new ProductMapper();
 	
 		if(selectedProduct!=null){
 			System.err.println(selectedProduct);

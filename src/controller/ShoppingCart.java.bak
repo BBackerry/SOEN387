@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +78,6 @@ public class ShoppingCart extends HttpServlet {
 				}
 				else {
 					errorMessages.add("Sorry but there is not enough items in stock for " + p.getP_title());
-					request.setAttribute("errorMessages", errorMessages);
 				}
 			} catch (SQLException e) {
 				errorMessages.add("There seems to be a connectivity problem. Please try again later");

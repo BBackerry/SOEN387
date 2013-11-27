@@ -73,8 +73,6 @@
 <% request.setAttribute("type", "addBillAddress"); %>
 <%@ include file="includes/CheckOutAddressForm.jsp" %>
 
-<% } %>
-
 
 
        </div>

@@ -22,7 +22,7 @@
 <div class="container">
 
     <!--/headerbar --> 
-	<jsp:include page="includes/header.jsp" />
+	<jsp:include page="includes/adminHeader.jsp" />
     <div class="row">
         <!-- Include the side bar-->
         <jsp:include page="includes/sidebar.jsp"/>

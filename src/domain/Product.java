@@ -135,5 +135,21 @@ public class Product extends DomainObject{
 		this.p_status = p_status;
 	}
 	
+	 
+    protected void markNew(UnitOfWork UnitOfWork)
+    {
+        UnitOfWork.addNewObject(this);
+    }
+    
+    protected void markDirty(UnitOfWork UnitOfWork)
+    {
+        UnitOfWork.addDirtyObject(this);
+    }
+    
+    protected void markClean(UnitOfWork UnitOfWork)
+    {
+        UnitOfWork.addCleanObject(this);
+    }
+    
 	
 }

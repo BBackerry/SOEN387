@@ -25,14 +25,14 @@
        <div class="col-md-9" role="main">
        
        <div class="hero-unit">
-       	<h3>Browse our products:</h3>
+       	<h3>Your Order has been Placed!</h3>
        </div>
        
 			
 			<%@include file="includes/import.jsp" %>
 			<%@include file="includes/error.jsp" %>
 			
-			<h1> Your Order has been Placed! </h1>
+
 			
   			<div class="hero-unit">
        			<h4>Please check back in a later date see changes to your order</h4>

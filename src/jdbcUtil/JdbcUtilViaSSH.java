@@ -93,8 +93,8 @@ public class JdbcUtilViaSSH {
 	}
 
 	private static SSHjdbcSession doSshTunnel() {
-		String strSshUser = "si_jia"; // SSH loging username,Please input before running the application
-		String strSshPassword = "NGPr8Gc7"; // SSH login password,Please input before running the application
+		String strSshUser = ""; // SSH loging username,Please input before running the application
+		String strSshPassword = ""; // SSH login password,Please input before running the application
 		String strSshHost = "login.encs.concordia.ca"; // hostname or ip or SSH
 														// server
 		int nSshPort = 22; // remote SSH host port number

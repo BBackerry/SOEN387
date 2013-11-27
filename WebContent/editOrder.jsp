@@ -49,7 +49,7 @@
     				<td>
     					<input type="text" class="form-control" id="orderID" name="orderID" value="${order.id}" disabled>
     				</td>
-    				<td><div style="width:200px"></div></td>
+    				<td><div style="width:100px"></div></td>
     				<td>
     					 <label for="orderID" >Client ID</label>
     				</td>

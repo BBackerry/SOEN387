@@ -134,8 +134,8 @@ public class CheckOut extends HttpServlet {
 						String errmsg = "The product ID " + result + "has been updated by other people,pls reselect the product";
 						System.out.println("The inventory update result is " +result);
 						request.setAttribute("error", errmsg);
-						forward("",request,response);
-					}
+						forward("ShoppingCart",request,response);
+					}else{
 					
 					Long o_id = om.insert(order);
 					for(OrderLine ol : order.getOrderLines().getSource()){
@@ -145,6 +145,7 @@ public class CheckOut extends HttpServlet {
 					order = new Order(c.getId());
 					request.getSession().setAttribute("shoppingCart", order);					
 					forward("CheckOutComplete.jsp", request, response);
+					}
 				}
 				else if(request.getParameter("step").equals("addShipAddress")){
 					Address shipAddress = createAddressFromForm(request);

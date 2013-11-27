@@ -17,8 +17,8 @@
 <title>SOEN387  Project</title>
 <%
 	Customer c = (Customer) request.getSession().getAttribute("customer");
-	if(!c.getCategory().equals("manager")){
-		response.sendRedirect("login.jsp?error='You do not have access to the administration page.");
+	if(c==null || !c.getCategory().equals("manager")){
+		response.sendRedirect("index.jsp?error='You do not have access to the administration page.");
 	}
 %>
 

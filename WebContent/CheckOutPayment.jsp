@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -63,16 +64,16 @@
 								<% } %>
 							</select>
 						</td>
-						<td><input type="text" id="cardName" name="cardName"></input></td>
-						<td><input type="text" id="cardNumber" name="cardNumber"></input></td>
+						<td><input type="text" id="cardName" name="cardName" data-validate="required"></input></td>
+						<td><input type="text" id="cardNumber" name="cardNumber" data-validate="required,number,size(16)" ></input></td>
 						<td>
 					        <div class="form-inline">
 					            <div class="col-md-4">
-								 <input type="text" class="form-control small"  id="cardMonth" name="cardMonth" maxlength="2"></input> &nbsp;
+								 <input type="text" class="form-control small"  id="cardMonth" name="cardMonth" maxlength="2" data-validate="required,number,rangeVal(1,12)"></input> &nbsp;
 								</div>
 								 
 								<div class="col-md-4">
-								 <input type="text" class="form-control small" id="cardYear" name="cardYear" maxlength="4"></input>
+								 <input type="text" class="form-control small" id="cardYear" name="cardYear" maxlength="4" data-validate="required,number,rangeVal(2013,3000)"></input>
 								</div>
 							</div>
 						</td>

@@ -74,7 +74,7 @@ public class CheckOut extends HttpServlet {
 					retrieveCustomerAddress(request, am, c);
 					
 					if(request.getParameter("shipAddress") != null){
-						Order order = (Order)request.getSession().getAttribute("order");
+						Order order = (Order)request.getSession().getAttribute("shoppingCart");
 						Address shipAddress = am.find(Long.parseLong(request.getParameter("shipAddress")));
 						order.setShip_address(shipAddress);
 						request.getSession().setAttribute("order", order);
@@ -88,7 +88,7 @@ public class CheckOut extends HttpServlet {
 				}
 				else if(request.getParameter("step").equals("payment")){
 					if(request.getParameter("billAddress") != null){
-						Order order = (Order)request.getSession().getAttribute("order");
+						Order order = (Order)request.getSession().getAttribute("shoppingCart");
 						Address billAddress = am.find(Long.parseLong(request.getParameter("billAddress")));
 						order.setBill_address(billAddress);
 						request.getSession().setAttribute("order", order);
@@ -97,7 +97,7 @@ public class CheckOut extends HttpServlet {
 					forward("CheckOutPayment.jsp",request, response);
 				}	
 				else if(request.getParameter("step").equals("confirmOrder")){
-					Order order = (Order)request.getSession().getAttribute("order");
+					Order order = (Order)request.getSession().getAttribute("shoppingCart");
 					
 					if(request.getParameter("method").equals("paypal")){
 						order.setPayment_type(PaymentType.valueOf("PAYPAL").ordinal()+1);
@@ -113,8 +113,8 @@ public class CheckOut extends HttpServlet {
 					forward("CheckOutViewOrder.jsp", request, response);
 				}
 				else if(request.getParameter("step").equals("processOrder")){
-					Order order = (Order)request.getSession().getAttribute("order");
-					
+					Order order = (Order)request.getSession().getAttribute("shoppingCart");
+					order.setC_id((int)c.getId());
 					
 					//check the quantiy 
 					
@@ -142,6 +142,8 @@ public class CheckOut extends HttpServlet {
 						ol.setId(o_id);
 						olm.insert(ol);
 					}
+					order = new Order(c.getId());
+					request.getSession().setAttribute("shoppingCart", order);					
 					forward("CheckOutComplete.jsp", request, response);
 				}
 				else if(request.getParameter("step").equals("addShipAddress")){
@@ -150,7 +152,7 @@ public class CheckOut extends HttpServlet {
 					am.insertCustomerAddress(id, c.getId());
 					shipAddress.setId(id);
 					
-					Order order = (Order)request.getSession().getAttribute("order");
+					Order order = (Order)request.getSession().getAttribute("shoppingCart");
 					order.setShip_address(shipAddress);
 					request.getSession().setAttribute("order", order);
 					retrieveCustomerAddress(request, am, c);
@@ -194,7 +196,7 @@ public class CheckOut extends HttpServlet {
 					am.insertCustomerAddress(id, c.getId());
 					billAddress.setId(id);
 					
-					Order order = (Order)request.getSession().getAttribute("order");
+					Order order = (Order)request.getSession().getAttribute("shoppingCart");
 					order.setBill_address(billAddress);
 					request.getSession().setAttribute("order", order);
 					retrieveCustomerAddress(request, am, c);

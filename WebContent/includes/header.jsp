@@ -38,6 +38,7 @@
     <ul class="nav navbar-nav navbar-right">
        <li><a href="#" > About us </a></li>
          <li><a href="#" > Contact us </a></li>
+         <li><a href="Help" > Help </a> </li>
      <!--   <li><a href="#">Advance Search</a></li>-->
 
     </ul>

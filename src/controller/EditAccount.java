@@ -60,7 +60,7 @@ public class EditAccount extends HttpServlet {
 			try {
 				ArrayList<Address> addressList = (ArrayList<Address>)am.getAddressByCustomerID(c.getId());
 				request.setAttribute("addressList", addressList);
-					String step = request.getParameter("step");
+				String step = request.getParameter("step");
 				
 				if(step.equals("display")){
 					forward("editAccount.jsp", request, response);

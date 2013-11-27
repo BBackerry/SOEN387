@@ -164,8 +164,6 @@ public class OrderMapper extends AbstractMapper{
 		stmt.setLong(9, o.getId());
 		
 		
-		
-		
 	}
 	
 	public Order find(long id) throws SQLException{

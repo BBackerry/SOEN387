@@ -129,7 +129,15 @@ public class Account extends HttpServlet {
 			System.out.println(newCustomer.getCategory()+newCustomer.getEmail());
 			long newCID = cm.insert(newCustomer);
 			long newAID = am.insert(newAddress);
-			am.insertCustomerAddress( newAID, newCID);
+			if(newCID >0 && newAID>0){
+				if(am.insertCustomerAddress( newAID, newCID)){
+					request.setAttribute("msg", "The Account has been successfully created.");
+				} else {
+					request.setAttribute("error", "The Account was not created. Please try again later.");
+				}
+			} else {
+				request.setAttribute("error", "The Account was not created. Please try again later.");
+			}		
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 
 		} catch (ClassNotFoundException | SQLException e1) {

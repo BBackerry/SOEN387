@@ -95,21 +95,21 @@
 					<div class="form-group">
 					    <label for="productName" class="col-sm-3 control-label">Product Name</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" >
+					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" data-validate="required">
 					    </div>
 					</div>
 					  
 					<div class="form-group">
 					    <label for="quantity" class="col-sm-3 control-label">Product Quantity</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity">
+					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity" data-validate="required,number">
 					    </div>
 					</div>
 					  
 					<div class="form-group">
 					    <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice">
+					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice" data-validate="required,decimal">
 					    </div>
 					</div>
 					  
@@ -239,21 +239,21 @@
 					<div class="form-group">
 					    <label for="productName" class="col-sm-3 control-label">Product Name</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" >
+					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" data-validate="required">
 					    </div>
 					</div>
 					  
 					<div class="form-group">
 					    <label for="quantity" class="col-sm-3 control-label">Product Quantity</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity">
+					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity" data-validate="required,number">
 					    </div>
 					</div>
 					  
 					<div class="form-group">
 					    <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
 					    <div class="col-sm-5">
-					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice">
+					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice" data-validate="required,decimal">
 					    </div>
 					</div>
 					  

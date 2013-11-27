@@ -37,12 +37,14 @@ public class BrowseProducts extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		ProductMapper pm = new ProductMapper();
-		
-		request.getSession().setAttribute("productCategory", ProductCategory.values());
-		request.getSession().setAttribute("productCondition", ProductCondition.values());
-		request.getSession().setAttribute("productConsole", ProductConsole.values());
-		request.getSession().setAttribute("productType", ProductType.values());
+		ProductMapper pm;
+		//get sessions product mapper if it exists
+		if(request.getSession().getAttribute("productMapper") == null){
+			pm = new ProductMapper();
+			request.getSession().setAttribute("productMapper", pm);
+		} else {
+			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
+		}
 		
 		if (action == null) {
 			List<Product> allProducts = pm.findAllProducts();

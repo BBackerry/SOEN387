@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.AddressMapper;
 import dataMapper.OrderMapper;
+import dataMapper.ProductMapper;
 import domain.Address;
 import domain.Order;
 
@@ -36,13 +38,27 @@ public class OrderManager extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OrderMapper om = new OrderMapper();
-		
+		OrderMapper om;
+		AddressMapper am;
+		//get sessions product mapper if it exists
+		if(request.getSession().getAttribute("orderMapper") == null){
+			om = new OrderMapper();
+			request.getSession().setAttribute("orderMapper", om);
+		} else {
+			om = (OrderMapper) request.getSession().getAttribute("orderMapper");
+		}
+		//get sessions product mapper if it exists
+		if(request.getSession().getAttribute("addressMapper") == null){
+			am = new AddressMapper();
+			request.getSession().setAttribute("addressMapper", am);
+		} else {
+			am = (AddressMapper) request.getSession().getAttribute("addressMapper");
+		}
 		String order_id = request.getParameter("orderId");
 		String c_id = request.getParameter("clientId");
 		Date order_date = new Date(0);
 		String total = request.getParameter("purchaseTotal");
-		String credit_number = request.getParameter("creditNum");
+		String credit_number = request.getParameter("creditNumber");
 		if (credit_number.isEmpty()){ credit_number = "0";}
 		String payment_type = request.getParameter("paymentType");
 		String status = request.getParameter("status");
@@ -55,8 +71,8 @@ public class OrderManager extends HttpServlet {
 		String shipping_city = request.getParameter("shippingCity");
 		String billing_street = request.getParameter("billingStreet");
 		String billing_postal_code = request.getParameter("billingPostalCode");
-		String billing_province = request.getParameter("billingProvince");
-		String billing_country = request.getParameter("billingCountry");
+		String billing_province = request.getParameter("billingAddressProvince");
+		String billing_country = request.getParameter("billingAddressCountry");
 		String billing_appt = request.getParameter("billingApt");
 		Date date = new Date();
 		Timestamp currentClock = new Timestamp(date.getTime());
@@ -95,8 +111,19 @@ public class OrderManager extends HttpServlet {
 				credit_number);
 		
 		try {
+			
 			int updateResult = om.update(updateOrder);
-			System.out.println("The update result is " + updateResult);
+			
+			
+			int updateBillAdrs = am.update(billingAddress);
+			int updateShipAdrs = am.update(shippingAddress);
+			
+			if(updateResult > 0 && updateBillAdrs > 0 && updateShipAdrs >0){
+				request.setAttribute("msg", "The order has been successfully updated.");
+			} else {
+				request.setAttribute("msg", "The order has not updated. Please try again later.");
+			}
+			
 			request.setAttribute("orderId", order_id);
 			request.getRequestDispatcher("orderEditConfirm.jsp").forward(request, response);
 				

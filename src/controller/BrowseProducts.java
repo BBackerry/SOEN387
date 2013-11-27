@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataMapper.ProductMapper;
 import domain.Product;
+import enumTables.ProductCategory;
+import enumTables.ProductCondition;
+import enumTables.ProductConsole;
+import enumTables.ProductType;
 
 /**
  * Servlet implementation class BrowseProduct
@@ -34,6 +38,11 @@ public class BrowseProducts extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		ProductMapper pm = new ProductMapper();
+		
+		request.getSession().setAttribute("productCategory", ProductCategory.values());
+		request.getSession().setAttribute("productCondition", ProductCondition.values());
+		request.getSession().setAttribute("productConsole", ProductConsole.values());
+		request.getSession().setAttribute("productType", ProductType.values());
 		
 		if (action == null) {
 			List<Product> allProducts = pm.findAllProducts();

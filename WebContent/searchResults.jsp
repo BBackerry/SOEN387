@@ -55,7 +55,7 @@
 								<td>
 									<form class="form-inline" role="form" action=${pageContext.request.contextPath}/BrowseProducts>
 										<input type="hidden" name="p_id" value="${product.id}" />
-										<button type="submit" name="action" value="viewProduct" class="btn btn-default"><c:out value="${product.p_title}"/></button>
+										<button type="submit" name="action" value="viewProduct" class="btn btn-link"><c:out value="${product.p_title}"/></button>
 									</form>
 								</td>
 								<td><fmt:formatNumber value="${product.p_price}" type="currency"/></td>

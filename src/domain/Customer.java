@@ -37,6 +37,18 @@ public class Customer extends DomainObject{
 		this.password = password;
 		this.category = category;
 	}
+	
+	public Customer(String f_name,String l_name, Date dob, String email, String username, String password, String category){
+		super();
+		this.f_name = f_name;
+		this.l_name = l_name;
+		this.dob = dob;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.category = category;	
+	}
+		
 
 	public String getF_name() {
 		return f_name;

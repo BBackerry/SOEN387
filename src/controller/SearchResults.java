@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -38,8 +39,15 @@ public class SearchResults extends HttpServlet {
 		String selectedProduct = request.getParameter("productSelected");
 		String searchResults = request.getParameter("customerSearch");
 		String adminSearch = request.getParameter("adminSearch");
-		Product prod = null;
-		ProductMapper pm = new ProductMapper();
+		Product prod = null;		
+		ProductMapper pm;
+		//get sessions product mapper if it exists
+		if(request.getSession().getAttribute("productMapper") == null){
+			pm = new ProductMapper();
+			request.getSession().setAttribute("productMapper", pm);
+		} else {
+			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
+		}
 	
 		if(selectedProduct!=null){
 			System.err.println(selectedProduct);
@@ -76,25 +84,19 @@ public class SearchResults extends HttpServlet {
 		}
 		
 		if(searchResults!=null){
-			Map<Integer, String> productResults = new HashMap<Integer, String>();
-	
-			System.err.println("searchQuery: "+searchResults);
+			
+			List<Product> productResults = null;	
+
 			String[] splitSearch = searchResults.split("\\s+");
 			for(int i=0; i<splitSearch.length;i++){
 			System.err.println(splitSearch[i]);
 			productResults = pm.getAllProductsByName(splitSearch[i]);
-	
 			}
-					
-			Iterator i = productResults.entrySet().iterator();
-		    while(i.hasNext()){
-		        System.err.println(i.next());
-		    }
-		    
-			request.setAttribute("resultMap", productResults);
+			
+			request.setAttribute("product", productResults);
 		    forward("searchResults.jsp", request, response);
 		    
-		}
+			}
 		
 	}
 	

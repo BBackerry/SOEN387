@@ -57,7 +57,7 @@ public class Account extends HttpServlet {
 		int bDay = Integer.parseInt(request.getParameter("bday"));
 		Date birthday;
 		Calendar cal = Calendar.getInstance();
-		cal.set(bYear, bMonth, bDay);
+		cal.set(bYear, bMonth-1, bDay);
 		birthday = cal.getTime();
 		
 		String province = request.getParameter("provinceChoice");

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.AddressMapper;
 import dataMapper.CustomerMapper;
 import domain.Customer;
 /**
@@ -29,10 +30,13 @@ public class EditAccount extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CustomerMapper cm;
+		AddressMapper am;
 		Customer c;
 		if(request.getSession().getAttribute("customer") != null){
 			c = (Customer) request.getSession().getAttribute("customer");
 			long cID = c.getId();
+			String cUsername = c.getUsername();
+			String cEmail = c.getEmail();
 			
 		}
 		

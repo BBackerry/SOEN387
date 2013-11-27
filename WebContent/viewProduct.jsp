@@ -39,28 +39,30 @@
         
             <!-- Main hero unit for a primary marketing message or call to action -->
           <div class="hero-unit">
-            <h3>View Product:</h3>
-            
             <!-- <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>  -->
           </div>
-          
-
-         
+                   
 	                   
 	      <div class="col-md-offset-1">
+	        <table>
+	        	<tr><th colspan><h2 style= "color:#008000;" >${product.p_title}</h2></th>
+	        	<th><div style="width:325px">&nbsp;</div></th>
+			 	<th><h2 style ="color:red">$${product.p_price}</h2></th></tr>
+			</table>
 	      
 
 			    
 		    <div>
 		         
 			<form action="" class="form-horizontal" role="form" method="post">
-			
+			<!-- 
 				 <div class="form-group">
 				    <label for="productID" class="col-sm-3 control-label">Product ID</label>
 				    <div class="col-sm-5">
 				      <input type="text" class="form-control" id="productID" name="productID" value="${product.id }" placeholder="productID" disabled>
 				    </div>
 				  </div>
+			-->
 					
 		<!--  
 					  <div class="form-group">
@@ -87,6 +89,7 @@
                               </c:if>
                                
 				 	  </c:forEach>
+				 	  
 		 			
 		 			
 		 				
@@ -94,28 +97,28 @@
 					</div>
 		
 		
-		
+		 <!--
 					<div class="form-group">
 					    <label for="productName" class="col-sm-3 control-label">Product Name</label>
 					    <div class="col-sm-5">
 					      <input type="text" class="form-control" id="productName" name="productName" value="${product.p_title }" placeholder="productName" disabled>
 					    </div>
 					</div>
-					  
+					  -->
 					<div class="form-group">
 					    <label for="quantity" class="col-sm-3 control-label">Product Quantity</label>
 					    <div class="col-sm-5">
 					      <input type="text" class="form-control" id="quantity" name="productQuantity" value="${product.p_stock }" placeholder="productQuantity" disabled>
 					    </div>
 					</div>
-					  
+					 <!--  
 					<div class="form-group">
 					    <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
 					    <div class="col-sm-5">
 					      <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.p_price }" placeholder="productPrice" disabled>
 					    </div>
 					</div>
-					  
+					  -->
 		
 		
 					<div class="form-group">

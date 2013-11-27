@@ -3,6 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript" language="javascript" src="js/verify.notify.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/window.js"></script>
 
 <div class="masthead">
     <div>
@@ -36,10 +37,9 @@
     </ul>
  
     <ul class="nav navbar-nav navbar-right">
-       <li><a href="#" > About us </a></li>
-         <li><a href="#" > Contact us </a></li>
-         <li><a href="Help" > Help </a> </li>
-     <!--   <li><a href="#">Advance Search</a></li>-->
+       <li><a href="aboutUs.jsp" onclick="windowPopup(this.href); return false;"  > About us </a></li>
+         <li><a href="contact.jsp" onclick="windowPopup(this.href); return false;" > Contact us </a></li>
+         <li><a href="Help.jsp" onclick="windowPopup(this.href); return false;"> Help </a> </li>
 
     </ul>
   </div><!-- /.navbar-collapse -->

@@ -41,7 +41,7 @@
         
         
         <div class="col-md-9" role="main">
-        	<jsp:include page="includes/error.jsp" />
+        
             <!-- Main hero unit for a primary marketing message or call to action -->
           <div class="hero-unit">
             <h3>Welcome to Game Zone!</h3>

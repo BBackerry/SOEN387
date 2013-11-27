@@ -57,11 +57,11 @@ public class Account extends HttpServlet {
 		int bDay = Integer.parseInt(request.getParameter("bday"));
 		Date birthday;
 		Calendar cal = Calendar.getInstance();
-		cal.set(bYear, bMonth-1, bDay);
+		cal.set(bYear, bMonth, bDay);
 		birthday = cal.getTime();
 		
 		String province = request.getParameter("provinceChoice");
-		int provinceNum = 0;
+		int provinceNum = 1;
 		
 		if (province.equalsIgnoreCase("alberta")) {
 			provinceNum = 1;
@@ -109,22 +109,9 @@ public class Account extends HttpServlet {
 		String city = request.getParameter("city");
 		
 		newAddress = new Address(street, pcode, provinceNum, '1', aptNum, city);
-		newCustomer = new Customer(fname, lname, birthday, email, username, password, "customer");
-		AddressMapper am;
-		CustomerMapper cm;
-		if (request.getSession().getAttribute("addressMapper") == null){
-			am = new AddressMapper();
-			request.getSession().setAttribute("addressMapper", am);
-		} else {
-			am = (AddressMapper) request.getSession().getAttribute("addressMapper");
-		}
-		if (request.getSession().getAttribute("customerMapper") == null){
-			cm = new CustomerMapper();
-			request.getSession().setAttribute("customerMapper", cm);
-		} else {
-			cm = (CustomerMapper) request.getSession().getAttribute("customerMapper");
-		}
-		
+		newCustomer = new Customer(fname, lname, birthday, email, username, password, "Customer");
+		AddressMapper am = new AddressMapper();
+		CustomerMapper cm = new CustomerMapper();
 		try {
 			System.out.println(newCustomer.getCategory()+newCustomer.getEmail());
 			long newCID = cm.insert(newCustomer);
@@ -136,6 +123,39 @@ public class Account extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+				
+//		try{
+//			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
+//			Connection connection = sshSession.getConnection();			
+//			String insertNewCustomer = "INSERT INTO Customer "+
+//"(`first_name`,`last_name`,`dob`,`email`,`last_modified`,`username`,`password`,`category`) "+
+//"VALUES(\""+fname+"\",\""+lname+"\",\""+birthday+"\",\""+email+"\",NOW(),\""+username+"\",\""+password+"\",\"customer\")";
+//		    
+//			
+//			String recentCustomerKey = "SELECT last_insert_id()";
+//			String insertCustomerAddress = "INSERT INTO Address "+
+//					"(`street`,`postal_code`,`province`,`country`,`apt_suite_unit`,`last_modified`,`city`) "+
+//					"VALUES("+
+//					"\""+street+"\",\""+pcode+"\",\""+provinceNum+"\",\"1\",\""+aptNum+"\",NOW(),\""+city+"\""+
+//					")";
+//			
+//			System.out.println("Inserting records into the table...");
+//
+//			newCustomerStatement = connection.createStatement();
+//			newCustomerStatement.executeUpdate(insertNewCustomer);
+//			
+//			System.out.println("Inserted records into the table...");
+//			connection.close();
+//			request.getRequestDispatcher("index.jsp").forward(request, response);
+//
+//			
+//			
+//		}
+//		
+//		catch(Exception e){
+//			e.printStackTrace();
+//			throw new ServletException("SQL Error");
+//		}
 		
 	}	
 

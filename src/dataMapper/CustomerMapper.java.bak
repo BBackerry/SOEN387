@@ -123,7 +123,7 @@ public class CustomerMapper extends AbstractMapper{
 
 	@Override
 	protected String updateStatement() {
-		return "UPDATE Customer SET email = ?, last_modified = ?, username = ?, password = ?, first_name = ?, last_name = ?, dob = ? WHERE c_id = ?";
+		return "UPDATE Customer SET email = ?, last_modified = ?, username = ?, password = ? WHERE c_id = ?";
 	}
 
 	@Override
@@ -134,10 +134,7 @@ public class CustomerMapper extends AbstractMapper{
 		stmt.setString(2, sdf.format(Calendar.getInstance().getTime()));
 		stmt.setString(3, subject.getUsername());
 		stmt.setString(4, subject.getPassword());
-		stmt.setString(5, subject.getF_name());
-		stmt.setString(6, subject.getL_name());
-		stmt.setString(7, sdf.format(subject.getDob()).substring(0,10));
-		stmt.setLong(8, subject.getId());
+		stmt.setLong(5, subject.getId());
 	}
 
 

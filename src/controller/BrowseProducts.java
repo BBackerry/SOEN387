@@ -45,7 +45,12 @@ public class BrowseProducts extends HttpServlet {
 		} else {
 			pm = (ProductMapper) request.getSession().getAttribute("productMapper");
 		}
-		
+				
+		request.getSession().setAttribute("productCategory", ProductCategory.values());
+		request.getSession().setAttribute("productCondition", ProductCondition.values());
+		request.getSession().setAttribute("productConsole", ProductConsole.values());
+		request.getSession().setAttribute("productType", ProductType.values());
+
 		if (action == null) {
 			List<Product> allProducts = pm.findAllProducts();
 			request.setAttribute("allProducts", allProducts);

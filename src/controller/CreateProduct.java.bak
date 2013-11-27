@@ -19,7 +19,7 @@ import domain.Product;
 import enumTables.ProductCategory;
 
 /**
- * Servlet implementation class CreateProduct
+ * Servlet implementation class InsertProduct
  */
 @WebServlet("/CreateProduct")
 public class CreateProduct extends HttpServlet {

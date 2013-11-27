@@ -32,7 +32,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
 						<th>Title</th>
 						<th>Price</th>
 						<th>Release Date</th>
@@ -44,7 +43,6 @@
 					<c:forEach var="product" items="${allProducts}">
 						<c:if test="${product.p_status == 'ACTIVE'}">
 							<tr>
-								<td><c:out value="${product.id}"/></td>
 								<td>
 									<form class="form-inline" role="form" action=${pageContext.request.contextPath}/BrowseProducts>
 										<input type="hidden" name="p_id" value="${product.id}" />

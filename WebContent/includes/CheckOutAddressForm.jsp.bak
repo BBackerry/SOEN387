@@ -43,7 +43,7 @@
 	<div class="form-group">
 	    <label for="street" class="col-sm-3 control-label">Street:</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="street" name="street" data-validate="required"
+	      <input type="text" class="form-control" id="street" name="street" 
 	      <%if(load){%>
 			value="<%=a.getStreet() %>"
 		  <%} %>
@@ -73,7 +73,7 @@
     <div class="form-group">
 	    <label for="city" class="col-sm-3 control-label">	City:</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="city" name="city" data-validate="required" 
+	      <input type="text" class="form-control" id="city" name="city" 
 	      <%if(load){%>
 			value="<%=a.getCity() %>"
 	  	<%} %>
@@ -85,7 +85,7 @@
     <div class="form-group">
 	    <label for="postal" class="col-sm-3 control-label">Postal Code:</label>
 	    <div class="col-sm-5">
-	      <input type="text" class="form-control" id="postal" name="postal" data-validate="regex([a-zA-Z][0-9][a-zA-Z]/s+[0-9][a-zA-Z][0-9],Must be a valid postal code"
+	      <input type="text" class="form-control" id="postal" name="postal" 
 	      <%if(load){%>
 			value="<%=a.getPostal_code() %>"
 		<%} %>

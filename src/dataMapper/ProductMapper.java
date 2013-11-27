@@ -23,7 +23,6 @@ import domain.Product;
 public class ProductMapper extends AbstractMapper{
 
 	//collumns in the db table. 
-	Map<Integer, String> productResults = new HashMap<Integer, String>();
 
 	public static final String table="Product";         
 	public static final String COLUMNS = " p_id, p_category, p_title, p_release_date, p_type,p_condition, p_console, p_stock,"
@@ -109,7 +108,7 @@ public class ProductMapper extends AbstractMapper{
 	}
 	
 	public List<Product> findAllProducts() {
-		List<Product> allProducts = new ArrayList<Product>();
+		ArrayList<Product> allProducts = new ArrayList<Product>();
 		try {
 			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
 			DB = sshSession.getConnection();
@@ -119,21 +118,7 @@ public class ProductMapper extends AbstractMapper{
 			ResultSet rs = findAllProductsStatement.executeQuery();
 			
 			while(rs.next()) {
-				Long id = rs.getLong(1);
-				int p_category  = rs.getInt(2);
-				String p_title = rs.getString(3);
-				Timestamp p_release_date = rs.getTimestamp(4);
-				int p_type = rs.getInt(5);
-				int p_condition = rs.getInt(6);
-				int p_console = rs.getInt(7);
-				int p_stock = rs.getInt(8);
-				Double p_price = rs.getDouble(9);
-				String p_desc = rs.getString(10);
-				int p_rating = rs.getInt(11);
-				int p_version = rs.getInt(12);
-				
-				allProducts.add(new Product(id, p_type, p_release_date, p_rating,  p_console, p_stock,
-						p_price, p_condition, p_title, p_category,p_desc, p_version)); 
+					allProducts.add((Product)load(rs));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -141,9 +126,10 @@ public class ProductMapper extends AbstractMapper{
 		
 		return allProducts;	
 	}
-	public Map<Integer, String> getAllProductsByName(String productName){
-		
+	public List<Product> getAllProductsByName(String productName){
+		ArrayList<Product> searchProducts = new ArrayList<Product>();
 		try {
+			
 			SSHjdbcSession sshSession = JdbcUtilViaSSH.getConnection();
 			Connection connection = sshSession.getConnection();
 			PreparedStatement findProductsByName = connection.prepareStatement(findByName);
@@ -153,17 +139,14 @@ public class ProductMapper extends AbstractMapper{
 			ResultSet rs = findProductsByName.executeQuery();
 			System.err.println("Query ran"+findProductsByName);
 			while(rs.next()) {
-				System.err.println("Adding Product to Map");
-				Integer pID = (int) rs.getLong(1);			
-				String pTitle = rs.getString(3);
-				productResults.put(pID, pTitle);								
+				searchProducts.add((Product)load(rs));							
 			}
 			
 //			connection.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return productResults;
+		return searchProducts;
 	}
 	
 	public int updateInventory(List<Product> pl){

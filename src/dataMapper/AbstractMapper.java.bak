@@ -175,8 +175,6 @@ public abstract class AbstractMapper {
 				if (rowCount == 0) {
 			          throwConcurrencyException(object);
 			
-				} else {
-					loadedMap.put(String.valueOf(object.getId()), object);
 				}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

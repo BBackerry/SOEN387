@@ -63,7 +63,7 @@
 			  <div class="form-group">
 			    <label for="productName" class="col-sm-2 control-label">Product Name</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="productName" name="productName" placeholder="productName">
+			      <input type="text" class="form-control" id="productName" name="productName" placeholder="productName" data-validate="required">
 			    </div>
 			  </div>
 			  
@@ -109,14 +109,14 @@
 			  <div class="form-group">
 			    <label for="quantity" class="col-sm-2 control-label">Product Quantity</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="quantity" name="productQuantity" placeholder="productQuantity">
+			      <input type="text" class="form-control" id="quantity" name="productQuantity" placeholder="productQuantity" data-validate="required,number">
 			    </div>
 			  </div>
 			  
 			    <div class="form-group">
 			    <label for="productPrice" class="col-sm-2 control-label">Product Price</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="productPrice">
+			      <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="productPrice" data-validate="required,decimal">
 			    </div>
 			  </div>
 			  

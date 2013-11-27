@@ -11,12 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataMapper.AbstractMapper;
 import dataMapper.OrderMapper;
-import dataMapper.ProductMapper;
 import domain.Order;
-import domain.Product;
-import enumTables.ProductCategory;
 
 /**
  * Servlet implementation class EditOrder
@@ -37,9 +33,6 @@ public class EditOrder extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(target);
 				dispatcher.forward(request, response);
 			}
-		/**
-		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-		 */
 		
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
